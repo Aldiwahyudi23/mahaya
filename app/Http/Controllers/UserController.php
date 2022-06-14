@@ -18,9 +18,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::all();
-        $user = $user->groupBy('role');
-        return view('admin.user.index', compact('user'));
+        $data_anggota = User::all();
+        return view('admin.master_data.pengguna.index', compact('data_anggota'));
     }
 
     /**

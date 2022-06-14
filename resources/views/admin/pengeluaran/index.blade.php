@@ -105,7 +105,7 @@
                                     <li class="nav-item"><a class="nav-link btn-sm" href="#pinja" data-toggle="tab"><i class="fas fa-child"></i> Data Pinjam</a></li>
                                     <li class="nav-item"><a class="nav-link btn-sm" href="#usah" data-toggle="tab"><i class="fas fa-child"></i> Data Usaha</a></li>
                                     <li class="nav-item"><a class="nav-link btn-sm" href="#acar" data-toggle="tab"><i class="fas fa-child"></i> Data Acara</a></li>
-                                    <li class="nav-item"><a class="nav-link btn-sm" href="#3" data-toggle="tab"><i class="fas fa-child"></i> Data Lain-Lain</a></li>
+                                    <li class="nav-item"><a class="nav-link btn-sm" href="#lai" data-toggle="tab"><i class="fas fa-child"></i> Data Lain-Lain</a></li>
                                 </ul>
                             </div>
                             <div class="card-body">
@@ -121,7 +121,6 @@
                                                                 <th>No.</th>
                                                                 <th>No. Trans</th>
                                                                 <th>Anggaran</th>
-                                                                <th>Nama Peminjam</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Jumlah</th>
                                                                 <th>Keterangan</th>
@@ -137,7 +136,6 @@
                                                                 <td>{{$no}}</td>
                                                                 <td>ST0{{$tarik->id}}</td>
                                                                 <td>{{$tarik->anggaran->nama}}</td>
-                                                                <td>{{$tarik->anggota_id}}</td>
                                                                 <td>{{$tarik->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
                                                                 <td>{{$tarik->keterangan}}</td>
@@ -164,7 +162,7 @@
                                     <!-- Akhir togle data penarikan -->
 
 
-                                    <!-- awal data anggota -->
+                                    <!-- awal data darurat -->
                                     <div class="tab-pane" id="darura">
                                         <div class="row">
                                             <div class="row table-responsive">
@@ -263,8 +261,59 @@
                                             </div>
                                         </div>
                                     </div>
-                                      <!-- awal data amal -->
+                                      <!-- awal data pinjam -->
                                       <div class="tab-pane" id="pinja">
+                                        <div class="row">
+                                            <div class="row table-responsive">
+                                                <div class="col-12">
+                                                <table class="table table-hover table-head-fixed" id='tabelAgendaAmal'>
+                                                        <thead>
+                                                            <tr class="bg-light">
+                                                                <th>No.</th>
+                                                                <th>No. Trans</th>
+                                                                <th>Nama Peminjam</th>
+                                                                <th>Anggaran</th>
+                                                                <th>Tanggal</th>
+                                                                <th>Jumlah</th>
+                                                                <th>Keterangan</th>
+                                                                
+                                                                <th>Aksi</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php $no = 0; ?>
+                                                            @foreach($dana_pinjam as $tarik)
+                                                            <?php $no++; ?>
+                                                            <tr>
+                                                                <td>{{$no}}</td>
+                                                                <td>ST0{{$tarik->id}}</td>
+                                                                <td>{{$tarik->anggota->name}}</td>
+                                                                <td>{{$tarik->anggaran->nama}}</td>
+                                                                <td>{{$tarik->tanggal}}</td>
+                                                                <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
+                                                                <td>{{$tarik->keterangan}}</td>
+                                                               
+                                                                <td>
+                                                                    <a href="/tabungan/tarik/{{$tarik->id}}/cetakprint" target="_blank" class="btn btn-primary btn-sm my-1 mr-sm-1"><i class="nav-icon fas fa-print"></i></a>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="/tabungan/tarik/edit/{{$tarik->id}}" class="btn btn-primary btn-sm my-1 mr-sm-1"><i class="nav-icon fas fa-pencil-alt"></i></a>
+                                                                </td>
+                                                                <td>
+                                                                    @if (auth()->user()->role == 'Admin')
+                                                                    <a href="/pemasukan/tarik/{{$tarik->id}}/delete" class="btn btn-danger btn-sm my-1 mr-sm-1" onclick="return confirm('Hapus Data ?')"><i class="nav-icon fas fa-trash"></i></a>
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                      <!-- awal data usaha -->
+                                            <div class="tab-pane" id="usah">
                                         <div class="row">
                                             <div class="row table-responsive">
                                                 <div class="col-12">
@@ -283,7 +332,7 @@
                                                         </thead>
                                                         <tbody>
                                                             <?php $no = 0; ?>
-                                                            @foreach($dana_pinjam as $tarik)
+                                                            @foreach($dana_usaha as $tarik)
                                                             <?php $no++; ?>
                                                             <tr>
                                                                 <td>{{$no}}</td>
@@ -312,11 +361,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                      <!-- awal data usaha -->
-                                      @foreach($data_anggaran as $anggaran)
-                                           
-                                            <div class="tab-pane" id="{{$anggaran->id}}">
-                                          @endforeach
+                                      <!-- awal data acara -->
+                                            <div class="tab-pane" id="acar">
                                         <div class="row">
                                             <div class="row table-responsive">
                                                 <div class="col-12">
@@ -335,7 +381,56 @@
                                                         </thead>
                                                         <tbody>
                                                             <?php $no = 0; ?>
-                                                            @foreach($dana_pinjam as $tarik)
+                                                            @foreach($dana_acara as $tarik)
+                                                            <?php $no++; ?>
+                                                            <tr>
+                                                                <td>{{$no}}</td>
+                                                                <td>ST0{{$tarik->id}}</td>
+                                                                <td>{{$tarik->anggaran->nama}}</td>
+                                                                <td>{{$tarik->tanggal}}</td>
+                                                                <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
+                                                                <td>{{$tarik->keterangan}}</td>
+                                                               
+                                                                <td>
+                                                                    <a href="/tabungan/tarik/{{$tarik->id}}/cetakprint" target="_blank" class="btn btn-primary btn-sm my-1 mr-sm-1"><i class="nav-icon fas fa-print"></i></a>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="/tabungan/tarik/edit/{{$tarik->id}}" class="btn btn-primary btn-sm my-1 mr-sm-1"><i class="nav-icon fas fa-pencil-alt"></i></a>
+                                                                </td>
+                                                                <td>
+                                                                    @if (auth()->user()->role == 'Admin')
+                                                                    <a href="/pemasukan/tarik/{{$tarik->id}}/delete" class="btn btn-danger btn-sm my-1 mr-sm-1" onclick="return confirm('Hapus Data ?')"><i class="nav-icon fas fa-trash"></i></a>
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                      <!-- awal data laian-laian -->
+                                            <div class="tab-pane" id="lai">
+                                        <div class="row">
+                                            <div class="row table-responsive">
+                                                <div class="col-12">
+                                                <table class="table table-hover table-head-fixed" id='tabelAgendaAmal'>
+                                                        <thead>
+                                                            <tr class="bg-light">
+                                                                <th>No.</th>
+                                                                <th>No. Trans</th>
+                                                                <th>Anggaran</th>
+                                                                <th>Tanggal</th>
+                                                                <th>Jumlah</th>
+                                                                <th>Keterangan</th>
+                                                                
+                                                                <th>Aksi</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php $no = 0; ?>
+                                                            @foreach($dana_lain as $tarik)
                                                             <?php $no++; ?>
                                                             <tr>
                                                                 <td>{{$no}}</td>

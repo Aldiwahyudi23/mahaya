@@ -70,7 +70,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link" id="DataUser">
+                                <a href="{{route('pengguna')}}" class="nav-link" id="DataUser">
                                     <i class="fas fa-user-plus nav-icon"></i>
                                     <p>Data User</p>
                                 </a>
