@@ -19,7 +19,7 @@ class CreatePengajuanTable extends Migration
             $table->date('tanggal');
             $table->integer('jumlah');
             $table->string('keterangan');
-            $table->enum('kategori',['Bayar','Pinjaman']);
+            $table->string('kategori');
             $table->timestamps();
         });
     }

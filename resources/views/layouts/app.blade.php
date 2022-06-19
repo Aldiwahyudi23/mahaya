@@ -23,12 +23,12 @@
     <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-    <link rel="shrotcut icon" href="{{ asset('img/favicon.ico') }}">
+    <link rel="shrotcut icon" href="{{ asset('img/logo.jpg') }}">
 </head>
 <body class="hold-transition login-page" style="background-image: url('{{ asset("img/wallup.jpg") }}'); background-size: cover; background-attachment: fixed;">
   <div class="login-box">
     <div class="login-logo">
-      <img src="{{ asset('img/logosiakad.pn') }}" width="100%" alt="">
+      <img src="{{ asset('img/logo.jpg') }}" width="50%" alt="">
     </div>
 
     <div class="login-logo" style="color: white;">

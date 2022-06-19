@@ -4,61 +4,7 @@
   <li class="breadcrumb-item active">Dashboard</li>
 @endsection
 @section('content')
-
-
-
-<div class="col-lg-4 col-6">
-  <div class="small-box bg-info">
-    <div class="">
-
-    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ "Rp " . number_format(800,2,',','.') }}</div>
-          <p>Saldo</p>
-        </div>
-        <div class="icon">
-          <i class="fas fa-calendar-alt nav-icon"></i>
-        </div>
-        <a href="" class="small-box-footer">Total sisa uang yang ada <i class="fas fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
-<div class="col-lg-4 col-6">
-  <div class="small-box bg-success">
-    <div class="">
-
-    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ "Rp " . number_format(800,2,',','.') }}</div>
-          <p>Pemasukan</p>
-        </div>
-        <div class="icon">
-          <i class="fas fa-calendar-alt nav-icon"></i>
-        </div>
-        <a href="" class="small-box-footer">Jumlah Uang yang terkumpul semuanya<i class="fas fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
-<div class="col-lg-4 col-6">
-  <div class="small-box bg-secondary">
-    <div class="">
-    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ "Rp " . number_format(800,2,',','.') }}</div>
-          <p>Pengluaran</p>
-        </div>
-        <div class="icon">
-          <i class="fas fa-calendar-alt nav-icon"></i>
-        </div>
-        <a href="" class="small-box-footer">Jumlah Uang dari berbagai pengluaran <i class="fas fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
-<div class="col-lg-4 col-6">
-  <div class="small-box bg-warning">
-    <div class="">
-    <div class="h5 mb-0 font-weight-bold text-gray-800">as</div>
-          <p>Pengurus</p>
-        </div>
-        <div class="icon">
-          <i class="fas fa-calendar-alt nav-icon"></i>
-        </div>
-        <a href="" class="small-box-footer"> Pengurus <i class="fas fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
-
-    <div class="col-md-6">
+    <div class="col-md-12">
       <div class="card card-warning" style="min-height: 385px;">
         <div class="card-header">
           <h3 class="card-title" style="color: white;">
@@ -101,6 +47,16 @@
           </ul>
           <ul class="products-list product-list-in-card pl-1 pr-1">
             <a href="javascript:void(0)" class="product-title">Saldo</a>
+            <h5>{{"Rp" . number_format($jumlah_pemasukan-$jumlah_pengeluaran,2,',','.')}}</h5>
+            <hr />
+          </ul>
+          <ul class="products-list product-list-in-card pl-1 pr-1">
+            <a href="javascript:void(0)" class="product-title">Saldo ATM</a>
+            <h5>{{"Rp" . number_format($jumlah_pemasukan-$jumlah_pengeluaran,2,',','.')}}</h5>
+            <hr />
+          </ul>
+          <ul class="products-list product-list-in-card pl-1 pr-1">
+            <a href="javascript:void(0)" class="product-title">Uang dibendahara nu teu acan di TF</a>
             <h5>{{"Rp" . number_format($jumlah_pemasukan-$jumlah_pengeluaran,2,',','.')}}</h5>
             <hr />
           </ul>

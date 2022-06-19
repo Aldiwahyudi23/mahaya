@@ -5,7 +5,7 @@
         <li class="nav-item">
             <a class="brand-link" style="color: #fff;" data-widget="pushmenu" href="#">
 
-        <img src="{{ asset('img/logo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
+        <img src="{{ asset('img/logo.jpg') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
     </a>
         </li>
     </ul>

@@ -2,7 +2,7 @@
 @section('page', 'Keluarga Alm. MA HAYA')
 @section('content')
 <div class="card-body login-card-body">
-  <p class="login-box-msg">Mangga Lebet</p>
+  <p class="login-box-msg">Kasadayana anggota keluarga Alm. Ma Haya <br> Mangga lebet sesuai email anu tos di daftarkeun</p>
 
   <form action="{{ route('login') }}" method="post">
     @csrf
@@ -50,11 +50,7 @@
   </form>
 
   <p class="mb-1">
-    @if (Route::has('password.request'))
-      <a class="text-center" href="{{ route('password.request') }}">
-        {{ __('Lupa Password?') }}
-      </a>
-    @endif
+      Pami Kata sandi na hilap, kontak ka sekertaris. 
   </p>
   <p class="mb-0">
     <a class="text-center" href="{{ route('register') }}">Buat Akun Baru</a>

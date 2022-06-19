@@ -12,6 +12,18 @@ class Anggaran extends Model
     protected $table = 'anggaran';
     protected $fillable = [
         'id',
-        'nama'
+        'nama_anggaran',
+        'program_id',
+        'deskripsi'
     ];
+
+    public function program()
+    {
+      return $this->belongsTo('App\Models\program');
+    }
+  
+    public function users()
+    {
+      return $this->belongsTo('App\Models\User');
+    }
 }

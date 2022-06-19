@@ -1,12 +1,16 @@
 <?php
 
+use App\Http\Controllers\AnggaranController;
+use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\PengurusController;
+use App\Http\Controllers\PengajuanController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PemasukanController;
-
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\PengeluaranController;
-use App\Models\Pemasukan;
+use App\Http\Controllers\OrderController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,16 +30,74 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Pemasukan Admin
+Route::get('/profile', [UserController::class,'profile'])->name('profile');
+Route::get('/pengaturan/profile', [UserController::class,'edit_profile'])->name('pengaturan.profile');
+Route::post('/pengaturan/ubah-profile', [UserController::class,'ubah_profile'])->name('pengaturan.ubah-profile');
+Route::get('/pengaturan/edit-foto', [UserController::class,'edit_foto'])->name('pengaturan.edit-foto');
+Route::post('/pengaturan/ubah-foto', [UserController::class,'ubah_foto'])->name('pengaturan.ubah-foto');
+Route::get('/pengaturan/email', [UserController::class,'edit_email'])->name('pengaturan.email');
+Route::post('/pengaturan/ubah-email', [UserController::class,'ubah_email'])->name('pengaturan.ubah-email');
+Route::get('/pengaturan/password', [UserController::class,'edit_password'])->name('pengaturan.password');
+Route::post('/pengaturan/ubah-password', [UserController::class,'ubah_password'])->name('pengaturan.ubah-password');
+// routes/web.php
 
-// pemasukan
-route::get('pemasukan/setor',[PemasukanController::class, 'index'])->name('pemasukan.setor');
-Route::post('Pemasukan/setor/tambah',[PemasukanController::class,'tambah']);
-Route::get('Pemasukan/setor/edit{id}',[PemasukanController::class,'edit']);
-Route::post('Pemasukan/setor/update/{id}',[PemasukanController::class,'update']);
-// Pengeluaran
-Route::get('pengeluaran/tarik', [PengeluaranController::class,'index'])->name('pengeluaran.tarik');
-Route::post('pengeluaran/tarik/tambah', [PengeluaranController::class,'tambah']);
+//Route untuk user Admin
+Route::group(['middleware' => ['auth', 'checkRole:Admin,Bendahara,Sekertaris, Ketua']], function () {
+    // pemasukan
+    route::get('pemasukan/setor',[PemasukanController::class, 'index'])->name('pemasukan.setor');
+    Route::post('Pemasukan/setor/tambah',[PemasukanController::class,'tambah']);
+    Route::get('Pemasukan/setor/{id}/edit',[PemasukanController::class,'edit']);
+    Route::post('Pemasukan/setor/{id}/update',[PemasukanController::class,'update']);
+    Route::get('Pemasukan/setor/{id}/hapus',[PemasukanController::class,'hapus']);
+    // Pengeluaran
+    Route::get('pengeluaran/tarik', [PengeluaranController::class,'index'])->name('pengeluaran.tarik');
+    Route::get('pengeluaran/tarik/{id}/detail',[PengeluaranController::class,'detail']);
+    Route::post('pengeluaran/tarik/tambah',[PengeluaranController::class,'tambah']);
+    Route::get('pengeluaran/tarik/{id}/edit',[PengeluaranController::class,'edit']);
+    Route::post('pengeluaran/tarik/{id}/update',[PengeluaranController::class,'update']);
+    Route::get('pengeluaran/tarik/{id}/hapus',[PengeluaranController::class,'hapus']);
+
+    // Anggaran
+    Route::get('anggaran', [AnggaranController::class,'index'])->name('anggaran');
+    Route::post('anggaran/tambah', [AnggaranController::class,'tambah']);
+    Route::get('anggaran/{id}/detail', [AnggaranController::class,'detail']);
+    Route::get('anggaran/{id}/edit', [AnggaranController::class,'edit']);
+    Route::post('anggaran/{id}/update', [AnggaranController::class,'update'])->name('anggaran.update');
+    Route::get('anggaran/{id}/hapus', [AnggaranController::class,'hapus']);
+
+    // Pprogram
+    Route::get('program', [ProgramController::class,'index'])->name('program');
+    Route::post('program/tambah', [ProgramController::class,'tambah']);
+    Route::get('program/{id}/detail', [ProgramController::class,'detail']);
+    Route::get('program/{id}/edit', [ProgramController::class,'edit']);
+    Route::post('program/{id}/update', [ProgramController::class,'update'])->name('program.update');
+    Route::get('program/{id}/hapus', [ProgramController::class,'hapus']);
+
+    // Pengurus
+    Route::get('pengurus', [PengurusController::class,'index'])->name('pengurus');
+    Route::post('pengurus/tambah', [PengurusController::class,'tambah']);
+    Route::get('pengurus/{id}/edit', [PengurusController::class,'edit']);
+    Route::post('pengurus/{id}/update', [PengurusController::class,'update'])->name('pengurus.update');
+    Route::get('pengurus/{id}/hapus', [PengurusController::class,'hapus']);
+
+    // Pengajuan
+    route::get('pengajuan/setor/anggota',[PemasukanController::class, 'pengajuan'])->name('pengajuan.bayar.anggota');
+    route::get('pengajuan/setor/anggota/{id}/lihat',[PemasukanController::class, 'pengajuan_lihat']);
+    Route::post('pengajuan/setor/anggota/tambah',[PemasukanController::class,'pengajuan_tambah']);
+ 
+    route::get('pengajuan/pinjam/anggota',[PengeluaranController::class, 'pengajuan'])->name('pengajuan.pinjaman.anggota');
+    route::get('pengajuan/pinjam/anggota/{id}/lihat',[PengeluaranController::class, 'pengajuan_lihat']);
+    Route::post('pengajuan/pinjam/anggota/tambah',[PengeluaranController::class,'pengajuan_tambah']);
+});
 // Pengguna
 Route::get('pengguna',[UserController::class,'index'])->name('pengguna');
+
+
+// Anggota
+    // bayar
+        route::get('pemasukan/setor/anggota',[PengajuanController::class, 'bayar'])->name('pengajuan.setor.anggota');
+        Route::post('Pemasukan/setor/anggota/tambah',[PengajuanController::class,'bayar_tambah']);
+    // Pinjam
+        route::get('pengluaran/pinjam/anggota',[PengajuanController::class, 'pinjam'])->name('pengajuan.pinjam.anggota');
+        Route::post('pengluaran/pinjam/anggota/tambah',[PengajuanController::class,'pinjam_tambah']);
 

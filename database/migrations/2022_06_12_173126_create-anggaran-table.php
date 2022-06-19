@@ -15,7 +15,9 @@ class CreateAnggaranTable extends Migration
     {
         Schema::create('anggaran' ,function(Blueprint $table){
             $table->increments('id');
-            $table->string('nama');
+            $table->string('nama_anggaran');
+            $table->string('deskripsi');
+            $table->string('program_id');
             $table->timestamps();
         });
     }

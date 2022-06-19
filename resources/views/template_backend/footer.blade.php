@@ -1,24 +1,62 @@
 <footer class="main-footer">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-3 ">
-            <a href="/home" ><i class="nav-icon fas fa-home"></i><br> Home</a>
+        @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Sekertaris' || Auth::user()->role == 'Bendahara' || Auth::user()->role == 'Ketua')
+            <div class="col-3">
+            <center>   
+                 <a href="/home"  id="Pemasukan"><i class="nav-icon fas fa-home lg-6" ></i><br> &nbsp; &nbsp;Home</a>
+            </center>
             </div>
             <div class="col-3">
-            <a href="{{route('pemasukan.setor')}}" ><i class="nav-icon fas fa-credit-card nav-icon"></i> <br>Bayar</a>
+            <center>
+                <a href="{{route('pemasukan.setor')}}" ><i class="nav-icon fas fa-credit-card nav-icon"></i> <br> &nbsp; Input</a>
+            </center>
             </div>
             <div class="col-3">
-            <a href="{{route('pengeluaran.tarik')}}" ><i class="nav-icon fas fa-handshake "></i> <br> Tarik</a>
+            <center>
+                <a href="{{route('pengeluaran.tarik')}}" ><i class="nav-icon fas fa-handshake "></i> <br>  &nbsp; Tarik</a>
+            </center>
             </div>
             <div class="col-3">
-            <a href="/profile" ><i class="nav-icon fas fa-user"></i> <br> Saya</a>
+            <center>
+                <a href="/profile" ><i class="nav-icon fas fa-user"></i> <br> &nbsp; Saya</a>
+            </center>
             </div>
-    
+        
+        @elseif (Auth::user()->role == 'Anggota')
+        <div class="col-3">
+            <center>   
+                 <a href="/home"  id="Pemasukan"><i class="nav-icon fas fa-home lg-6" ></i><br> &nbsp; &nbsp;Home</a>
+            </center>
+            </div>
+            <div class="col-3">
+            <center>
+                <a href="{{route('pengajuan.setor.anggota')}}" ><i class="nav-icon fas fa-credit-card nav-icon"></i> <br> &nbsp; Bayar</a>
+            </center>
+            </div>
+            <div class="col-3">
+            <center>
+                <a href="{{route('pengajuan.pinjam.anggota')}}" ><i class="nav-icon fas fa-handshake "></i> <br>  &nbsp; Pinjam</a>
+            </center>
+            </div>
+            <div class="col-3">
+            <center>
+                <a href="/profile" ><i class="nav-icon fas fa-user"></i> <br> &nbsp; Saya</a>
+            </center>
+            </div>
+        @else
+                    <li class="nav-item has-treeview">
+                        <a href="/home" class="nav-link" id="Home">
+                            <i class="nav-icon fas fa-home"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+        @endif
         </div>
     </div>
-        <!-- <marquee>
+        <marquee>
             <strong>KELUARGA BESAR Alm. MA HAYA. </strong>
-        </marquee> -->
+        </marquee>
     </footer>
 
     <!-- Control Sidebar -->
