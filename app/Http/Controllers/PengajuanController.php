@@ -8,6 +8,7 @@ use App\Models\Pengajuan;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
 use App\Models\program;
+use Twilio\Rest\Client; 
 
 class PengajuanController extends Controller
 {
@@ -34,6 +35,22 @@ class PengajuanController extends Controller
         $data_setor->anggota_id            = Auth::id();
         $data_setor->save();
         $setor = Pengajuan::find($data_setor->id);
+
+        $sid    = "AC79f471cb6ccc993d733d1b5b5babb504"; 
+        $token  = "6097425460a6f990d1c66b7c9d9ada2c"; 
+        $twilio = new Client($sid, $token); 
+        
+        $message = $twilio->messages 
+                  ->create("whatsapp:+6283817331411", // to 
+                           array( 
+                               "from" => "whatsapp:+14155238886",       
+                               "body" => "Informasi !!!
+Punten ka bendahara, aya nu bayar uang kas mangga konfirmasi heula supados raosen kana manahna.
+Ket : {$request->keterangan}
+Jumlah na : {$request->jumlah} 
+Konfirmasi ayeuna klik wae link  ieu http://kaskeluarga.royaldi21.com/pengajuan/setor/anggota/",
+                           ) 
+                  ); 
         return redirect()->back()->with('sukses', 'Data pembayaran uang kas anu nembe parantos di input teu acan tiasa lebet kana Pendataan. Data bakal lebet saatos di konfirmasi ku bendahara sesuai keterangan anu di input  ');
 
     }
@@ -64,6 +81,23 @@ class PengajuanController extends Controller
         $data_setor->anggota_id            = Auth::id();
         $data_setor->save();
         $setor = Pengajuan::find($data_setor->id);
+
+        $sid    = "AC79f471cb6ccc993d733d1b5b5babb504"; 
+        $token  = "6097425460a6f990d1c66b7c9d9ada2c"; 
+        $twilio = new Client($sid, $token); 
+        
+        $message = $twilio->messages 
+                  ->create("whatsapp:+6283817331411", // to 
+                           array( 
+                               "from" => "whatsapp:+14155238886",       
+                               "body" => "Informasi Peminjaman!!!
+Punten ka bendahara, aya nu bade nambut uang kas. Mangga rundingkeun sareng pengurus nu sanes supados kenging titik tengah
+Jumlah na : {$request->jumlah} 
+Alasan : {$request->keterangan}
+Konfirmasi ayeuna klik wae link  ieu http://kaskeluarga.royaldi21.com/pengajuan/tarik/anggota/",
+                           ) 
+                  ); 
+
         return redirect()->back()->with('sukses', 'Peminjaman anu nembe di input bade di konfirmasi heula ku pihak pengurus, bade ningal heula kondisi saldo sareng di tinjau heula alsanna. ');
 
     }
