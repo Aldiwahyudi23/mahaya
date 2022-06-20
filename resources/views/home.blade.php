@@ -42,13 +42,14 @@
             $pengeluaran_kas = DB::table('pengeluaran')->where('anggaran_id',4)
              ->sum('pengeluaran.jumlah');
 
-            // Pemasukan
-          $jumlah_pemasukan = DB::table('pemasukan')
-            ->sum('pemasukan.jumlah');
-            $darurat = $jumlah_pemasukan * 20 / 100 ;
-            $pinjam = $jumlah_pemasukan * 20 / 100 ;
-            $amal = $jumlah_pemasukan * 10 / 100 ;
-            $kas = $jumlah_pemasukan * 50 / 100 ;
+       // Pemasukan
+       $jumlah_pemasukan = DB::table('pemasukan')
+       ->sum('pemasukan.jumlah');
+       $jumlah_pemasukan_asli = $jumlah_pemasukan - 362500;
+       $darurat = $jumlah_pemasukan_asli * 20 / 100 ;
+       $pinjam = $jumlah_pemasukan_asli * 20 / 100 ;
+       $amal = $jumlah_pemasukan_asli * 10 / 100 ;
+       $kas = $jumlah_pemasukan_asli * 50 / 100 ;
 
             // Saldo atm 
           $jumlah_ATM = DB::table('uang')->where('kategori','Transfer')
@@ -78,7 +79,7 @@
           </ul>
           <ul class="products-list product-list-in-card pl-1 pr-1">
            <a href="javascript:void(0)" class="product-title">Saldo ATM</a>
-            <h5>{{"Rp" . number_format($jumlah_ATM,2,',','.')}}</h5>
+            <h5>{{"Rp" . number_format($jumlah_ATM-$jumlah_pengeluaran,2,',','.')}}</h5>
             <p>Saldo ATM, saldo anu aya tina tabungan kas keluarga. Jumlah <b>saldo ATM</b> di tambah artos nu masih di <b>bendahara</b> kedah <b>sami</b> sareng jumlah <b>SALDO</b> </p>
             <hr />
           </ul>

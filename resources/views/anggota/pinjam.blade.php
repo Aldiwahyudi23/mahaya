@@ -263,6 +263,7 @@
                                                                 <th>No.</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Jumlah</th>
+                                                                <th>Keterangan</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -273,6 +274,7 @@
                                                                 <td>{{$no}}</td>
                                                                 <td>{{$tarik->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
+                                                                <td>{{$tarik->keterangan}}</td>
                                                         
                                                             </tr>
                                                             @endforeach
@@ -294,6 +296,7 @@
                                                                 <th>No.</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Jumlah</th>
+                                                                <th>Keterangan</th>
                                                                 
                                                             </tr>
                                                         </thead>
@@ -305,6 +308,7 @@
                                                                 <td>{{$no}}</td>
                                                                 <td>{{$tarik->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
+                                                                <td>{{$tarik->keterangan}}</td>
                                                                                                                     
                                                             </tr>
                                                             @endforeach
@@ -325,6 +329,7 @@
                                                                 <th>No.</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Jumlah</th>
+                                                                <th>keterangan</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -335,6 +340,7 @@
                                                                 <td>{{$no}}</td>
                                                                 <td>{{$tarik->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
+                                                                <td>{{$tarik->keterangan}}</td>
                                                                                                                     
                                                             </tr>
                                                             @endforeach
@@ -355,6 +361,7 @@
                                                                 <th>No.</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Jumlah</th>
+                                                                <th>Keterangan</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -365,6 +372,7 @@
                                                                 <td>{{$no}}</td>
                                                                 <td>{{$tarik->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
+                                                                <td>{{$tarik->keterangan}}</td>
                                                                                                                     
                                                             </tr>
                                                             @endforeach
@@ -385,6 +393,7 @@
                                                                 <th>No.</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Jumlah</th>
+                                                                <th>keterangan</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -395,6 +404,7 @@
                                                                 <td>{{$no}}</td>
                                                                 <td>{{$tarik->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
+                                                                <td>{{$tarik->keterangan}}</td>
                                                                                                                     
                                                             </tr>
                                                             @endforeach
