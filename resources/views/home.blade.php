@@ -111,7 +111,6 @@
           <ul class="products-list product-list-in-card pl-1 pr-1">
             <a href="javascript:void(0)" class="product-title">Jumlah Dana Darurat</a>
             <h5>{{ "Rp " . number_format($darurat-$pengeluaran_darurat ,2,',','.') }}</h5>
-            <hr>
           </ul>
               <ul class="products-list product-list-in-card pl-1 pr-1">
                 <a href="javascript:void(0)" class="product-title">Jumlah Dana Darurat nu tos ka angge </a>
@@ -121,7 +120,6 @@
           <ul class="products-list product-list-in-card pl-1 pr-1">
             <a href="javascript:void(0)" class="product-title">Jumlah Dana Amal</a>
             <h5>{{ "Rp " . number_format($amal-$pengeluaran_amal,2,',','.') }}</h5>
-            <hr>
           </ul>
               <ul class="products-list product-list-in-card pl-1 pr-1">
                 <a href="javascript:void(0)" class="product-title">Jumlah Dana Amal nu tos ka angge </a>
@@ -131,7 +129,6 @@
           <ul class="products-list product-list-in-card pl-1 pr-1">
             <a href="javascript:void(0)" class="product-title">Jumlah dana KAS</a>
             <h5>{{"Rp" . number_format($kas-$pengeluaran_kas,2,',','.')}}</h5>
-            <hr />
           </ul>
               <ul class="products-list product-list-in-card pl-1 pr-1">
                 <a href="javascript:void(0)" class="product-title">Jumlah Dana Kas nu tos ka angge </a>
@@ -141,7 +138,6 @@
           <ul class="products-list product-list-in-card pl-1 pr-1">
             <a href="javascript:void(0)" class="product-title">Jumlah Dana Pinjam</a>
             <h5>{{"Rp" . number_format($pinjam-$pengeluaran_pinjaman,2,',','.')}}</h5>
-            <hr />
           </ul>
           <ul class="products-list product-list-in-card pl-1 pr-1">
             <a href="javascript:void(0)" class="product-title">Uang nu di pinjem</a>

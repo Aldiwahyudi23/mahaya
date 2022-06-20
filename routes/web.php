@@ -42,7 +42,7 @@ Route::post('/pengaturan/ubah-password', [UserController::class,'ubah_password']
 // routes/web.php
 
 //Route untuk user Admin
-Route::group(['middleware' => ['auth', 'checkRole:Admin,Bendahara,Sekertaris, Ketua']], function () {
+Route::group(['middleware' => ['auth', 'checkRole:Admin,Bendahara,Sekertaris,Ketua']], function () {
     // pemasukan
     route::get('pemasukan/setor',[PemasukanController::class, 'index'])->name('pemasukan.setor');
     Route::post('Pemasukan/setor/tambah',[PemasukanController::class,'tambah']);

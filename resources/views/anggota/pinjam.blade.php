@@ -49,7 +49,7 @@
 <div class="alert alert-info alert-dismissible fade show" role="alert">
     <b><i class="fas fa-info"></i> INFO !!!</b> <br>
       - Mangga input peminjaman di handap sesuai kebutuhan <br>
-      - hasil input masih tina pengajuan, kantun nagntosan konfirmasi <br>
+      - hasil input masih tina pengajuan, kantun ngantosan konfirmasi <br>
       <b> Alasan : </b><br>
       Pami ngesian alasan, kedah detail sareng lengkap tur jelas <br>
       <br>
