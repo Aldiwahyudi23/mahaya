@@ -19,7 +19,8 @@
       </div>
     </div>
 <!-- lAPORAN kAS -->
-    <div class="col-md-3">
+<div class="row">
+    <div class="col-md-6">
     <section class="content card" style="padding: 15px 15px 0px 15px ">
       <div class="box">
         <div class="row">
@@ -98,6 +99,8 @@
         </div>
       </div>
     </section>
+  </div>
+
 <!-- lAPORAN DANA KAS -->
     <div class="col-md-3">
     <section class="content card" style="padding: 15px 15px 0px 15px ">
@@ -110,38 +113,38 @@
         </div>
         <div class="card-body p-0">
           <ul class="products-list product-list-in-card pl-1 pr-1">
-            <a href="javascript:void(0)" class="product-title">Jumlah Dana Darurat</a>
+            <a href="/anggaran/1/detail" class="product-title">Jumlah Dana Darurat</a>
             <h5>{{ "Rp " . number_format($darurat-$pengeluaran_darurat ,2,',','.') }}</h5>
           </ul>
               <ul class="products-list product-list-in-card pl-1 pr-1">
-                <a href="javascript:void(0)" class="product-title">Jumlah Dana Darurat nu tos ka angge </a>
+                <a href="/pengluaran/pinjam/anggota" class="product-title">Jumlah Dana Darurat nu tos ka angge </a>
                 <h7>{{ "Rp " . number_format($pengeluaran_darurat ,2,',','.') }}</h7>
                 <hr>
               </ul>
           <ul class="products-list product-list-in-card pl-1 pr-1">
-            <a href="javascript:void(0)" class="product-title">Jumlah Dana Amal</a>
+            <a href="/anggaran/2/detail" class="product-title">Jumlah Dana Amal</a>
             <h5>{{ "Rp " . number_format($amal-$pengeluaran_amal,2,',','.') }}</h5>
           </ul>
               <ul class="products-list product-list-in-card pl-1 pr-1">
-                <a href="javascript:void(0)" class="product-title">Jumlah Dana Amal nu tos ka angge </a>
+                <a href="/pengluaran/pinjam/anggota" class="product-title">Jumlah Dana Amal nu tos ka angge </a>
                 <h7>{{ "Rp " . number_format($pengeluaran_amal ,2,',','.') }}</h7>
                 <hr>
               </ul>
           <ul class="products-list product-list-in-card pl-1 pr-1">
-            <a href="javascript:void(0)" class="product-title">Jumlah dana KAS</a>
+            <a href="/anggaran/4/detail" class="product-title">Jumlah dana KAS</a>
             <h5>{{"Rp" . number_format($kas-$pengeluaran_kas,2,',','.')}}</h5>
           </ul>
               <ul class="products-list product-list-in-card pl-1 pr-1">
-                <a href="javascript:void(0)" class="product-title">Jumlah Dana Kas nu tos ka angge </a>
+                <a href="/pengluaran/pinjam/anggota" class="product-title">Jumlah Dana Kas nu tos ka angge </a>
                 <h7>{{ "Rp " . number_format($pengeluaran_kas ,2,',','.') }}</h7>
                 <hr>
               </ul>
           <ul class="products-list product-list-in-card pl-1 pr-1">
-            <a href="javascript:void(0)" class="product-title">Jumlah Dana Pinjam</a>
+            <a href="/anggaran/3/detail" class="product-title">Jumlah Dana Pinjam</a>
             <h5>{{"Rp" . number_format($pinjam-$pengeluaran_pinjaman,2,',','.')}}</h5>
           </ul>
           <ul class="products-list product-list-in-card pl-1 pr-1">
-            <a href="javascript:void(0)" class="product-title">Uang nu di pinjem</a>
+            <a href="/pengluaran/pinjam/anggota" class="product-title">Uang nu di pinjem</a>
             <h7>{{"Rp" . number_format($pengeluaran_pinjaman,2,',','.')}}</h7>
             <hr />
           </ul>
@@ -149,6 +152,7 @@
       </div>
     </section>
   </div>
+
 <!-- rIWAYAT LOGIN -->
   <div class="col-md-3">
     <section class="content card" style="padding: 10px 10px 10px 10px ">
@@ -164,16 +168,16 @@
             @foreach($data_login as $user_login)
             <li class="item">
               <div class="product-img">
-                <img src="/adminLTE/img/user.png" alt="Product Image" class="img-size-50">
+                <img src="{{ asset('img/male.jpg') }}" alt="Product Image" class="img-size-50 img-circle">
               </div>
               <div class="product-info">
-                <a href="javascript:void(0)" class="product-title">{{$user_login->name}}
-                  <span class="badge float-right"><i class="far fa-clock"></i> {{Carbon\Carbon::parse($user_login->last_seen)->diffForHumans()}}</span></a>
-                  @if(Cache::has('user-is-online-' .$user_login->id))
-                  <span class="text-success badge float-right">Online</span>
-                  @else
-                  <span class="text-secondary badge float-right">Offline</span>
-                  @endif
+                <a href="javascript:void(0)" class="product-title">{{$user_login->name}} </a>
+                @if(Cache::has('user-is-online-' .$user_login->id))
+                <span class="text-success badge float-right">Online</span>
+                @else
+                <span class="text-secondary badge float-right">Offline</span>
+                @endif <br>
+                  <span class="badge float-right"><i class="far fa-clock"></i> {{Carbon\Carbon::parse($user_login->last_seen)->diffForHumans()}}</span>
               </div>
             </li>
             @endforeach
@@ -183,4 +187,6 @@
       </div>
     </section>
   </div>
+  </div>
+
 @endsection

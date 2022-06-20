@@ -30,6 +30,8 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('anggaran/{id}/detail', [AnggaranController::class,'detail']);
+
 Route::get('/profile', [UserController::class,'profile'])->name('profile');
 Route::get('/pengaturan/profile', [UserController::class,'edit_profile'])->name('pengaturan.profile');
 Route::post('/pengaturan/ubah-profile', [UserController::class,'ubah_profile'])->name('pengaturan.ubah-profile');
@@ -61,7 +63,6 @@ Route::group(['middleware' => ['auth', 'checkRole:Admin,Bendahara,Sekertaris,Ket
     // Anggaran
     Route::get('anggaran', [AnggaranController::class,'index'])->name('anggaran');
     Route::post('anggaran/tambah', [AnggaranController::class,'tambah']);
-    Route::get('anggaran/{id}/detail', [AnggaranController::class,'detail']);
     Route::get('anggaran/{id}/edit', [AnggaranController::class,'edit']);
     Route::post('anggaran/{id}/update', [AnggaranController::class,'update'])->name('anggaran.update');
     Route::get('anggaran/{id}/hapus', [AnggaranController::class,'hapus']);

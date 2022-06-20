@@ -71,10 +71,10 @@
                                         <label for="nama_anggaran">Anggaran</label>
                                         <input value="{{old('nama_anggaran')}}" name="nama_anggaran" type="text" class="form-control bg-light" id="nama_anggaran" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
                                     </div>
-                               
+            
                                     <div class="form-group row">
                                         <label for="deskripsi">Deskripsi</label>
-                                        <textarea name="deskripsi" class="form-control bg-light" id="deskripsi" rows="3" placeholder="Eusian deskripsi ieu sesuai deskripsi artos anu di bayarkeun" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">{{old('keterangan')}}</textarea>
+                                        <textarea name="deskripsi" class="textarea @error('isi') is-invalid @enderror" id="deskripsi" rows="3" placeholder="Eusian deskripsi ieu sesuai deskripsi artos anu di bayarkeun" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">{{old('keterangan')}}</textarea>
                                     </div>
                                     <hr>
                                     <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> SIMPEN</button>

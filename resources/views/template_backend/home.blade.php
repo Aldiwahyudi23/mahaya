@@ -136,6 +136,8 @@
         </section>
         <!-- /.content -->
     </div>
+    <br>
+    <br>
     <!-- /.content-wrapper -->
 
     @include('template_backend.footer')

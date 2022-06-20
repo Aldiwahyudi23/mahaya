@@ -46,7 +46,7 @@
     </div>
 </div>
 @endif
-<div class="alert alert-info alert-dismissible fade show" role="alert">
+<div class="alert alert-info alert-dismissible fade show col-md-12" role="alert">
     <b><i class="fas fa-info"></i> INFO !!!</b> <br>
       Mangga eusian form di handap sesuai pembayaran uang kas anu di bayarkeun.
       <br> <b>tanggal</b> sesuai tanggal pembayaran
@@ -103,7 +103,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-9">
                         
                             <div class="card-body">
                             <p>
@@ -151,7 +151,7 @@
                             
                         </div>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="card-header bg-light p-2">
                                 <ul class="nav nav-pills">

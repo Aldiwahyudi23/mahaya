@@ -70,11 +70,11 @@ class PengajuanController extends Controller
         $dana_lain = Pengeluaran::where('anggaran_id',6)->get();
 
         // Deskripsi anggaran
-        $anggaran_darurat = Anggaran::where('nama_anggaran', 'Dana Darurat')->get();
-        $anggaran_amal = Anggaran::where('nama_anggaran', 'Dana Amal')->get();
-        $anggaran_usaha = Anggaran::where('nama_anggaran', 'Dana Uasaha')->get();
-        $anggaran_acara = Anggaran::where('nama_anggaran','Dana Acara')->get();
-        $anggaran_lain = Anggaran::where('nama_anggaran','Dana lain')->get();
+        $anggaran_darurat = Anggaran::first('deskripsi');
+        $anggaran_amal = Anggaran::first('deskripsi');
+        $anggaran_usaha = Anggaran::first('deskripsi');
+        $anggaran_acara = Anggaran::where('nama_anggaran',5)->get();
+        $anggaran_lain = Anggaran::where('nama_anggaran',6)->get();
 
         return view('anggota.pinjam',compact('data_tarik','dana_darurat','dana_amal','data_pinjam','dana_usaha','dana_acara','dana_lain','anggaran_darurat','anggaran_amal','anggaran_usaha','anggaran_acara','anggaran_lain'));
     }

@@ -65,7 +65,7 @@
                                             <div class="row table-responsive">
                                                 <div class="col-12">
                                                     <table class="table table-hover table-head-fixed" id='tabelAgendaMasuk'>
-                                                        <p> {{$anggaran->deskripsi}}</p>
+                                                        <p> {!! $anggaran->deskripsi !!}</p>
                                                     </table>
                                                 </div>
                                             </div>

@@ -11,6 +11,63 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                     
+                    <li class="nav-item">
+                        <a href="" class="nav-link" id="pengajuanpinjam">
+                            <i class="fas fa-file-alt nav-icon"></i>
+                            <p>Deskripsi Kas</p>
+                        </a>
+                    </li>
+                    <li class="nav-item has-treeview" id="likas">
+                        <a href="#" class="nav-link" id="kas">
+                            <i class="nav-icon fas fa-file-signature"></i>
+                            <p>
+                                Anggaran
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        
+                        <ul class="nav nav-treeview ml-4">
+                        <li class="nav-item">
+                                <a href="/anggaran/1/detail" class="nav-link" id="darurat">
+                                    <i class="fas fa-file-alt nav-icon"></i>
+                                    <p>Data Darurat</p>
+                                </a>
+                            </li>
+                            
+                            <li class="nav-item">
+                                <a href="/anggaran/2/detail" class="nav-link" id="amal">
+                                    <i class="fas fa-file-alt nav-icon"></i>
+                                    <p>Data Amal</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/anggaran/3/detail" class="nav-link" id="pinjam">
+                                    <i class="fas fa-file-alt nav-icon"></i>
+                                    <p>Data Pinjam</p>
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item">
+                                <a href="/anggaran/4/detail" class="nav-link" id="usaha">
+                                    <i class="fas fa-file-alt nav-icon"></i>
+                                    <p>Data Usaha</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/anggaran/5/detail" class="nav-link" id="acara">
+                                    <i class="fas fa-file-alt nav-icon"></i>
+                                    <p>Data Acara</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/anggaran/5/detail" class="nav-link" id="lain">
+                                    <i class="fas fa-file-alt nav-icon"></i>
+                                    <p>Data Lain-Lain</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     @if (Auth::user()->role == "Admin")
                     <li class="nav-item has-treeview" id="liMasterData">
                         <a href="#" class="nav-link" id="MasterData">
@@ -174,71 +231,13 @@
                     
                 @elseif (Auth::user()->role == 'Anggota')
                     <li class="nav-item">
-                        <a href="{{route('pemasukan.setor')}}" class="nav-link" id="DataKas">
+                        <a href="/pemasukan/setor/anggota" class="nav-link" id="DataKas">
                             <i class="fas fa-file-alt nav-icon"></i>
                             <p>Data Kas</p>
                         </a>
                     </li>
                     
-                    <li class="nav-item">
-                        <a href="" class="nav-link" id="Input">
-                            <i class="fas fa-file-alt nav-icon"></i>
-                            <p>Bayar</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="" class="nav-link" id="pengajuanpinjam">
-                            <i class="fas fa-file-alt nav-icon"></i>
-                            <p>Pengajuan Dana Pinjam</p>
-                        </a>
-                    </li>
-                    <li class="nav-item has-treeview" id="likas">
-                        <a href="#" class="nav-link" id="kas">
-                            <i class="nav-icon fas fa-file-signature"></i>
-                            <p>
-                                Pengluaran
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview ml-4">
-                            <li class="nav-item">
-                                <a href="" class="nav-link" id="pinjam">
-                                    <i class="fas fa-file-alt nav-icon"></i>
-                                    <p>Data Pinjam</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link" id="darurat">
-                                    <i class="fas fa-file-alt nav-icon"></i>
-                                    <p>Data Darurat</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link" id="amal">
-                                    <i class="fas fa-file-alt nav-icon"></i>
-                                    <p>Data Amal</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link" id="usaha">
-                                    <i class="fas fa-file-alt nav-icon"></i>
-                                    <p>Data Usaha</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link" id="acara">
-                                    <i class="fas fa-file-alt nav-icon"></i>
-                                    <p>Data Acara</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link" id="lain">
-                                    <i class="fas fa-file-alt nav-icon"></i>
-                                    <p>Data Lain</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    
                 @else
                     <li class="nav-item has-treeview">
                         <a href="{{ route('logout') }}" class="nav-link" id="Home">
@@ -247,6 +246,13 @@
                         </a>
                     </li>
                 @endif
+                <hr>
+                <li class="nav-item has-treeview">
+                        <a href="{{ route('logout') }}" class="nav-link" id="Home">
+                            <i class="nav-icon fas fa-sign-out-alt"></i>
+                            <p>Kaluar</p>
+                        </a>
+                    </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

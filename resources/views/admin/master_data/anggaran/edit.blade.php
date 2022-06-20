@@ -74,7 +74,7 @@
                                
                                     <div class="form-group row">
                                         <label for="deskripsi">Deskripsi</label>
-                                        <textarea name="deskripsi" class="form-control bg-light" id="deskripsi" rows="3" placeholder="Eusian deskripsi ieu sesuai deskripsi artos anu di bayarkeun" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">{{$anggaran->deskripsi}}</textarea>
+                                        <textarea name="deskripsi" class="textarea @error('isi') is-invalid @enderror" id="deskripsi" rows="3" placeholder="Eusian deskripsi ieu sesuai deskripsi artos anu di bayarkeun" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">{{$anggaran->deskripsi}}</textarea>
                                     </div>
                                     <hr>
                                     <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> SIMPEN</button>
