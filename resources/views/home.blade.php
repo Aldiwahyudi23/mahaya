@@ -168,11 +168,12 @@
               </div>
               <div class="product-info">
                 <a href="javascript:void(0)" class="product-title">{{$user_login->name}}
-                  <span class="badge float-right"><i class="far fa-clock"></i> {{$user_login->created_at->diffForHumans()}}</span></a>
-
-                <span class="product-description">
-                  {{$user_login->email}}
-                </span>
+                  <span class="badge float-right"><i class="far fa-clock"></i> {{Carbon\Carbon::parse($user_login->last_seen)->diffForHumans()}}</span></a>
+                  @if(Cache::has('user-is-online-' .$user_login->id))
+                  <span class="text-success badge float-right">Online</span>
+                  @else
+                  <span class="text-secondary badge float-right">Offline</span>
+                  @endif
               </div>
             </li>
             @endforeach

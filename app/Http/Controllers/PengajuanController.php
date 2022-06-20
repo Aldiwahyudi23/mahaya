@@ -8,6 +8,7 @@ use App\Models\Pengajuan;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
 use App\Models\program;
+use App\Models\Anggaran;
 use Twilio\Rest\Client; 
 
 class PengajuanController extends Controller
@@ -37,8 +38,8 @@ class PengajuanController extends Controller
         $data_setor->save();
         $setor = Pengajuan::find($data_setor->id);
 
-//         $sid    = "AC79f471cb6ccc993d733d1b5b5babb504"; 
-//         $token  = "76fbb4f2636dee0ff8535bb761778ced"; 
+//         $sid    = ""; 
+//         $token  = ""; 
 //         $twilio = new Client($sid, $token); 
         
 //         $message = $twilio->messages 
@@ -68,7 +69,14 @@ class PengajuanController extends Controller
         $dana_acara = Pengeluaran::where('anggaran_id',5)->get();
         $dana_lain = Pengeluaran::where('anggaran_id',6)->get();
 
-        return view('anggota.pinjam',compact('data_tarik','dana_darurat','dana_amal','data_pinjam','dana_usaha','dana_acara','dana_lain'));
+        // Deskripsi anggaran
+        $anggaran_darurat = Anggaran::where('nama_anggaran', 'Dana Darurat')->get();
+        $anggaran_amal = Anggaran::where('nama_anggaran', 'Dana Amal')->get();
+        $anggaran_usaha = Anggaran::where('nama_anggaran', 'Dana Uasaha')->get();
+        $anggaran_acara = Anggaran::where('nama_anggaran','Dana Acara')->get();
+        $anggaran_lain = Anggaran::where('nama_anggaran','Dana lain')->get();
+
+        return view('anggota.pinjam',compact('data_tarik','dana_darurat','dana_amal','data_pinjam','dana_usaha','dana_acara','dana_lain','anggaran_darurat','anggaran_amal','anggaran_usaha','anggaran_acara','anggaran_lain'));
     }
 
     public function pinjam_tambah(Request $request)
@@ -87,8 +95,8 @@ class PengajuanController extends Controller
         $data_setor->save();
         $setor = Pengajuan::find($data_setor->id);
 
-//         $sid    = "AC79f471cb6ccc993d733d1b5b5babb504"; 
-//         $token  = "6097425460a6f990d1c66b7c9d9ada2c"; 
+//         $sid    = ""; 
+//         $token  = ""; 
 //         $twilio = new Client($sid, $token); 
         
 //         $message = $twilio->messages 

@@ -49,8 +49,8 @@ class PemasukanController extends Controller
         $data_pembayaran->save();
         $pembayaran = Pembayaran::find($data_pembayaran->id);
 
-//         $sid    = "AC79f471cb6ccc993d733d1b5b5babb504"; 
-//         $token  = "6097425460a6f990d1c66b7c9d9ada2c"; 
+//         $sid    = ""; 
+//         $token  = ""; 
 //         $twilio = new Client($sid, $token); 
 //         // ketua
 //         $message = $twilio->messages 
@@ -124,8 +124,8 @@ class PemasukanController extends Controller
                 $data_pembayaran->save();
                 $pembayaran = Pembayaran::find($data_pembayaran->id);
         
-//                 $sid    = "AC79f471cb6ccc993d733d1b5b5babb504"; 
-//                 $token  = "6097425460a6f990d1c66b7c9d9ada2c"; 
+//                 $sid    = ""; 
+//                 $token  = ""; 
 //                 $twilio = new Client($sid, $token); 
 //                 // ketua
 //                 $message = $twilio->messages 
@@ -203,8 +203,8 @@ class PemasukanController extends Controller
         $pengajuan->delete();
 
 // Whatsapp twio
-//         $sid    = "AC79f471cb6ccc993d733d1b5b5babb504"; 
-//         $token  = "6097425460a6f990d1c66b7c9d9ada2c"; 
+//         $sid    = ""; 
+//         $token  = ""; 
 //         $twilio = new Client($sid, $token); 
 //         // ketua
 //         $message = $twilio->messages 

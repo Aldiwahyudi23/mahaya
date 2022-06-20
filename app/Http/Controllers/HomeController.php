@@ -22,9 +22,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data_login = User::orderByRaw('created_at DESC')->limit(25)->get();
+        $data_login = User::select('*')
+        ->whereNotNull('last_seen')
+        ->orderBy('last_seen', 'DESC')
+        ->paginate(10);
+
+   
         return view('home',compact('data_login'));
     }
 }

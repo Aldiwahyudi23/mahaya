@@ -49,8 +49,8 @@ class PengeluaranController extends Controller
         $data_setor->save();
         $setor = Pengeluaran::find($data_setor->id);
 
-//         $sid    = "AC79f471cb6ccc993d733d1b5b5babb504"; 
-//         $token  = "6097425460a6f990d1c66b7c9d9ada2c"; 
+//         $sid    = ""; 
+//         $token  = ""; 
 //         $twilio = new Client($sid, $token); 
 //         // ketua
 //         $message = $twilio->messages 
@@ -150,8 +150,8 @@ class PengeluaranController extends Controller
         $pengajuan = Pengajuan::find($request->id_pengajuan);
         $pengajuan->delete();
 
-//         $sid    = "AC79f471cb6ccc993d733d1b5b5babb504"; 
-//         $token  = "6097425460a6f990d1c66b7c9d9ada2c"; 
+//         $sid    = ""; 
+//         $token  = ""; 
 //         $twilio = new Client($sid, $token); 
 //         // ketua
 //         $message = $twilio->messages 

@@ -254,6 +254,18 @@
                                 <div class="tab-content">
                                     <!-- awal data darurat -->
                                     <div class="tab-pane" id="darura">
+                                    <div class="card card-secondary" style="min-height: 385px;">
+                                        <div class="card-header">
+                                            <h3 class="card-title" style="color: white;">
+                                                Deskripsi
+                                            </h3>
+                                            </div>
+                                            <div class="card-body table-responsive">
+                                                <div class="tab-content p-0">
+                                                  
+                                                </div>
+                                        </div>
+                                    </div>
                                         <div class="row">
                                             <div class="row table-responsive">
                                                 <div class="col-12">
@@ -287,6 +299,18 @@
                                     </div>
                                      <!-- awal data amal -->
                                      <div class="tab-pane" id="ama">
+                                     <div class="card card-secondary" style="min-height: 385px;">
+                                        <div class="card-header">
+                                            <h3 class="card-title" style="color: white;">
+                                                Deskripsi
+                                            </h3>
+                                            </div>
+                                            <div class="card-body table-responsive">
+                                                <div class="tab-content p-0">
+                                            
+                                                </div>
+                                        </div>
+                                    </div>
                                         <div class="row">
                                             <div class="row table-responsive">
                                                 <div class="col-12">
@@ -320,6 +344,18 @@
                                     </div>
                                       <!-- awal data usaha -->
                                             <div class="tab-pane" id="usah">
+                                                <div class="card card-secondary" style="min-height: 385px;">
+                                                <div class="card-header">
+                                                    <h3 class="card-title" style="color: white;">
+                                                        Deskripsi
+                                                    </h3>
+                                                    </div>
+                                                    <div class="card-body table-responsive">
+                                                        <div class="tab-content p-0">
+                                                          
+                                                        </div>
+                                                </div>
+                                            </div>
                                         <div class="row">
                                             <div class="row table-responsive">
                                                 <div class="col-12">
@@ -352,6 +388,18 @@
                                     </div>
                                       <!-- awal data acara -->
                                             <div class="tab-pane" id="acar">
+                                            <div class="card card-secondary" style="min-height: 385px;">
+                                        <div class="card-header">
+                                            <h3 class="card-title" style="color: white;">
+                                                Deskripsi
+                                            </h3>
+                                            </div>
+                                            <div class="card-body table-responsive">
+                                                <div class="tab-content p-0">
+                                                  
+                                                </div>
+                                        </div>
+                                    </div>
                                         <div class="row">
                                             <div class="row table-responsive">
                                                 <div class="col-12">
@@ -384,6 +432,18 @@
                                     </div>
                                       <!-- awal data laian-laian -->
                                             <div class="tab-pane" id="lai">
+                                            <div class="card card-secondary" style="min-height: 385px;">
+                                        <div class="card-header">
+                                            <h3 class="card-title" style="color: white;">
+                                                Deskripsi
+                                            </h3>
+                                            </div>
+                                            <div class="card-body table-responsive">
+                                                <div class="tab-content p-0">
+                                                  
+                                                </div>
+                                        </div>
+                                    </div>
                                         <div class="row">
                                             <div class="row table-responsive">
                                                 <div class="col-12">
@@ -405,6 +465,7 @@
                                                                 <td>{{$tarik->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
                                                                 <td>{{$tarik->keterangan}}</td>
+                                                                
                                                                                                                     
                                                             </tr>
                                                             @endforeach
