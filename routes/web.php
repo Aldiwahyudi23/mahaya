@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth', 'checkRole:Admin,Bendahara,Sekertaris, Ke
     // pemasukan
     route::get('pemasukan/setor',[PemasukanController::class, 'index'])->name('pemasukan.setor');
     Route::post('Pemasukan/setor/tambah',[PemasukanController::class,'tambah']);
+    Route::post('Pemasukan/setor_tunai/tambah',[PemasukanController::class,'pembayaran']);
     Route::get('Pemasukan/setor/{id}/edit',[PemasukanController::class,'edit']);
     Route::post('Pemasukan/setor/{id}/update',[PemasukanController::class,'update']);
     Route::get('Pemasukan/setor/{id}/hapus',[PemasukanController::class,'hapus']);

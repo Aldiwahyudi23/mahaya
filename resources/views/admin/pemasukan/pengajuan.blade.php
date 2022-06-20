@@ -71,7 +71,7 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Tanggal</th>
-                                    <th>kategori</th>
+                                    <th>Pembayaran</th>
                                     <th>Nama Anggota</th>
                                     <th>Jumlah</th>
                                     <th>Keterangan</th>
@@ -83,7 +83,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $data->tanggal }}</td>
-                                        <td>{{ $data->kategori }}</td>
+                                        <td>{{ $data->pembayaran }}</td>
                                         <td>{{ $data->anggota->name }}</td>
                                         <td>{{ $data->jumlah }}</td>
                                         <td>{{ $data->keterangan }}</td>

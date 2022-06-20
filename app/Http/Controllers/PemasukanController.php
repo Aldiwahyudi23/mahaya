@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Pemasukan;
 use App\Models\Pengajuan;
+use App\Models\Pembayaran;
 use App\Models\Pengeluaran;
 use App\Models\program;
 use Twilio\Rest\Client; 
@@ -36,33 +37,45 @@ class PemasukanController extends Controller
         $data_setor->save();
         $setor = Pemasukan::find($data_setor->id);
 
-        $sid    = "AC79f471cb6ccc993d733d1b5b5babb504"; 
-        $token  = "6097425460a6f990d1c66b7c9d9ada2c"; 
-        $twilio = new Client($sid, $token); 
-        // ketua
-        $message = $twilio->messages 
-                  ->create("whatsapp:+6281316563786", // to 
-                           array( 
-                               "from" => "whatsapp:+14155238886",       
-                               "body" => "Laporan !!!
-Aya anu atos bayar uang kas. Atos di konfirmasi ku bendahara sareng data tos masuk.
-Jumlah na : {$request->jumlah} 
-Keterangan : {$request->keterangan}
-Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/pemasukan/setor/",
-                           ) 
-                  ); 
-        // Sekertaris
-        $message = $twilio->messages 
-                  ->create("whatsapp:+6283825740395", // to 
-                           array( 
-                               "from" => "whatsapp:+14155238886",       
-                               "body" => "Laporan !!!
-Aya anu atos bayar uang kas. Atos di konfirmasi ku bendahara sareng data tos masuk. Supados pasti mangga cek deui datana
-Jumlah na : {$request->jumlah} 
-Keterangan : {$request->keterangan}
-Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/pemasukan/setor/",
-                           ) 
-                  ); 
+           // Metode pembayaran
+           $request->validate([
+            'jumlah' => 'numeric',
+        ]);
+        $data_pembayaran = new Pembayaran();
+        $data_pembayaran->kategori          = $request->input('pembayaran');
+        $data_pembayaran->tanggal             = $request->input('tanggal');
+        $data_pembayaran->jumlah              = $request->input('jumlah');
+        $data_pembayaran->keterangan          = $request->input('keterangan');
+        $data_pembayaran->save();
+        $pembayaran = Pembayaran::find($data_pembayaran->id);
+
+//         $sid    = "AC79f471cb6ccc993d733d1b5b5babb504"; 
+//         $token  = "6097425460a6f990d1c66b7c9d9ada2c"; 
+//         $twilio = new Client($sid, $token); 
+//         // ketua
+//         $message = $twilio->messages 
+//                   ->create("whatsapp:+6281316563786", // to 
+//                            array( 
+//                                "from" => "whatsapp:+14155238886",       
+//                                "body" => "Laporan !!!
+// Aya anu atos bayar uang kas. Atos di konfirmasi ku bendahara sareng data tos masuk.
+// Jumlah na : {$request->jumlah} 
+// Keterangan : {$request->keterangan}
+// Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/pemasukan/setor/",
+//                            ) 
+//                   ); 
+//         // Sekertaris
+//         $message = $twilio->messages 
+//                   ->create("whatsapp:+6283825740395", // to 
+//                            array( 
+//                                "from" => "whatsapp:+14155238886",       
+//                                "body" => "Laporan !!!
+// Aya anu atos bayar uang kas. Atos di konfirmasi ku bendahara sareng data tos masuk. Supados pasti mangga cek deui datana
+// Jumlah na : {$request->jumlah} 
+// Keterangan : {$request->keterangan}
+// Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/pemasukan/setor/",
+//                            ) 
+//                   ); 
 
         return redirect()->back()->with('sukses', 'Data Setor Kas Parantos Ka tambahkeun kana data');
         // return view('/tabungan/setor/cetak', compact('setor'));
@@ -97,6 +110,52 @@ Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/pema
     }
 // End Admin
 
+// Pembayaran
+    public function pembayaran (Request $request) {
+                   // Metode pembayaran
+                   $request->validate([
+                    'jumlah' => 'numeric',
+                ]);
+                $data_pembayaran = new Pembayaran();
+                $data_pembayaran->kategori          = 'Transfer';
+                $data_pembayaran->tanggal             = $request->input('tanggal');
+                $data_pembayaran->jumlah              = $request->input('jumlah');
+                $data_pembayaran->keterangan          = $request->input('keterangan');
+                $data_pembayaran->save();
+                $pembayaran = Pembayaran::find($data_pembayaran->id);
+        
+        //         $sid    = "AC79f471cb6ccc993d733d1b5b5babb504"; 
+        //         $token  = "6097425460a6f990d1c66b7c9d9ada2c"; 
+        //         $twilio = new Client($sid, $token); 
+        //         // ketua
+        //         $message = $twilio->messages 
+        //                   ->create("whatsapp:+6281316563786", // to 
+        //                            array( 
+        //                                "from" => "whatsapp:+14155238886",       
+        //                                "body" => "Laporan Setor Tunai!!!
+        // Bendahara atos ngalebetkeun artos kas kana buku tabungan.
+        // Jumlah na : {$request->jumlah} 
+        // Keterangan : {$request->keterangan}
+        // Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/",
+        //                            ) 
+        //                   ); 
+        //         // Sekertaris
+        //         $message = $twilio->messages 
+        //                   ->create("whatsapp:+6283825740395", // to 
+        //                            array( 
+        //                                "from" => "whatsapp:+14155238886",       
+        //                                "body" => "Laporan Setor Tunai!!!
+        // Bendahara atos ngalebetkeun artos kas kana buku tabungan. Supados pasti mangga cek deui datana
+        // Jumlah na : {$request->jumlah} 
+        // Keterangan : {$request->keterangan}
+        // Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/",
+        //                            ) 
+        //                   ); 
+        
+                return redirect()->back()->with('sukses', 'Setor Tunai uang Kas parantos Ka tambahkeun kana data');
+                // return view('/tabungan/setor/cetak', compact('setor'));
+    }
+
 // Pengajuan
     public function pengajuan () {
         $data_pengajuan = Pengajuan::where('kategori','Bayar')->get();
@@ -125,38 +184,52 @@ Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/pema
         $data_setor->pengurus_id            = Auth::id();
         $data_setor->save();
         $setor = Pemasukan::find($data_setor->id);
+
+        // Metode pembayaran
+        $request->validate([
+            'jumlah' => 'numeric',
+        ]);
+        $data_pembayaran = new Pembayaran();
+        $data_pembayaran->kategori          = $request->input('pembayaran');
+        $data_pembayaran->tanggal             = $request->input('tanggal');
+        $data_pembayaran->jumlah              = $request->input('jumlah');
+        $data_pembayaran->keterangan          = $request->input('keterangan');
+        $data_pembayaran->save();
+        $pembayaran = Pembayaran::find($data_pembayaran->id);
+
+
         // sekalian hapus data
         $pengajuan = Pengajuan::find($request->id_pengajuan);
         $pengajuan->delete();
 
 // Whatsapp twio
-        $sid    = "AC79f471cb6ccc993d733d1b5b5babb504"; 
-        $token  = "6097425460a6f990d1c66b7c9d9ada2c"; 
-        $twilio = new Client($sid, $token); 
-        // ketua
-        $message = $twilio->messages 
-                  ->create("whatsapp:+6281316563786", // to 
-                           array( 
-                               "from" => "whatsapp:+14155238886",       
-                               "body" => "Laporan !!!
-Aya anu atos bayar uang kas. Atos di konfirmasi ku bendahara sareng data tos masuk.
-Jumlah na : {$request->jumlah} 
-Keterangan : {$request->keterangan}
-Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/pemasukan/setor/",
-                           ) 
-                  ); 
-        // Sekertaris
-        $message = $twilio->messages 
-                  ->create("whatsapp:+6283825740395", // to 
-                           array( 
-                               "from" => "whatsapp:+14155238886",       
-                               "body" => "Laporan !!!
-Aya anu atos bayar uang kas. Atos di konfirmasi ku bendahara sareng data tos masuk. Supados pasti mangga cek deui datana
-Jumlah na : {$request->jumlah} 
-Keterangan : {$request->keterangan}
-Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/pemasukan/setor/",
-                           ) 
-                  ); 
+//         $sid    = "AC79f471cb6ccc993d733d1b5b5babb504"; 
+//         $token  = "6097425460a6f990d1c66b7c9d9ada2c"; 
+//         $twilio = new Client($sid, $token); 
+//         // ketua
+//         $message = $twilio->messages 
+//                   ->create("whatsapp:+6281316563786", // to 
+//                            array( 
+//                                "from" => "whatsapp:+14155238886",       
+//                                "body" => "Laporan !!!
+// Aya anu atos bayar uang kas. Atos di konfirmasi ku bendahara sareng data tos masuk.
+// Jumlah na : {$request->jumlah} 
+// Keterangan : {$request->keterangan}
+// Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/pemasukan/setor/",
+//                            ) 
+//                   ); 
+//         // Sekertaris
+//         $message = $twilio->messages 
+//                   ->create("whatsapp:+6283825740395", // to 
+//                            array( 
+//                                "from" => "whatsapp:+14155238886",       
+//                                "body" => "Laporan !!!
+// Aya anu atos bayar uang kas. Atos di konfirmasi ku bendahara sareng data tos masuk. Supados pasti mangga cek deui datana
+// Jumlah na : {$request->jumlah} 
+// Keterangan : {$request->keterangan}
+// Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/pemasukan/setor/",
+//                            ) 
+//                   ); 
 
         return redirect('/pengajuan/setor/anggota')->with('sukses', 'Data Pembayaran Kas Parantos Ka tambahkeun kana data');
     }

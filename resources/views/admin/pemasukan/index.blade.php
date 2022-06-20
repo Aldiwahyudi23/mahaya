@@ -53,7 +53,7 @@
       <br> <b>tanggal</b> sesuai tanggal pembayaran
       <br> <b>keterangan</b>, esian sesuai kondisi pembayaran  !!!
       <br> <b>Contoh :</b> Uang di titipkeun ka Angga. <br>
-      <br> Kanggo Bendahara Ngisi pembayaran uang kasna pribadi natina halam ieu, kantun milih nami Rifki A F
+      <br> Kanggo Bendahara Ngisi pembayaran uang kas pribadi tina halaman ieu, kantun milih nami Rifki A F
 
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -79,83 +79,168 @@
             
             <div class="container-fluid">
                 <div class="row">
-                    @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Bendahara')
-                    <div class="col-md-3">
+                <div class="col-md-9">
                         <div class="card">
-                            <h6 class="card-header bg-light p-3"><i class="fas fa-credit-card"></i> TAMBAH SETOR KAS</h6>
+                            <div class="card-header bg-light p-2">
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item"><a class="nav-link active btn-sm" href="#ang" data-toggle="tab"> TAMBAH SETOR ANGGOTA </a></li>
+                                    @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Bendahara' || Auth::user()->role == 'Sekertaris' )
+                                    <li class="nav-item"><a class="nav-link btn-sm" href="#to" data-toggle="tab"> SETOR TUNAI</a></li>
+                                    @endif
+                                
+                                </ul>
+                            </div>
                             <div class="card-body">
-                                <form action="/Pemasukan/setor/tambah" method="POST" enctype="multipart/form-data">
-                                    {{csrf_field()}}
-                                    <div class="form-group row">
-                                        <label for="anggota_id">Anggota</label>
-                                        <select name="anggota_id" id="anggota_id" class="form-control select2bs4" required>
-                                            <option value="">-- Pilih Anggota --</option>
-                                            @foreach($data_anggota as $anggota)
-                                            <option value="{{$anggota->id}}">{{$anggota->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="tanggal">Tanggal Bayar</label>
-                                        <input value="{{old('tanggal')}}" name="tanggal" type="date" class="form-control bg-light" id="tanggal" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="jumlah">Jumlah</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Rp.</span>
+                                <div class="tab-content">
+                                    <!-- Awal data pemasukan -->
+                                    <div class="tab-pane" id="to">
+                                        <div class="row">
+                                            <div class="row table-responsive">
+                                            <div class="col-md-3">
+                                                <div class="card">
+                                                    <h6 class="card-header bg-light p-3"><i class="fas fa-credit-card"></i> SETOR TUNAI</h6>
+                                                    <div class="card-body">
+                                                        <form action="/Pemasukan/setor_tunai/tambah" method="POST" enctype="multipart/form-data">
+                                                            {{csrf_field()}}
+     
+                                                            <div class="form-group row">
+                                                                <label for="tanggal">Tanggal Bayar</label>
+                                                                <input value="{{old('tanggal')}}" name="tanggal" type="date" class="form-control bg-light" id="tanggal" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
+                                                                <input name="anggota_id" type="hidden" id="anggota_id">
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="jumlah">Jumlah</label>
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">Rp.</span>
+                                                                    </div>
+                                                                    <input value="{{old('jumlah')}}" name="jumlah" type="number" class="form-control" id="jumlah" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text">.00</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="keterangan">Keterangan</label>
+                                                                <textarea name="keterangan" class="form-control bg-light" id="keterangan" rows="3" placeholder="Eusian Keterangan ieu sesuai keterangan artos anu di bayarkeun" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">{{old('keterangan')}}</textarea>
+                                                            </div>
+                                                            <hr>
+                                                            <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> SETOR</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <input value="{{old('jumlah')}}" name="jumlah" type="number" class="form-control" id="jumlah" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">.00</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="keterangan">Keterangan</label>
-                                        <textarea name="keterangan" class="form-control bg-light" id="keterangan" rows="3" placeholder="Eusian Keterangan ieu sesuai keterangan artos anu di bayarkeun" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">{{old('keterangan')}}</textarea>
-                                    </div>
-                                    <hr>
-                                    <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> SIMPEN</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    @else
-                    <div class="col-md-3">
-                        <div class="card">
-                            <h6 class="card-header bg-light p-3"><i class="fas fa-credit-card"></i> TAMBAH SETOR KAS</h6>
-                            <div class="card-body">
-                                <form action="/Pemasukan/setor/anggota/tambah" method="POST" enctype="multipart/form-data">
-                                    {{csrf_field()}}
-                                    <div class="form-group row">
-                                        <label for="tanggal">Tanggal Bayar</label>
-                                        <input value="{{old('tanggal')}}" name="tanggal" type="date" class="form-control bg-light" id="tanggal" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
-                                        <input name="anggota_id" type="hidden" id="anggota_id">
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="jumlah">Jumlah</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Rp.</span>
+                                    <!-- Akhir togle data pemasukan -->
+
+
+                                    <!-- awal data anggota -->
+                                    <div class="active tab-pane" id="ang">
+                                        <div class="row">
+                                            <div class="row table-responsive">
+                                            @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Bendahara')
+                                            <div class="col-md-3">
+                                                <div class="card">
+                                                    <h6 class="card-header bg-light p-3"><i class="fas fa-credit-card"></i> TAMBAH SETOR KAS</h6>
+                                                    <div class="card-body">
+                                                        <form action="/Pemasukan/setor/tambah" method="POST" enctype="multipart/form-data">
+                                                            {{csrf_field()}}
+                                                            <div class="form-group row">
+                                                                <label for="pembayaran">Pembayaran</label>
+                                                                <select name="pembayaran" id="pembayaran" class="form-control select2bs4" required>
+                                                                    <option value="Cash">Uang Tunai</option>
+                                                                    <option value="Transfer">Transfer</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="anggota_id">Anggota</label>
+                                                                <select name="anggota_id" id="anggota_id" class="form-control select2bs4" required>
+                                                                    <option value="">-- Pilih Anggota --</option>
+                                                                    @foreach($data_anggota as $anggota)
+                                                                    <option value="{{$anggota->id}}">{{$anggota->name}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="tanggal">Tanggal Bayar</label>
+                                                                <input value="{{old('tanggal')}}" name="tanggal" type="date" class="form-control bg-light" id="tanggal" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="jumlah">Jumlah</label>
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">Rp.</span>
+                                                                    </div>
+                                                                    <input value="{{old('jumlah')}}" name="jumlah" type="number" class="form-control" id="jumlah" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text">.00</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="keterangan">Keterangan</label>
+                                                                <textarea name="keterangan" class="form-control bg-light" id="keterangan" rows="3" placeholder="Eusian Keterangan ieu sesuai keterangan artos anu di bayarkeun" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">{{old('keterangan')}}</textarea>
+                                                            </div>
+                                                            <hr>
+                                                            <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> SIMPEN</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <input value="{{old('jumlah')}}" name="jumlah" type="number" class="form-control" id="jumlah" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">.00</span>
+                                            @else
+                                            <div class="col-md-3">
+                                                <div class="card">
+                                                    <h6 class="card-header bg-light p-3"><i class="fas fa-credit-card"></i> TAMBAH SETOR KAS</h6>
+                                                    <div class="card-body">
+                                                        <form action="/Pemasukan/setor/anggota/tambah" method="POST" enctype="multipart/form-data">
+                                                            {{csrf_field()}}
+                                                            <div class="form-group row">
+                                                                <label for="pembayaran">Pembayaran</label>
+                                                                <select name="pembayaran" id="pembayaran" class="form-control select2bs4" required>
+                                                                    <option value="Cash">Uang Tunai</option>
+                                                                    <option value="Transfer">Transfer</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="tanggal">Tanggal Bayar</label>
+                                                                <input value="{{old('tanggal')}}" name="tanggal" type="date" class="form-control bg-light" id="tanggal" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
+                                                                <input name="anggota_id" type="hidden" id="anggota_id">
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="jumlah">Jumlah</label>
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">Rp.</span>
+                                                                    </div>
+                                                                    <input value="{{old('jumlah')}}" name="jumlah" type="number" class="form-control" id="jumlah" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text">.00</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="keterangan">Keterangan</label>
+                                                                <textarea name="keterangan" class="form-control bg-light" id="keterangan" rows="3" placeholder="Eusian Keterangan ieu sesuai keterangan artos anu di bayarkeun" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">{{old('keterangan')}}</textarea>
+                                                            </div>
+                                                            <hr>
+                                                            <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> BAYAR</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endif
                                             </div>
                                         </div>
+
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="keterangan">Keterangan</label>
-                                        <textarea name="keterangan" class="form-control bg-light" id="keterangan" rows="3" placeholder="Eusian Keterangan ieu sesuai keterangan artos anu di bayarkeun" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">{{old('keterangan')}}</textarea>
-                                    </div>
-                                    <hr>
-                                    <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> BAYAR</button>
-                                </form>
+                                  
+                                </div>
                             </div>
+                            <!-- /.nav-tabs-custom -->
                         </div>
-                    </div>
-                    @endif
+                        </div>
                     <div class="col-md-3">
                         
                         <div class="card-body">

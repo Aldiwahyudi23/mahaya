@@ -26,7 +26,7 @@
                                 <b>No INduk</b> <a class="float-right">{{ Auth::user()->id }}</a>
                             </li>
                         </ul>
-                    <a href="" class="btn btn-primary btn-block"><b>Edit Profile</b></a>
+                    <a href="{{ route('pengaturan.profile') }}" class="btn btn-primary btn-block"><b>Edit Profile</b></a>
                 </div>
                 <!-- /.card-body -->
             </div>

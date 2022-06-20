@@ -47,4 +47,13 @@ class User extends Authenticatable
     {
         return $this->no_hp;
     }
+    public function profile()
+    {
+      return $this->belongsTo('App\Models\Profile');
+    }
+    public function anggota()
+    {
+      return $this->belongsTo('App\Models\User');
+    }
+
 }

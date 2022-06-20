@@ -70,6 +70,13 @@
                                 <form action="/Pemasukan/setor/anggota/tambah" method="POST" enctype="multipart/form-data">
                                     {{csrf_field()}}
                                     <div class="form-group row">
+                                        <label for="pembayaran">Pembayaran</label>
+                                        <select name="pembayaran" id="pembayaran" class="form-control select2bs4" required>
+                                            <option value="Cash">Uang Tunai</option>
+                                            <option value="Transfer">Transfer</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group row">
                                         <label for="tanggal">Tanggal Bayar</label>
                                         <input value="{{old('tanggal')}}" name="tanggal" type="date" class="form-control bg-light" id="tanggal" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
                                         <input name="anggota_id" type="hidden" id="anggota_id">

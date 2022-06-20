@@ -50,6 +50,10 @@
               <div class="table-responsive">
                 <table class="table">
                   <tr>
+                    <th style="width:50%">Metode Pembayaran</th>
+                    <td>{{ $setor->pembayaran}}</td>
+                  </tr>
+                  <tr>
                     <th style="width:50%">Nama Anggota</th>
                     <td>{{ $setor->anggota->name}}</td>
                   </tr>
@@ -82,6 +86,7 @@
             <input type="hidden" id="jumlah" name="jumlah" value =" {{ $setor->jumlah }}">
             <input type="hidden" id="keterangan" name="keterangan" value = "{{ $setor->keterangan }}">
             <input type="hidden" id="tanggal" name="tanggal" value = "{{ $setor->tanggal }}">
+            <input type="hidden" id="pembayaran" name="pembayaran" value = "{{ $setor->pembayaran }}">
         
             <button type="submit" class="btn btn-success" onclick="return confirm('Yakin bade terima ? Leres parantos ngakonfirmasi sesuai keterangan {{$setor->keterangan}} anu namina {{$setor->anggota->name}} jumlahna {{ "Rp " . number_format($setor->jumlah,2,',','.') }}  ?')">Tarima</button>
             </div>

@@ -59,6 +59,9 @@
                             <div class="card-body">
                                 <form action="/pengeluaran/tarik/tambah" method="POST" enctype="multipart/form-data">
                                     {{csrf_field()}}
+                                    <div class="form-group row" id="noId">
+                                        
+                                    </div>
                                     <div class="form-group row">
                                         <label for="anggaran_id">Anggaran</label>
                                         <select name="anggaran_id" id="anggaran_id" class="form-control select2bs4" required>
@@ -68,13 +71,8 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    
-                                    <div class="form-group row" id="noId">
-                                        
-                                    </div>
-                                        <div class="form-group row">
-                                            <label for="tanggal">Tanggal Penarikan</label>
-                                            <input value="{{auth()->user()->id}}" name="anggota_id" type="hidden" class="form-control" id="anggota_id" >
+                                    <div class="form-group row">
+                                        <label for="tanggal">Tanggal Penarikan</label>
                                         <input value="{{old('tanggal')}}" name="tanggal" type="date" class="form-control bg-light" id="tanggal" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
                                     </div>
                                     <div class="form-group row">
@@ -430,7 +428,7 @@
         $('#anggaran_id').change(function(){
             var kel = $('#anggaran_id option:selected').val();
             if (kel == "3") {
-              $("#noId").html(' <label for="anggota_id">Anggota</label> <select name="anggota_id" id="anggota_id" class="form-control select2bs4" required> <option value="">-- Pilih Anggota --</option> @foreach($data_anggota as $anggota) <option value="{{$anggota->id}}">{{$anggota->name}}</option> @endforeach </select>');
+              $("#noId").html('<div class="callout callout-warning alert alert-warning alert-dismissible fade show"><h5><i class="fas fa-info"></i> Peringatan !!! :</h5> Kanggo penginputan peminjaman di usahakeun di ajukeun ku pengajuna, di larang keras nginput data pinjaman ku lain pengaju.!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
             } else if(kel == "Siswa") {
               $("#noId").html(`<label for="nomer">Nomer Induk Siswa</label><input id="nomer" type="text" placeholder="No Induk Siswa" class="form-control" name="nomer" autocomplete="off">`);
             } else if(kel == "Admin" || kel == "Operator") {
