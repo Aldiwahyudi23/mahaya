@@ -51,13 +51,15 @@
        $pinjam = $jumlah_pemasukan_asli * 20 / 100 ;
        $amal = $jumlah_pemasukan_asli * 10 / 100 ;
        $kas = $jumlah_pemasukan_asli * 50 / 100 ;
-
+       $saldo = $jumlah_pemasukan-$jumlah_pengeluaran;
+    
             // Saldo atm 
           $jumlah_ATM = DB::table('uang')->where('kategori','Transfer')
             ->sum('uang.jumlah');
+            $saldo_atm = $jumlah_ATM-$jumlah_pengeluaran ;
 
             // Uang di bendahara
-          $jumlah_uang_dibendahara = DB::table('uang')->where('kategori','Cash')
+          $jumlah_uang_cash = DB::table('uang')->where('kategori','Cash')
             ->sum('uang.jumlah');
           ?>
           <ul class="products-list product-list-in-card pl-1 pr-1">
@@ -74,19 +76,19 @@
           </ul>
           <ul class="products-list product-list-in-card pl-1 pr-1">
            <b> <a href="javascript:void(0)" class="product-title">Saldo</a>
-            <h4>{{"Rp" . number_format($jumlah_pemasukan-$jumlah_pengeluaran,2,',','.')}}</h4>
+            <h4>{{"Rp" . number_format( $saldo,2,',','.')}}</h4>
             <p> Jumlah Total saldo anu aya di bendahara atawa sisa tina pengeluaran termasuk data pinjaman.   </p>
             <hr /> </b>
           </ul>
           <ul class="products-list product-list-in-card pl-1 pr-1">
            <a href="javascript:void(0)" class="product-title">Saldo ATM</a>
-            <h5>{{"Rp" . number_format($jumlah_ATM-$jumlah_pengeluaran,2,',','.')}}</h5>
+            <h5>{{"Rp" . number_format($saldo_atm,2,',','.')}}</h5>
             <p>Saldo ATM, saldo anu aya tina tabungan kas keluarga. Jumlah <b>saldo ATM</b> di tambah artos nu masih di <b>bendahara</b> kedah <b>sami</b> sareng jumlah <b>SALDO</b> </p>
             <hr />
           </ul>
           <ul class="products-list product-list-in-card pl-1 pr-1">
             <a href="javascript:void(0)" class="product-title">Uang dibendahara nu teu acan di TF</a>
-            <h5>{{"Rp" . number_format($jumlah_uang_dibendahara,2,',','.')}}</h5>
+            <h5>{{"Rp" . number_format( $saldo-$saldo_atm,2,',','.')}}</h5>
             <p>Artos nu teu acan di setor tunai keun ku bendahara, sareng nu masih di pegang ku bendahara atanapi sekertaris</p>
             <hr />
           </ul>

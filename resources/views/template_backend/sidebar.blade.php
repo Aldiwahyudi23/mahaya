@@ -186,17 +186,11 @@
                             <p>Pengumuman</p>
                         </a>
                     </li>
-                @elseif (Auth::user()->role == 'Bendahara')
+                @elseif (Auth::user()->role == 'Bendahara' || Auth::user()->role == 'Sekertaris')
                     <li class="nav-item has-treeview">
                         <a href="}" class="nav-link" id="Home">
                             <i class="nav-icon fas fa-home"></i>
                             <p>Dashboard</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="" class="nav-link" id="JadwalGuru">
-                            <i class="fas fa-calendar-alt nav-icon"></i>
-                            <p>Jadwal</p>
                         </a>
                     </li>
                     <li class="nav-item">

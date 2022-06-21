@@ -17,6 +17,7 @@ class PengeluaranController extends Controller
         $data_tarik = Pengeluaran::orderByRaw('created_at DESC')->get();
         $data_anggota = User::orderByRaw('name ASC')->get();
         $data_anggaran = Anggaran::orderByRaw('nama_anggaran ASC')->get();
+        $data_pinjam = Pengeluaran::where('anggota_id', Auth::user()->id)->orderBy('anggota_id')->get();
 
         $dana_darurat = Pengeluaran::where('anggaran_id',1)->get();
         $dana_amal = Pengeluaran::where('anggaran_id',2)->get();
@@ -25,7 +26,7 @@ class PengeluaranController extends Controller
         $dana_acara = Pengeluaran::where('anggaran_id',5)->get();
         $dana_lain = Pengeluaran::where('anggaran_id',6)->get();
 
-        return view('admin.pengeluaran.index',compact('data_tarik','data_anggota','data_anggaran','dana_darurat','dana_amal','dana_pinjam','dana_usaha','dana_acara','dana_lain'));
+        return view('admin.pengeluaran.index',compact('data_tarik','data_anggota','data_anggaran','dana_darurat','dana_amal','dana_pinjam','dana_usaha','dana_acara','dana_lain','data_pinjam'));
     }
     public function detail ($id) {
         $tarik = Pengeluaran::find($id);

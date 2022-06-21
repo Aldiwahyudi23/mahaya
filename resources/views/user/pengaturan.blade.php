@@ -32,7 +32,7 @@
         </div>
 <div class="col-12">
     <div class="row">
-        <div class="col-6">
+        <div class="col-6 table-responsive">
             <!-- About Me Box -->
             <div class="card card-primary">
                 <div class="card-header">
@@ -62,7 +62,7 @@
             <!-- /.card -->
         </div>
         <!-- /.col -->
-        <div class="col-6">
+        <div class="col-6 table-responsive">
             <div class="card card-primary card-outline">
                         <div class="card-header">
                             <h3 class="card-title">Pengaturan Akun</h3>
@@ -71,13 +71,11 @@
                             <table class="table" style="margin-top: -21px;">
                             <tr>
                                 <td width="50"><i class="nav-icon fas fa-envelope"></i></td>
-                                <td>Ubah Email</td>
-                                <td width="50"><a href="{{ route('pengaturan.email') }}" class="btn btn-default btn-sm">Edit</a></td>
+                                <td> <a href="{{ route('pengaturan.email') }}">Ubah Email<a></td>
                             </tr>
                             <tr>
                                 <td width="50"><i class="nav-icon fas fa-key"></i></td>
-                                <td>Ubah Password</td>
-                                <td width="50"><a href="{{ route('pengaturan.password') }}" class="btn btn-default btn-sm">Edit</a></td>
+                                <td><a href="{{ route('pengaturan.password') }}">Ubah Password</a></td>
                             </tr>
                             </table>
                         </div>
