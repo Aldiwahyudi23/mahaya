@@ -58,9 +58,12 @@ class PemasukanController extends Controller
 //                            array( 
 //                                "from" => "whatsapp:+14155238886",       
 //                                "body" => "Laporan !!!
+
 // Aya anu atos bayar uang kas. Atos di konfirmasi ku bendahara sareng data tos masuk.
+
 // Jumlah na : {$request->jumlah} 
 // Keterangan : {$request->keterangan}
+
 // Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/pemasukan/setor/",
 //                            ) 
 //                   ); 
@@ -70,9 +73,11 @@ class PemasukanController extends Controller
 //                            array( 
 //                                "from" => "whatsapp:+14155238886",       
 //                                "body" => "Laporan !!!
+
 // Aya anu atos bayar uang kas. Atos di konfirmasi ku bendahara sareng data tos masuk. Supados pasti mangga cek deui datana
 // Jumlah na : {$request->jumlah} 
 // Keterangan : {$request->keterangan}
+
 // Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/pemasukan/setor/",
 //                            ) 
 //                   ); 
@@ -106,6 +111,22 @@ class PemasukanController extends Controller
     {
         $setor = Pemasukan::find($id);
         $setor->delete();
+                     //         $sid    = ""; 
+//         $token  = ""; 
+//         $twilio = new Client($sid, $token); 
+//         // ketua
+//         $message = $twilio->messages 
+//                   ->create("whatsapp:+6281316563786", // to 
+//                            array( 
+//                                "from" => "whatsapp:+14155238886",       
+//                                "body" => "Laporan !!!
+
+// Punten bade ngalaporkeun Admin nembe atos ngahapus data.
+
+// Supados jelas mangga cek deui
+// Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/pemasukan/setor/",
+//                            ) 
+//                   ); 
         return redirect('/pemasukan/setor')->with('sukses', 'Data Setor Tunai Atos Dihapus');
     }
 // End Admin
@@ -133,9 +154,12 @@ class PemasukanController extends Controller
 //                                    array( 
 //                                        "from" => "whatsapp:+14155238886",       
 //                                        "body" => "Laporan Setor Tunai!!!
+
 // Bendahara atos ngalebetkeun artos kas kana buku tabungan.
+
 // Jumlah na : {$request->jumlah} 
 // Keterangan : {$request->keterangan}
+
 // Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/",
 //                                    ) 
 //                           ); 
@@ -145,9 +169,12 @@ class PemasukanController extends Controller
 //                                    array( 
 //                                        "from" => "whatsapp:+14155238886",       
 //                                        "body" => "Laporan Setor Tunai!!!
+
 // Bendahara atos ngalebetkeun artos kas kana buku tabungan. Supados pasti mangga cek deui datana
+
 // Jumlah na : {$request->jumlah} 
 // Keterangan : {$request->keterangan}
+
 // Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/",
 //                                    ) 
 //                           ); 
@@ -212,9 +239,12 @@ class PemasukanController extends Controller
 //                            array( 
 //                                "from" => "whatsapp:+14155238886",       
 //                                "body" => "Laporan !!!
+
 // Aya anu atos bayar uang kas. Atos di konfirmasi ku bendahara sareng data tos masuk.
+
 // Jumlah na : {$request->jumlah} 
 // Keterangan : {$request->keterangan}
+
 // Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/pemasukan/setor/",
 //                            ) 
 //                   ); 
@@ -224,9 +254,12 @@ class PemasukanController extends Controller
 //                            array( 
 //                                "from" => "whatsapp:+14155238886",       
 //                                "body" => "Laporan !!!
+
 // Aya anu atos bayar uang kas. Atos di konfirmasi ku bendahara sareng data tos masuk. Supados pasti mangga cek deui datana
+
 // Jumlah na : {$request->jumlah} 
 // Keterangan : {$request->keterangan}
+
 // Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/pemasukan/setor/",
 //                            ) 
 //                   ); 
