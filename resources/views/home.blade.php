@@ -14,6 +14,8 @@
         <div class="card-body table-responsive">
           <div class="tab-content p-0">
               <!-- isi pengumuman -->
+              
+            {!! $pengumuman->isi !!}
           </div>
         </div>
       </div>
@@ -63,13 +65,13 @@
             ->sum('uang.jumlah');
           ?>
           <ul class="products-list product-list-in-card pl-1 pr-1">
-            <a href="javascript:void(0)" class="product-title">Jumlah Pemasukan</a>
+            <a href="/pemasukan/detail" class="product-title">Jumlah Pemasukan</a>
             <h5>{{ "Rp " . number_format($jumlah_pemasukan,2,',','.') }}</h5>
             <p>Jumlah sadayana artos nu terkumpul ti awal sareng dugi ayeuna</p>
             <hr>
           </ul>
           <ul class="products-list product-list-in-card pl-1 pr-1">
-            <a href="javascript:void(0)" class="product-title">Jumlah Pengeluaran</a>
+            <a href="/pengeluaran/detail" class="product-title">Jumlah Pengeluaran</a>
             <h5>{{ "Rp " . number_format($jumlah_pengeluaran- $pengeluaran_pinjaman,2,',','.') }}</h5>
             <p> Jumlah sadayana pengluaran sesuai data anggaran, kecuali data pinjaman tidak termasuk pengluaran.</p>
             <hr>

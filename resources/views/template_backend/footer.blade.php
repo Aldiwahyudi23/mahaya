@@ -2,9 +2,9 @@
     <div class="container">
         <div class="row justify-content-center">
         @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Sekertaris' || Auth::user()->role == 'Bendahara' || Auth::user()->role == 'Ketua')
-            <div class="col-3">
+            <div class="col-3 ">
             <center>   
-                 <a href="/home"  id="Pemasukan"><i class="nav-icon fas fa-home lg-6" ></i><br> &nbsp; &nbsp;Home</a>
+                 <a href="/home"  class="nav-link" id="Pengumuman"><i class="nav-icon fas fa-home lg-6" ></i><br> &nbsp; &nbsp;Home</a>
             </center>
             </div>
             <div class="col-3">

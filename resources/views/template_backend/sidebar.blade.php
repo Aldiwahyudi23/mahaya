@@ -187,17 +187,12 @@
                         </a>
                     </li>
                 @elseif (Auth::user()->role == 'Bendahara' || Auth::user()->role == 'Sekertaris')
-                    <li class="nav-item has-treeview">
-                        <a href="}" class="nav-link" id="Home">
-                            <i class="nav-icon fas fa-home"></i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
+
                     <li class="nav-item">
-                                <a href="" class="nav-link" id="UlanganGuru">
-                                    <i class="fas fa-file-alt nav-icon"></i>
-                                    <p>Input Uang</p>
-                                </a>
+                        <a href="/pemasukan/setor" class="nav-link" id="UlanganGuru">
+                            <i class="fas fa-file-alt nav-icon"></i>
+                            <p>Input Uang</p>
+                        </a>
                     </li>
                     <li class="nav-item has-treeview" id="penglink">
                         <a href="#" class="nav-link" id="pengajuan">
@@ -222,23 +217,16 @@
                             </li>
                         </ul>
                     </li>
-                    
-                @elseif (Auth::user()->role == 'Anggota')
                     <li class="nav-item">
-                        <a href="/pemasukan/setor/anggota" class="nav-link" id="DataKas">
-                            <i class="fas fa-file-alt nav-icon"></i>
-                            <p>Data Kas</p>
+                        <a href="{{ route('admin.pengumuman') }}" class="nav-link" id="Pengumuman">
+                            <i class="nav-icon fas fa-clipboard"></i>
+                            <p>Pengumuman</p>
                         </a>
                     </li>
                     
-                    
+                
                 @else
-                    <li class="nav-item has-treeview">
-                        <a href="{{ route('logout') }}" class="nav-link" id="Home">
-                            <i class="nav-icon fas fa-home"></i>
-                            <p>Kaluar</p>
-                        </a>
-                    </li>
+
                 @endif
                 <hr>
                 <li class="nav-item has-treeview">

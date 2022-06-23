@@ -63,7 +63,7 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="card">
                             <h6 class="card-header bg-light p-3"><i class="fas fa-credit-card"></i> TAMBAH SETOR KAS</h6>
                             <div class="card-body">
@@ -103,7 +103,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-8">
                         
                             <div class="card-body">
                             <p>

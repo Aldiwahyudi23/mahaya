@@ -1,11 +1,12 @@
 @extends('template_backend.home')
 
-@section('heading', 'pengeluaran')
+@section('heading', 'Peminjaman')
 @section('page')
-  <li class="breadcrumb-item active">Pengeluaran</li>
+  <li class="breadcrumb-item active">Peminjaman</li>
 @endsection
 
 @section('content')
+
 @if(session('sukses'))
 <div class="container">
     <div class="callout callout-success alert alert-success alert-dismissible fade show" role="alert">
@@ -53,38 +54,35 @@
       Pami ngesian alasan, kedah detail sareng lengkap tur jelas <br>
       <br>
       Sateacan nginput kedah paham heula kana syarat & ketentuanna <br>
-      <b> Supados jelas mangga klik deskripsi di handap</b>
+      <b> Supados jelas mangga <a href="/anggaran/3/detail">Klik</a> deskripsi</b>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
 </div>
 <section class="content card" style="padding: 10px 10px 10px 10px ">
     <div class="box">
-        <h4><i class="nav-icon fas fa-credit-card my-1 btn-sm-1"></i> Penarikan Kas</h4>
+        <h4><i class="nav-icon fas fa-credit-card my-1 btn-sm-1"></i> Pinjam Uang Kas</h4>
         <hr>
         <section class="content">
-        <div class="container">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4">
                         <div class="card">
+                            
+                            @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Sekertaris' )
                             <div class="card-header bg-light p-2">
                                 <ul class="nav nav-pills">
-                                    @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Sekertaris' )
                                     <li class="nav-item"><a class="nav-link active btn-sm" href="#to" data-toggle="tab"> PINJAMAN KAS </a></li>
                                     <li class="nav-item"><a class="nav-link btn-sm" href="#ang" data-toggle="tab"> PENGLUARAN ANGGARAN</a></li>
-                                    @endif
-                                
+
                                 </ul>
                             </div>
                             <div class="card-body">
                                 <div class="tab-content">
-                                    @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Sekertaris')
                                     <!-- Awal data pemasukan -->
                                     <div class="active tab-pane" id="to">
                                         <div class="row">
                                             <div class="row table-responsive">
-                                            <div class="col-md-6">
                                                 <div class="card">
                                                     <h6 class="card-header bg-light p-3"><i class="fas fa-credit-card"></i> PINJAMAN KAS</h6>
                                                     <div class="card-body">
@@ -117,19 +115,15 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            </div>
                                         </div>
                                     </div>
-                                    <!-- Akhir togle data pemasukan -->
-
-                                    <!-- awal data anggota -->
-                                    <div class=" tab-pane" id="ang">
+                                    <!-- Akhir 1 -->
+                                    <!-- Awal 2 -->
+                                    <div class="tab-pane" id="ang">
                                         <div class="row">
                                             <div class="row table-responsive">
-                                           
-                                            <div class="col-md-6">
                                                 <div class="card">
-                                                    <h6 class="card-header bg-light p-3"><i class="fas fa-credit-card"></i> TAMBAH TARIK KAS</h6>
+                                                    <h6 class="card-header bg-light p-3"><i class="fas fa-credit-card"></i> TAMBAH PENARIKAN KAS</h6>
                                                     <div class="card-body">
                                                         <form action="/pengeluaran/tarik/tambah" method="POST" enctype="multipart/form-data">
                                                             {{csrf_field()}}
@@ -173,46 +167,44 @@
                                             </div>
                                         </div>
                                     </div>
-                                            @else
-                                            <div class="col-md-6">
-                                                <div class="card">
-                                                    <h6 class="card-header bg-light p-3"><i class="fas fa-credit-card"></i> PINJAMAN KAS</h6>
-                                                    <div class="card-body">
-                                                        <form action="/pengluaran/pinjam/anggota/tambah" method="POST" enctype="multipart/form-data">
-                                                            {{csrf_field()}}
-                                                            <div class="form-group row">
-                                                                <label for="tanggal">Tanggal</label>
-                                                                <input value="{{old('tanggal')}}" name="tanggal" type="date" class="form-control bg-light" id="tanggal" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
-                                                                <input name="anggota_id" type="hidden" id="anggota_id">
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label for="jumlah">Jumlah</label>
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text">Rp.</span>
-                                                                    </div>
-                                                                    <input value="{{old('jumlah')}}" name="jumlah" type="number" class="form-control" id="jumlah" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
-                                                                    <div class="input-group-append">
-                                                                        <span class="input-group-text">.00</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label for="keterangan">Alasan</label>
-                                                                <textarea name="keterangan" class="form-control bg-light" id="keterangan" rows="3" placeholder=" Alasan ieu esian sesuai alasan minjem dana pinjam" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">{{old('keterangan')}}</textarea>
-                                                            </div>
-                                                            <hr>
-                                                            <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> PINJAM</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @endif
-
-                                 </div>
+                                    <!-- Akhir 2-->
+                                </div>
                             </div>
-
-                    <div class="col-md-9">
+                            @else
+                            <h6 class="card-header bg-light p-3"><i class="fas fa-credit-card"></i> PINJAMAN KAS</h6>
+                            <div class="card-body">
+                                <form action="/pengluaran/pinjam/anggota/tambah" method="POST" enctype="multipart/form-data">
+                                    {{csrf_field()}}
+                                    <div class="form-group row">
+                                        <label for="tanggal">Tanggal</label>
+                                        <input value="{{old('tanggal')}}" name="tanggal" type="date" class="form-control bg-light" id="tanggal" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
+                                        <input name="anggota_id" type="hidden" id="anggota_id">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="jumlah">Jumlah</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Rp.</span>
+                                            </div>
+                                            <input value="{{old('jumlah')}}" name="jumlah" type="number" class="form-control" id="jumlah" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="keterangan">Alasan</label>
+                                        <textarea name="keterangan" class="form-control bg-light" id="keterangan" rows="3" placeholder=" Alasan ieu esian sesuai alasan minjem dana pinjam" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">{{old('keterangan')}}</textarea>
+                                    </div>
+                                    <hr>
+                                    <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> PINJAM</button>
+                                </form>
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        
                             <div class="card-body">
                             <b><i class="fas fa-info"></i> Catatan !!!</b> <br>
                             <b> Syarat : </b><br>
@@ -266,8 +258,7 @@
                             
                         </div>
                     </div>
-                    <!-- Tabel Pinjaman pribadi -->
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="card-header bg-light p-2">
                                 <ul class="nav nav-pills">
@@ -342,13 +333,21 @@
                         </div>
                         <!-- /.col -->
                     </div>
-                    
-                    <!-- Tabel Pengluaran -->
-                    <div class="col-md-6">
+
+                    <div class="col-md-12">
                         <div class="card">
+                        
                             <div class="card-header bg-light p-2">
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <b><i class="fas fa-info"></i> Laporan !!!</b> <br>
+                                Sadayana laporan pengluaran tiasa di tingal di handap <br>
+                                Supados jelas mangga klik pilihan di handap
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                                 <ul class="nav nav-pills">
-                                    <li class="nav-item"><a class="nav-link active btn-sm" href="#setor" data-toggle="tab"><i class="fas fa-credit-card"></i> Data Penarikan</a></li>
+                                    <li class="nav-item"><a class="nav-link active btn-sm" href="#setor" data-toggle="tab"><i class="fas fa-credit-card"></i> Data Pengluaran</a></li>
                                     <li class="nav-item"><a class="nav-link btn-sm" href="#darura" data-toggle="tab"><i class=""></i> Data Darurat</a></li>
                                     <li class="nav-item"><a class="nav-link btn-sm" href="#ama" data-toggle="tab"><i class=""></i> Data Amal</a></li>
                                     <li class="nav-item"><a class="nav-link btn-sm" href="#pinja" data-toggle="tab"><i class=""></i> Data Pinjam</a></li>
@@ -356,8 +355,7 @@
                                     <li class="nav-item"><a class="nav-link btn-sm" href="#acar" data-toggle="tab"><i class=""></i> Data Acara</a></li>
                                     <li class="nav-item"><a class="nav-link btn-sm" href="#lai" data-toggle="tab"><i class=""></i> Data Lain-Lain</a></li>
                                 </ul>
-                            </div>
-                            <div class="card-body">
+                            </div><div class="card-body">
                                 <div class="tab-content">
                                     <!-- seluruh data penarikan -->
                                     <div class="active tab-pane" id="setor">
@@ -402,7 +400,6 @@
                                                                 <th>No.</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Jumlah</th>
-                                                                
                                                                 <th>Aksi</th>
                                                             </tr>
                                                         </thead>
@@ -659,31 +656,17 @@
                                     <!-- akhir -->
                                 </div>
                             </div>
-                            <!-- /.nav-tabs-custom -->
                         </div>
-                        <!-- /.col -->
                     </div>
+
                 </div><!-- /.container-fluid -->
         </section>
     </div>
 </section>
+
 @endsection
 @section('script')
     <script>
-            $(document).ready(function(){
-        $('#anggaran_id').change(function(){
-            var kel = $('#anggaran_id option:selected').val();
-            if (kel == "3") {
-              $("#noId").html('<div class="callout callout-warning alert alert-warning alert-dismissible fade show"><h5><i class="fas fa-info"></i> Peringatan !!! :</h5> Kanggo penginputan peminjaman di usahakeun di ajukeun ku pengajuna, di larang keras nginput data pinjaman ku lain pengaju.!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
-            } else if(kel == "Siswa") {
-              $("#noId").html(`<label for="nomer">Nomer Induk Siswa</label><input id="nomer" type="text" placeholder="No Induk Siswa" class="form-control" name="nomer" autocomplete="off">`);
-            } else if(kel == "Admin" || kel == "Operator") {
-              $("#noId").html(`<label for="name">Username</label><input id="name" type="text" placeholder="Username" class="form-control" name="name" autocomplete="off">`);
-            } else {
-              $("#noId").html(' <input type="hidden" name="anggota_id" value="0">')
-            }
-        });
-    });
-        $("#Pemasukan").addClass("active");
+        $("#Peminjaman").addClass("active");
     </script>
 @endsection

@@ -21,6 +21,13 @@ class PemasukanController extends Controller
         return view('admin.pemasukan.index',compact('data_setor','data_anggota','data_semua'));
     }
 
+    public function pemasukan_detail()
+    {
+        $pemasukan_detail = Pemasukan::all();
+
+        return view ('admin.pemasukan.detail_pemasukan',compact('pemasukan_detail'));
+    }
+
 // Admin
     //function untuk tambah
     public function tambah(Request $request)

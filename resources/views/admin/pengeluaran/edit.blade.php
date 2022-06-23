@@ -5,46 +5,6 @@
   <li class="breadcrumb-item active">Pengeluaran</li>
 @endsection
 
-@section('content')
-@if(session('sukses'))
-<div class="container">
-    <div class="callout callout-success alert alert-success alert-dismissible fade show" role="alert">
-        <h5><i class="fas fa-check"></i> Sukses :</h5>
-        {{session('sukses')}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-</div>
-@endif
-
-@if(session('warning'))
-<div class="container">
-    <div class="callout callout-warning alert alert-warning alert-dismissible fade show" role="alert">
-        <h5><i class="fas fa-info"></i> Informasi :</h5>
-        {{session('warning')}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-</div>
-@endif
-
-@if ($errors->any())
-<div class="container">
-    <div class="callout callout-danger alert alert-danger alert-dismissible fade show">
-        <h5><i class="fas fa-exclamation-triangle"></i> Peringatan :</h5>
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-</div>
-@endif
 <section class="content card" style="padding: 10px 10px 10px 10px ">
     <div class="box">
         <h4><i class="nav-icon fas fa-credit-card my-1 btn-sm-1"></i> Penarikan Kas</h4>
@@ -52,7 +12,7 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="card">
                             <h6 class="card-header bg-light p-3"><i class="fas fa-credit-card"></i> TAMBAH TARIK KAS</h6>
                             <div class="card-body">
@@ -97,20 +57,83 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-9">
-                        <div class="card">
-                            <div class="card-header bg-light p-2">
-                                <ul class="nav nav-pills">
-                                    <li class="nav-item"><a class="nav-link active btn-sm" href="#setor" data-toggle="tab"><i class="fas fa-credit-card"></i> Data Penarikan</a></li>
-                                    <li class="nav-item"><a class="nav-link btn-sm" href="#darura" data-toggle="tab"><i class="fas fa-child"></i> Data Darurat</a></li>
-                                    <li class="nav-item"><a class="nav-link btn-sm" href="#ama" data-toggle="tab"><i class="fas fa-child"></i> Data Amal</a></li>
-                                    <li class="nav-item"><a class="nav-link btn-sm" href="#pinja" data-toggle="tab"><i class="fas fa-child"></i> Data Pinjam</a></li>
-                                    <li class="nav-item"><a class="nav-link btn-sm" href="#usah" data-toggle="tab"><i class="fas fa-child"></i> Data Usaha</a></li>
-                                    <li class="nav-item"><a class="nav-link btn-sm" href="#acar" data-toggle="tab"><i class="fas fa-child"></i> Data Acara</a></li>
-                                    <li class="nav-item"><a class="nav-link btn-sm" href="#lai" data-toggle="tab"><i class="fas fa-child"></i> Data Lain-Lain</a></li>
-                                </ul>
-                            </div>
+                    <div class="col-md-8">
+                        
                             <div class="card-body">
+                            <b><i class="fas fa-info"></i> Catatan !!!</b> <br>
+                            <b> Syarat : </b><br>
+                            - Bertanggung jawab <br>
+                            - Masih dalam lingkungan keluarga <br>
+                            - Sanggup membayar dalam jangka waktu tertentu <br>
+                            <b> Ketentuan : </b><br>
+                            - Dana Pinjaman di keluarkan min 1 juta <br>
+                            - Per satu orang 30 % dari 1 juta <br>
+                            - Pelunasan max 3 bulan<br>
+                            - Pembayaran bisa di cicil<br>
+                            <br>
+                            syarat & ketentuan nu di luhur nembe sebagian <br>
+                            <b> Supados jelas mangga klik deskripsi di handap </b> <br> <br>
+
+                            <table class="table" style="margin-top: -10px;">
+                                <tr>
+                                    <td>Nama</td>
+                                    <td>:</td>
+                                    <td>{{Auth::user()->name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Program</td>
+                                    <td>:</td>
+                                    <td>Kas Keluaraga</td>
+                                </tr>
+                                <tr>
+                                    <td>Ketua</td>
+                                    <td>:</td>
+                                    <td>Supriatna</td>
+                                </tr>
+                                @php
+                                    $bulan = date('m');
+                                    $tahun = date('Y');
+                                @endphp
+                                <tr>
+                                <tr>
+                                    <td>Tahun</td>
+                                    <td>:</td>
+                                    <td>
+                                        @if ($bulan > 5)
+                                            {{ $tahun }}/{{ $tahun+1 }}
+                                        @else
+                                            {{ $tahun-1 }}/{{ $tahun }}
+                                        @endif
+                                    </td>
+                                </tr>
+                                    
+                                </table>
+                              
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                        
+                            <div class="card-header bg-light p-2">
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <b><i class="fas fa-info"></i> Laporan !!!</b> <br>
+                                Sadayana laporan pengluaran tiasa di tingal di handap <br>
+                                Supados jelas mangga klik pilihan di handap
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item"><a class="nav-link active btn-sm" href="#setor" data-toggle="tab"><i class="fas fa-credit-card"></i> Data Pengluaran</a></li>
+                                    <li class="nav-item"><a class="nav-link btn-sm" href="#darura" data-toggle="tab"><i class=""></i> Data Darurat</a></li>
+                                    <li class="nav-item"><a class="nav-link btn-sm" href="#ama" data-toggle="tab"><i class=""></i> Data Amal</a></li>
+                                    <li class="nav-item"><a class="nav-link btn-sm" href="#pinja" data-toggle="tab"><i class=""></i> Data Pinjam</a></li>
+                                    <li class="nav-item"><a class="nav-link btn-sm" href="#usah" data-toggle="tab"><i class=""></i> Data Usaha</a></li>
+                                    <li class="nav-item"><a class="nav-link btn-sm" href="#acar" data-toggle="tab"><i class=""></i> Data Acara</a></li>
+                                    <li class="nav-item"><a class="nav-link btn-sm" href="#lai" data-toggle="tab"><i class=""></i> Data Lain-Lain</a></li>
+                                </ul>
+                            </div><div class="card-body">
                                 <div class="tab-content">
                                     <!-- seluruh data penarikan -->
                                     <div class="active tab-pane" id="setor">
@@ -121,14 +144,8 @@
                                                         <thead>
                                                             <tr class="bg-light">
                                                                 <th>No.</th>
-                                                                <th>No. Trans</th>
-                                                                <th>Anggaran</th>
-                                                                <th>Nama</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Jumlah</th>
-                                                                <th>Keterangan</th>
-                                                                
-                                                                <th>Aksi</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -137,12 +154,8 @@
                                                             <?php $no++; ?>
                                                             <tr>
                                                                 <td>{{$no}}</td>
-                                                                <td>ST0{{$tarik->id}}</td>
-                                                                <td>{{$tarik->anggaran->nama}}</td>
-                                                                <td>{{$tarik->anggota->name}}</td>
                                                                 <td>{{$tarik->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
-                                                                <td>{{$tarik->keterangan}}</td>
                                                             </tr>
                                                             @endforeach
                                                         </tbody>
@@ -163,12 +176,8 @@
                                                         <thead>
                                                             <tr class="bg-light">
                                                                 <th>No.</th>
-                                                                <th>No. Trans</th>
-                                                                <th>Anggaran</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Jumlah</th>
-                                                                <th>Keterangan</th>
-                                                                
                                                                 <th>Aksi</th>
                                                             </tr>
                                                         </thead>
@@ -178,17 +187,16 @@
                                                             <?php $no++; ?>
                                                             <tr>
                                                                 <td>{{$no}}</td>
-                                                                <td>ST0{{$tarik->id}}</td>
-                                                                <td>{{$tarik->anggaran->nama}}</td>
                                                                 <td>{{$tarik->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
-                                                                <td>{{$tarik->keterangan}}</td>
                                                                 <td>
-                                                                    <a href="/pengeluaran/tarik/{{$tarik->id}}/cetakprint" target="_blank" class=""><i class="nav-icon fas fa-print"></i></a>
+                                                                    <a href="/pengeluaran/tarik/{{$tarik->id}}/detail" class=""><i class="nav-icon fas fa-book"></i></a>
                                                                 </td>
+                                                                @if (auth()->user()->role == 'Admin' || auth()->user()->role == 'Sekertaris')
                                                                 <td>
                                                                     <a href="/pengeluaran/tarik/{{$tarik->id}}/edit/" class=""><i class="nav-icon fas fa-pencil-alt"></i></a>
                                                                 </td>
+                                                                @endif
                                                                 <td>
                                                                     @if (auth()->user()->role == 'Admin')
                                                                     <a href="/pengeluaran/tarik/{{$tarik->id}}/hapus" class="" onclick="return confirm('Leres bade ngahapus data anu namina {{$tarik->anggota->name}} tanggal {{$tarik->tanggal}}  ?')"><i class="nav-icon fas fa-trash"></i></a>
@@ -212,12 +220,8 @@
                                                         <thead>
                                                             <tr class="bg-light">
                                                                 <th>No.</th>
-                                                                <th>No. Trans</th>
-                                                                <th>Anggaran</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Jumlah</th>
-                                                                <th>Keterangan</th>
-                                                                
                                                                 <th>Aksi</th>
                                                             </tr>
                                                         </thead>
@@ -227,17 +231,16 @@
                                                             <?php $no++; ?>
                                                             <tr>
                                                                 <td>{{$no}}</td>
-                                                                <td>ST0{{$tarik->id}}</td>
-                                                                <td>{{$tarik->anggaran->nama}}</td>
                                                                 <td>{{$tarik->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
-                                                                <td>{{$tarik->keterangan}}</td>
-                                                                <td>
-                                                                    <a href="/pengeluaran/tarik/{{$tarik->id}}/cetakprint" target="_blank" class=""><i class="nav-icon fas fa-print"></i></a>
+                                                                                                                             <td>
+                                                                    <a href="/pengeluaran/tarik/{{$tarik->id}}/detail" class=""><i class="nav-icon fas fa-book"></i></a>
                                                                 </td>
+                                                                @if (auth()->user()->role == 'Admin' || auth()->user()->role == 'Sekertaris')
                                                                 <td>
                                                                     <a href="/pengeluaran/tarik/{{$tarik->id}}/edit/" class=""><i class="nav-icon fas fa-pencil-alt"></i></a>
                                                                 </td>
+                                                                @endif
                                                                 <td>
                                                                     @if (auth()->user()->role == 'Admin')
                                                                     <a href="/pengeluaran/tarik/{{$tarik->id}}/hapus" class="" onclick="return confirm('Leres bade ngahapus data anu namina {{$tarik->anggota->name}} tanggal {{$tarik->tanggal}}  ?')"><i class="nav-icon fas fa-trash"></i></a>
@@ -260,13 +263,9 @@
                                                         <thead>
                                                             <tr class="bg-light">
                                                                 <th>No.</th>
-                                                                <th>No. Trans</th>
                                                                 <th>Nama Peminjam</th>
-                                                                <th>Anggaran</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Jumlah</th>
-                                                                <th>Keterangan</th>
-                                                                
                                                                 <th>Aksi</th>
                                                             </tr>
                                                         </thead>
@@ -276,18 +275,17 @@
                                                             <?php $no++; ?>
                                                             <tr>
                                                                 <td>{{$no}}</td>
-                                                                <td>ST0{{$tarik->id}}</td>
                                                                 <td>{{$tarik->anggota->name}}</td>
-                                                                <td>{{$tarik->anggaran->nama}}</td>
                                                                 <td>{{$tarik->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
-                                                                <td>{{$tarik->keterangan}}</td>
-                                                                <td>
-                                                                    <a href="/pengeluaran/tarik/{{$tarik->id}}/cetakprint" target="_blank" class=""><i class="nav-icon fas fa-print"></i></a>
+                                                                                                                             <td>
+                                                                    <a href="/pengeluaran/tarik/{{$tarik->id}}/detail" class=""><i class="nav-icon fas fa-book"></i></a>
                                                                 </td>
+                                                                @if (auth()->user()->role == 'Admin' || auth()->user()->role == 'Sekertaris')
                                                                 <td>
                                                                     <a href="/pengeluaran/tarik/{{$tarik->id}}/edit/" class=""><i class="nav-icon fas fa-pencil-alt"></i></a>
                                                                 </td>
+                                                                @endif
                                                                 <td>
                                                                     @if (auth()->user()->role == 'Admin')
                                                                     <a href="/pengeluaran/tarik/{{$tarik->id}}/hapus" class="" onclick="return confirm('Leres bade ngahapus data anu namina {{$tarik->anggota->name}} tanggal {{$tarik->tanggal}}  ?')"><i class="nav-icon fas fa-trash"></i></a>
@@ -310,11 +308,8 @@
                                                         <thead>
                                                             <tr class="bg-light">
                                                                 <th>No.</th>
-                                                                <th>No. Trans</th>
-                                                                <th>Anggaran</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Jumlah</th>
-                                                                <th>Keterangan</th>
                                                                 
                                                                 <th>Aksi</th>
                                                             </tr>
@@ -325,17 +320,16 @@
                                                             <?php $no++; ?>
                                                             <tr>
                                                                 <td>{{$no}}</td>
-                                                                <td>ST0{{$tarik->id}}</td>
-                                                                <td>{{$tarik->anggaran->nama}}</td>
                                                                 <td>{{$tarik->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
-                                                                <td>{{$tarik->keterangan}}</td>
-                                                                <td>
-                                                                    <a href="/pengeluaran/tarik/{{$tarik->id}}/cetakprint" target="_blank" class=""><i class="nav-icon fas fa-print"></i></a>
+                                                                                                                             <td>
+                                                                    <a href="/pengeluaran/tarik/{{$tarik->id}}/detail" class=""><i class="nav-icon fas fa-book"></i></a>
                                                                 </td>
+                                                                @if (auth()->user()->role == 'Admin' || auth()->user()->role == 'Sekertaris')
                                                                 <td>
                                                                     <a href="/pengeluaran/tarik/{{$tarik->id}}/edit/" class=""><i class="nav-icon fas fa-pencil-alt"></i></a>
                                                                 </td>
+                                                                @endif
                                                                 <td>
                                                                     @if (auth()->user()->role == 'Admin')
                                                                     <a href="/pengeluaran/tarik/{{$tarik->id}}/hapus" class="" onclick="return confirm('Leres bade ngahapus data anu namina {{$tarik->anggota->name}} tanggal {{$tarik->tanggal}}  ?')"><i class="nav-icon fas fa-trash"></i></a>
@@ -358,11 +352,8 @@
                                                         <thead>
                                                             <tr class="bg-light">
                                                                 <th>No.</th>
-                                                                <th>No. Trans</th>
-                                                                <th>Anggaran</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Jumlah</th>
-                                                                <th>Keterangan</th>
                                                                 
                                                                 <th>Aksi</th>
                                                             </tr>
@@ -373,17 +364,16 @@
                                                             <?php $no++; ?>
                                                             <tr>
                                                                 <td>{{$no}}</td>
-                                                                <td>ST0{{$tarik->id}}</td>
-                                                                <td>{{$tarik->anggaran->nama}}</td>
                                                                 <td>{{$tarik->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
-                                                                <td>{{$tarik->keterangan}}</td>
-                                                                <td>
-                                                                    <a href="/pengeluaran/tarik/{{$tarik->id}}/cetakprint" target="_blank" class=""><i class="nav-icon fas fa-print"></i></a>
+                                                                                                                             <td>
+                                                                    <a href="/pengeluaran/tarik/{{$tarik->id}}/detail" class=""><i class="nav-icon fas fa-book"></i></a>
                                                                 </td>
+                                                                @if (auth()->user()->role == 'Admin' || auth()->user()->role == 'Sekertaris')
                                                                 <td>
                                                                     <a href="/pengeluaran/tarik/{{$tarik->id}}/edit/" class=""><i class="nav-icon fas fa-pencil-alt"></i></a>
                                                                 </td>
+                                                                @endif
                                                                 <td>
                                                                     @if (auth()->user()->role == 'Admin')
                                                                     <a href="/pengeluaran/tarik/{{$tarik->id}}/hapus" class="" onclick="return confirm('Leres bade ngahapus data anu namina {{$tarik->anggota->name}} tanggal {{$tarik->tanggal}}  ?')"><i class="nav-icon fas fa-trash"></i></a>
@@ -406,11 +396,8 @@
                                                         <thead>
                                                             <tr class="bg-light">
                                                                 <th>No.</th>
-                                                                <th>No. Trans</th>
-                                                                <th>Anggaran</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Jumlah</th>
-                                                                <th>Keterangan</th>
                                                                 
                                                                 <th>Aksi</th>
                                                             </tr>
@@ -421,17 +408,16 @@
                                                             <?php $no++; ?>
                                                             <tr>
                                                                 <td>{{$no}}</td>
-                                                                <td>ST0{{$tarik->id}}</td>
-                                                                <td>{{$tarik->anggaran->nama}}</td>
                                                                 <td>{{$tarik->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
-                                                                <td>{{$tarik->keterangan}}</td>
-                                                                <td>
-                                                                    <a href="/pengeluaran/tarik/{{$tarik->id}}/cetakprint" target="_blank" class=""><i class="nav-icon fas fa-print"></i></a>
+                                                                                                                             <td>
+                                                                    <a href="/pengeluaran/tarik/{{$tarik->id}}/detail" class=""><i class="nav-icon fas fa-book"></i></a>
                                                                 </td>
+                                                                @if (auth()->user()->role == 'Admin' || auth()->user()->role == 'Sekertaris')
                                                                 <td>
                                                                     <a href="/pengeluaran/tarik/{{$tarik->id}}/edit/" class=""><i class="nav-icon fas fa-pencil-alt"></i></a>
                                                                 </td>
+                                                                @endif
                                                                 <td>
                                                                     @if (auth()->user()->role == 'Admin')
                                                                     <a href="/pengeluaran/tarik/{{$tarik->id}}/hapus" class="" onclick="return confirm('Leres bade ngahapus data anu namina {{$tarik->anggota->name}} tanggal {{$tarik->tanggal}}  ?')"><i class="nav-icon fas fa-trash"></i></a>
@@ -448,9 +434,7 @@
                                     <!-- akhir -->
                                 </div>
                             </div>
-                            <!-- /.nav-tabs-custom -->
                         </div>
-                        <!-- /.col -->
                     </div>
                 </div><!-- /.container-fluid -->
         </section>

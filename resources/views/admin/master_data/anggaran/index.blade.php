@@ -45,14 +45,14 @@
     </div>
 </div>
 @endif
-<section class="content card" style="padding: 10px 10px 10px 10px ">
+<section class="content card col-12" style="padding: 10px 10px 10px 10px ">
     <div class="box">
         <h4><i class="nav-icon fas fa-credit-card my-1 btn-sm-1"></i> Data Anggaran</h4>
         <hr>
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="card">
                             <h6 class="card-header bg-light p-3"><i class="fas fa-credit-card"></i> TAMBAH DATA ANGGARAN</h6>
                             <div class="card-body">
@@ -82,7 +82,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="card-header bg-light p-2">
                                 <ul class="nav nav-pills">

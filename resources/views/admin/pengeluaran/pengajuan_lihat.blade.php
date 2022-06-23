@@ -7,7 +7,7 @@
   <li class="breadcrumb-item active"></li>
 @endsection
 @section('content')
-<section class="content card" style="padding: 10px 10px 10px 10px ">
+<section class="content card col-md-12" style="padding: 10px 10px 10px 10px ">
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">

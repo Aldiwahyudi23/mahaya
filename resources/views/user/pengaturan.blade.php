@@ -9,13 +9,9 @@
             <div class="card card-primary card-outline">
                 <div class="card-body box-profile">
                     <div class="text-center">
-                    @if (Auth::user()->role)
-                        <a href="" data-toggle="lightbox" data-title="Foto {{ Auth::user()->name }}" data-gallery="gallery" data-footer='<a href="" id="linkFotoGuru" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Ubah Foto</a>'>
+                        <a href=""  data-footer='<input type="file" class="form-control" name="foto_profile"  /><i class="nav-icon fas fa-file-upload"></i> &nbsp; Ubah Foto</a>'>
                             <img src="{{ asset('img/male.jpg') }}" width="130px" class="profile-user-img img-fluid img-circle" alt="User profile picture">
                         </a>
-                    @else
-                        <img class="profile-user-img img-fluid img-circle" src="{{ asset('img/male.jpg') }}" alt="User profile picture">
-                    @endif
                     </div>
                     <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
                     <!-- <p class="text-muted text-center">{{ Auth::user()->role }}</p> -->
@@ -24,7 +20,7 @@
                                 <b>No INduk</b> <a class="float-right">{{ Auth::user()->id }}</a>
                             </li>
                         </ul>
-                    <a href="" class="btn btn-primary btn-block"><b>Edit Profile</b></a>
+                    <a href="/pengaturan/profile" class="btn btn-primary btn-block"><b>Edit Profile</b></a>
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -54,7 +50,7 @@
                         <p class="text-muted"></p>
                         <hr>
                         <strong><i class="fas fa-phone mr-1"></i> No Telepon</strong>
-                        <p class="text-muted">{{ Auth::user()->phone_number }}</p>
+                        <p class="text-muted">{{ Auth::user()->no_hp }}</p>
                 
                 </div>
                 <!-- /.card-body -->

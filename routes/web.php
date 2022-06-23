@@ -4,6 +4,7 @@ use App\Http\Controllers\AnggaranController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\PengajuanController;
+use App\Http\Controllers\PengumumanController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,12 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// pengumuman
+Route::get('/admin/pengumuman', [PengumumanController::class,'index'])->name('admin.pengumuman');
+Route::post('/admin/pengumuman/simpan', [PengumumanController::class,'simpan'])->name('admin.pengumuman.simpan');
+// data detail
+Route::get('/pengeluaran/detail', [PengeluaranController::class,'pengeluaran_detail']);
+Route::get('/pemasukan/detail', [PemasukanController::class,'pemasukan_detail']);
 
 Route::get('anggaran/{id}/detail', [AnggaranController::class,'detail']);
 
@@ -90,6 +97,8 @@ Route::group(['middleware' => ['auth', 'checkRole:Admin,Bendahara,Sekertaris,Ket
     route::get('pengajuan/pinjam/anggota',[PengeluaranController::class, 'pengajuan'])->name('pengajuan.pinjaman.anggota');
     route::get('pengajuan/pinjam/anggota/{id}/lihat',[PengeluaranController::class, 'pengajuan_lihat']);
     Route::post('pengajuan/pinjam/anggota/tambah',[PengeluaranController::class,'pengajuan_tambah']);
+
+   
 });
 // Pengguna
 Route::get('pengguna',[UserController::class,'index'])->name('pengguna');

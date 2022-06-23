@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->enum('role', ['Admin', 'Anggota', 'Sekertaris','Bendahara', 'Ketua']);
             $table->string('no_induk')->nullable();
+            $table->string('foto');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

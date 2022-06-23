@@ -47,7 +47,7 @@
     </div>
 </div>
 @endif
-<div class="alert alert-info alert-dismissible fade show" role="alert">
+<div class="alert alert-info alert-dismissible fade show col-12" role="alert">
     <b><i class="fas fa-info"></i> INFO !!!</b> <br>
       Data anu di handap nyaeta data peminjaman. mangga konfirmasi pengajuan nu di handap sesuai ketentuan.
       <br> <br> Tombol<b> Lihat</b> nu di pinggir kanan Fungsina kanggo ningal detail data eta, sareng kanggo ngakonfirmasi.
@@ -55,7 +55,7 @@
         <span aria-hidden="true">&times;</span>
       </button>
 </div>
-<section class="content card" style="padding: 10px 10px 10px 10px ">
+<section class="content card col-md-12" style="padding: 10px 10px 10px 10px ">
     <div class="box">
         <h4><i class="nav-icon fas fa-credit-card my-1 btn-sm-1"></i> Pengajuan Bayar Kas</h4>
         <hr>

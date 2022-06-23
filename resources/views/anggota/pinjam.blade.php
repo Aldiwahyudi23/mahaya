@@ -54,7 +54,7 @@
       Pami ngesian alasan, kedah detail sareng lengkap tur jelas <br>
       <br>
       Sateacan nginput kedah paham heula kana syarat & ketentuanna <br>
-      <b> Supados jelas mangga klik deskripsi di handap</b>
+      <b> Supados jelas mangga <a href="/anggaran/3/detail">Klik</a> deskripsi</b>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -66,7 +66,7 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="card">
                             <h6 class="card-header bg-light p-3"><i class="fas fa-credit-card"></i> PINJAMAN KAS</h6>
                             <div class="card-body">
@@ -99,7 +99,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-8">
                         
                             <div class="card-body">
                             <b><i class="fas fa-info"></i> Catatan !!!</b> <br>
@@ -114,7 +114,7 @@
                             - Pembayaran bisa di cicil<br>
                             <br>
                             syarat & ketentuan nu di luhur nembe sebagian <br>
-                            <b> Supados jelas mangga klik deskripsi di handap </b> <br> <br>
+                            <b> Supados jelas mangga <a href="/anggaran/3/detail">Klik</a> deskripsi di handap </b> <br> <br>
 
                             <table class="table" style="margin-top: -10px;">
                                 <tr>

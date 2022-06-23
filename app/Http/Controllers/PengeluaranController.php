@@ -34,6 +34,12 @@ class PengeluaranController extends Controller
         return view('admin.pengeluaran.detail',compact('tarik'));
     }
 
+    public function pengeluaran_detail ()
+    {
+        $pengeluaran_detail = Pengeluaran::all();
+
+        return view('/admin/pengeluaran/detai_pengeluaranl', compact('pengeluaran_detail'));
+    }
     //function untuk tambah
     public function tambah(Request $request)
     {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Pengumuman;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -28,8 +29,9 @@ class HomeController extends Controller
         ->whereNotNull('last_seen')
         ->orderBy('last_seen', 'DESC')
         ->paginate(10);
+        $pengumuman = Pengumuman::first();
 
    
-        return view('home',compact('data_login'));
+        return view('home',compact('data_login','pengumuman'));
     }
 }

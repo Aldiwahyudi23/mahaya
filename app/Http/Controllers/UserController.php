@@ -225,71 +225,24 @@ class UserController extends Controller
     public function edit_profile()
     {
         $user = User::all();
+        $profile = Profile::all();
         return view('user.profile', compact( 'user'));
     }
 
     public function ubah_profile(Request $request)
     {
-        if ($request->role == 'Guru') {
-            $this->validate($request, [
-                'nama_guru' => 'required',
-                'mapel_id' => 'required',
-                'jk' => 'required',
-            ]);
-            $guru = Guru::where('id_card', Auth::user()->id_card)->first();
-            $user = User::where('id_card', Auth::user()->id_card)->first();
-            dd($user);
-            if ($user) {
-                $user_data = [
-                    'name' => $request->name
-                ];
-                $user->update($user_data);
-            } else {
-            }
-            $guru_data = [
-                'nama_guru' => $request->name,
-                'mapel_id' => $request->mapel_id,
-                'jk' => $request->jk,
-                'telp' => $request->telp,
-                'tmp_lahir' => $request->tmp_lahir,
-                'tgl_lahir' => $request->tgl_lahir
-            ];
-            $guru->update($guru_data);
-            return redirect()->route('profile')->with('success', 'Profile anda berhasil diperbarui!');
-        } elseif ($request->role == 'Siswa') {
-            $this->validate($request, [
-                'nama_siswa' => 'required',
-                'jk' => 'required',
-                'kelas_id' => 'required'
-            ]);
-            $siswa = Siswa::where('no_induk', Auth::user()->no_induk)->first();
-            $user = User::where('no_induk', Auth::user()->no_induk)->first();
-            if ($user) {
-                $user_data = [
-                    'name' => $request->name
-                ];
-                $user->update($user_data);
-            } else {
-            }
-            $siswa_data = [
-                'nis' => $request->nis,
-                'nama_siswa' => $request->name,
-                'jk' => $request->jk,
-                'kelas_id' => $request->kelas_id,
-                'telp' => $request->telp,
-                'tmp_lahir' => $request->tmp_lahir,
-                'tgl_lahir' => $request->tgl_lahir,
-            ];
-            $siswa->update($siswa_data);
-            return redirect()->route('profile')->with('success', 'Profile anda berhasil diperbarui!');
-        } else {
-            $user = User::findorfail(Auth::user()->id);
-            $data_user = [
-                'name' => $request->name,
-            ];
-            $user->update($data_user);
-            return redirect()->route('profile')->with('success', 'Profile anda berhasil diperbarui!');
+        $user = auth()->user();
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $nama = 'logo-' . date('YmdHis') . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('/img'), $nama);
+
+            $user->foto = "/img/$nama";
         }
+
+        $user->update();
+
+        return redirect()->back()->with('success', 'Foto Profile anda berhasil diperbarui!!');
     }
 
     public function edit_foto()
@@ -303,33 +256,19 @@ class UserController extends Controller
 
     public function ubah_foto(Request $request)
     {
-        if ($request->role == 'Guru') {
             $this->validate($request, [
                 'foto' => 'required'
             ]);
-            $guru = Guru::where('id_card', Auth::user()->id_card)->first();
+            $profile = Profile::where('id', Auth::user()->id)->first();
             $foto = $request->foto;
             $new_foto = date('s' . 'i' . 'H' . 'd' . 'm' . 'Y') . "_" . $foto->getClientOriginalName();
-            $guru_data = [
-                'foto' => 'uploads/guru/' . $new_foto,
+            $profile_data = [
+                'foto' => 'uploads/user/' . $new_foto,
             ];
-            $foto->move('uploads/guru/', $new_foto);
-            $guru->update($guru_data);
-            return redirect()->route('profile')->with('success', 'Foto Profile anda berhasil diperbarui!');
-        } else {
-            $this->validate($request, [
-                'foto' => 'required'
-            ]);
-            $siswa = Siswa::where('no_induk', Auth::user()->no_induk)->first();
-            $foto = $request->foto;
-            $new_foto = date('s' . 'i' . 'H' . 'd' . 'm' . 'Y') . "_" . $foto->getClientOriginalName();
-            $siswa_data = [
-                'foto' => 'uploads/siswa/' . $new_foto,
-            ];
-            $foto->move('uploads/siswa/', $new_foto);
-            $siswa->update($siswa_data);
+            $foto->move('uploads/user/', $new_foto);
+            $profile->update($profile_data);
             return redirect()->route('profile')->with('success', 'Foto Profile anda berhasil diperbarui!!');
-        }
+    
     }
 
     public function edit_email()

@@ -43,7 +43,7 @@ class PengajuanController extends Controller
 //         $twilio = new Client($sid, $token); 
         
 //         $message = $twilio->messages 
-//                   ->create("whatsapp:+6283817331411", // to 
+//                   ->create("whatsapp:+628325740395", // to 
 //                            array( 
 //                                "from" => "whatsapp:+14155238886",       
 //                                "body" => "Informasi !!!

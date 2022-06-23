@@ -7,15 +7,14 @@
 
 @section('content')
 
-<section class="content card" style="padding: 10px 10px 10px 10px ">
+<section class="content card col-12" style="padding: 10px 10px 10px 10px ">
     <div class="box">
         <h4><i class="nav-icon fas fa-credit-card my-1 btn-sm-1"></i> Data Anggaran</h4>
         <hr>
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-3">
-                        
+           
                             <div class="card-body">
                             <table class="table" style="margin-top: -10px;">
                                 <tr>
@@ -46,52 +45,12 @@
                                 </tr>
 
                             </table>
-                            
-                        </div>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="card">
-                            <div class="card-header bg-light p-2">
-                                <ul class="nav nav-pills">
-                                    <li class="nav-item"><a class="nav-link active btn-sm" href="#setor" data-toggle="tab"><i ></i> Deskripsi</a></li>
-                                    <li class="nav-item"><a class="nav-link btn-sm" href="#anggota" data-toggle="tab"><i ></i> Keterangan</a></li>
-                                </ul>
-                            </div>
-                            <div class="card-body">
-                                <div class="tab-content">
-                                    <!-- Awal data pemasukan -->
-                                    <div class="active tab-pane" id="setor">
-                                        <div class="row">
-                                            <div class="row table-responsive">
-                                                <div class="col-12">
-                                                    <table class="table table-hover table-head-fixed" id='tabelAgendaMasuk'>
+                            <table class="table table-hover table-head-fixed" id='tabelAgendaMasuk'>
                                                         <p> {!! $anggaran->deskripsi !!}</p>
                                                     </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Akhir togle data pemasukan -->
-
-                                    <!-- awal data anggota -->
-                                    <div class="tab-pane" id="anggota">
-                                        <div class="row">
-                                            <div class="row table-responsive">
-                                                <div class="col-12">
-                                                    <table class="table table-hover table-head-fixed" id='tabelAgendaKeluar'>
-                                                      
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.nav-tabs-custom -->
+                            
                         </div>
-                        <!-- /.col -->
-                    </div>
+                    
                 </div><!-- /.container-fluid -->
         </section>
     </div>
