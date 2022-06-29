@@ -20,7 +20,8 @@ class CreatePengeluaranTable extends Migration
             $table->integer('anggaran_id')->unsigned();
             $table->date('tanggal');
             $table->integer('jumlah');
-            $table->string('keterangan');
+            $table->string('keterangan'); 
+            $table->string('status'); 
             $table->timestamps();
         });
     }

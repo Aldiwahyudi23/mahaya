@@ -5,28 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Anggaran extends Model
+class Bayar_Pinjam extends Model
 {
     use HasFactory;
 
-    protected $table = 'anggaran';
+    protected $table = "bayar_pinjam";
     protected $fillable = [
         'id',
-        'nama_anggaran',
-        'program_id',
-        'deskripsi',
-        'nominal_max_anggaran',
-        'persen',
-        'max_orang',
+        'pengeluaran_id',
+        'jumlah_bayar',
+        'pembayaran'
     ];
 
-    public function program()
+    public function pengeluaran()
     {
-      return $this->belongsTo('App\Models\program');
+      return $this->hasOne('App\Models\Pengeluaran');
     }
   
     public function users()
     {
       return $this->belongsTo('App\Models\User');
     }
+  
 }

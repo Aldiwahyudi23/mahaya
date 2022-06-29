@@ -2,7 +2,7 @@
 
 @section('heading', 'Anggaran')
 @section('page')
-  <li class="breadcrumb-item active">Anggaran</li>
+<li class="breadcrumb-item active">Anggaran</li>
 @endsection
 
 @section('content')
@@ -71,7 +71,19 @@
                                         <label for="nama_anggaran">Anggaran</label>
                                         <input value="{{$anggaran->nama_anggaran}}" name="nama_anggaran" type="text" class="form-control bg-light" id="nama_anggaran" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
                                     </div>
-                               
+                                    <div class="form-group row">
+                                        <label for="max_orang">Max. Jalmi Nu minjem</label>
+                                        <input value="{{$anggaran->max_orang}}" name="max_orang" type="text" class="form-control bg-light" id="max_orang">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="nominal_max_anggaran"> Nominal Max bisa di keluarkan</label>
+                                        <input value="{{$anggaran->nominal_max_anggaran}}" name="nominal_max_anggaran" type="text" class="form-control bg-light" id="nominal_max_anggaran" >
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="persen">Pemberian Nominal Anggaran (%)</label>
+                                        <input value="{{$anggaran->persen}}" name="persen" type="text" class="form-control bg-light" id="persen" >
+                                    </div>
+
                                     <div class="form-group row">
                                         <label for="deskripsi">Deskripsi</label>
                                         <textarea name="deskripsi" class="textarea @error('isi') is-invalid @enderror" id="deskripsi" rows="3" placeholder="Eusian deskripsi ieu sesuai deskripsi artos anu di bayarkeun" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">{{$anggaran->deskripsi}}</textarea>
@@ -114,10 +126,10 @@
                                                                 <td>{{$no}}</td>
                                                                 <td>{{$anggaran->nama_anggaran}}</td>
                                                                 <td>
-                                                                    <a href="/anggaran/{{$anggaran->id}}/detail"  class=""><i class="nav-icon fas fa-book"></i></a>
+                                                                    <a href="/anggaran/{{$anggaran->id}}/detail" class=""><i class="nav-icon fas fa-book"></i></a>
                                                                 </td>
                                                                 <td>
-                                                                    <a href="/anggaran/{{$anggaran->id}}/edit/" class=""><i class="nav-icon fas fa-pencil-alt"></i></a> 
+                                                                    <a href="/anggaran/{{$anggaran->id}}/edit/" class=""><i class="nav-icon fas fa-pencil-alt"></i></a>
                                                                 </td>
                                                                 <td>
                                                                     @if (auth()->user()->role == 'Admin')
@@ -140,7 +152,7 @@
                                             <div class="row table-responsive">
                                                 <div class="col-12">
                                                     <table class="table table-hover table-head-fixed" id='tabelAgendaKeluar'>
-                                                      
+
                                                     </table>
                                                 </div>
                                             </div>
@@ -160,7 +172,7 @@
 
 @endsection
 @section('script')
-    <script>
-        $("#Pemasukan").addClass("active");
-    </script>
+<script>
+    $("#Pemasukan").addClass("active");
+</script>
 @endsection

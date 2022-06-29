@@ -26,6 +26,9 @@ class AnggaranController extends Controller
         $data_anggaranr->nama_anggaran          = $request->input('nama_anggaran');
         $data_anggaranr->program_id             = $request->input('program_id');
         $data_anggaranr->deskripsi              = $request->input('deskripsi');
+        $data_anggaranr->persen              = $request->input('persen');
+        $data_anggaranr->max_orang              = $request->input('max_orang');
+        $data_anggaranr->nominal_max_anggaran              = $request->input('nominal_max_anggaran');
         $data_anggaranr->save();
         $anggaranr = Anggaran::find($data_anggaranr->id);
         return redirect()->back()->with('sukses', 'Data Anggaran Parantos Ka tambahkeun kana data');
@@ -48,7 +51,7 @@ class AnggaranController extends Controller
       $anggaran = Anggaran::find($id);
       $anggaran->update($request->all());
       $anggaran->save();
-       return redirect('anggaran')->with('sukses', 'Data anggaran Kas atos tiasa di edit');
+       return redirect()->back()->with('sukses', 'Data anggaran Kas atos tiasa di edit');
     }
 
     public function detail($id) {

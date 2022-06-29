@@ -31,7 +31,6 @@
                                     <tr>
                                         <th>No.</th>
                                         <th>Tanggal</th>
-                                        <th>Nama Anggota</th>
                                         <th>Jumlah</th>
                                         <th>Keterangan</th>
                                     </tr>
@@ -41,7 +40,6 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $data->tanggal }}</td>
-                                            <td>{{ $data->anggota->name }}</td>
                                             <td>{{ $data->jumlah }}</td>
                                             <td>{{ $data->keterangan }}</td>
                                          

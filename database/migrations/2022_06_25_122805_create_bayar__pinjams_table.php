@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAnggaranTable extends Migration
+class CreateBayarPinjamsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateAnggaranTable extends Migration
      */
     public function up()
     {
-        Schema::create('anggaran' ,function(Blueprint $table){
+        Schema::create('bayar_pinjam', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama_anggaran');
-            $table->string('deskripsi');
-            $table->string('program_id');
-            $table->string('nominal_max_anggaran')->nullable();
-            $table->string('persen')->nullable();
-            $table->string('max_orang')->nullable();
+            $table->foreignId('pengeluaran_id');
+            $table->integer('jumlah_bayar');
+            $table->string('pembayaran');
+            $table->string('keterangan');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateAnggaranTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('anggaran');
+        Schema::dropIfExists('bayar_pinjam');
     }
 }

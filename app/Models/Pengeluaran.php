@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Bayar_Pinjam;
 
 class Pengeluaran extends Model
 {
@@ -17,9 +18,14 @@ class Pengeluaran extends Model
         'tanggal',
         'jumlah',
         'keterangan',
+        'status',
 
     ];
 
+    public function pinjaman()
+    {
+      return $this->belongsTo('App\Models\Bayar_Pinjam');
+    }
     public function anggaran()
     {
       return $this->belongsTo('App\Models\Anggaran');

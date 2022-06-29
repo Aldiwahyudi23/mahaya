@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Anggaran;
 use App\Models\Pemasukan;
 use App\Models\Pengajuan;
+use App\Models\Bayar_Pinjam;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Twilio\Rest\Client; 
@@ -147,7 +148,7 @@ class PengeluaranController extends Controller
          }
      // End Admin
 
-     // Pengajuan
+     // Pengajuan pinjaman
     public function pengajuan () {
         $data_pengajuan = Pengajuan::where('kategori',3)->get();
         $data_anggota = User::orderByRaw('name ASC')->get();
@@ -173,6 +174,7 @@ class PengeluaranController extends Controller
         $data_setor->jumlah              = $request->input('jumlah');
         $data_setor->keterangan          = $request->input('keterangan');
         $data_setor->anggaran_id         = $request->input('kategori');
+        $data_setor->status              = 'Nunggak';
         $data_setor->pengurus_id         = Auth::id();
         $data_setor->save();
         $setor = Pengeluaran::find($data_setor->id);
@@ -216,6 +218,76 @@ class PengeluaranController extends Controller
 
 
         return redirect('/pengajuan/pinjam/anggota')->with('sukses', 'Data Pinjaman atos di Setujui');
+    }
+    // bayar pinjam
+    // Pengajuan pinjaman
+    public function bayar_pinjam()
+    {
+        $data_pengajuan = Pengajuan::where('kategori', 'bayar_pinjaman')->get();
+        $data_anggota = User::orderByRaw('name ASC')->get();
+        return view('admin.pengeluaran.pengajuan', compact('data_pengajuan', 'data_anggota'));
+    }
+    public function bayar_pinjam_lihat($id)
+    {
+        $data_setor = Pengajuan::orderByRaw('created_at DESC')->get();
+        $data_anggota = User::orderByRaw('name ASC')->get();
+        $setor = Pengajuan::find($id);
+
+        return view('admin.pengeluaran.pengajuan_lihat', compact('setor', 'data_setor', 'data_anggota'));
+    }
+
+
+    public function bayar_pinjam_tambah(Request $request)
+    {
+        $request->validate([
+            'jumlah' => 'numeric',
+        ]);
+        $data_bayar = new Bayar_Pinjam();
+        $data_bayar->pembayaran          = $request->input('pembayaran');
+        $data_bayar->pengeluaran_id             = $request->input('pengeluaran_id');
+        $data_bayar->jumlah_bayar              = $request->input('jumlah');
+        $data_bayar->save();
+        $bayar = Bayar_Pinjam::find($data_bayar->id);
+        // sekalian hapus data
+        $pengajuan = Pengajuan::find($request->id_pengajuan);
+        $pengajuan->delete();
+
+        //         $sid    = ""; 
+        //         $token  = ""; 
+        //         $twilio = new Client($sid, $token); 
+        //         // ketua
+        //         $message = $twilio->messages 
+        //                   ->create("whatsapp:+6281316563786", // to 
+        //                            array( 
+        //                                "from" => "whatsapp:+14155238886",       
+        //                                "body" => "Laporan !!!
+
+        // Aya anu atos bayar uang kas. Atos di konfirmasi ku bendahara sareng data tos masuk.
+
+        // Jumlah na : {$request->jumlah} 
+        // Keterangan : {$request->keterangan}
+
+        // Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/pemasukan/setor/",
+        //                            ) 
+        //                   ); 
+        //         // Sekertaris
+        //         $message = $twilio->messages 
+        //                   ->create("whatsapp:+6283825740395", // to 
+        //                            array( 
+        //                                "from" => "whatsapp:+14155238886",       
+        //                                "body" => "Laporan !!!
+
+        // Aya anu atos bayar uang kas. Atos di konfirmasi ku bendahara sareng data tos masuk. Supados pasti mangga cek deui datana
+
+        // Jumlah na : {$request->jumlah} 
+        // Keterangan : {$request->keterangan}
+
+        // Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/pemasukan/setor/",
+        //                            ) 
+        //                   ); 
+
+
+        return redirect()->back()->with('sukses', 'Pembayaran dana pinjaman atos masuk');
     }
 
 }

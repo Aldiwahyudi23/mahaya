@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bayar_Pinjam;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -272,6 +275,91 @@ class PemasukanController extends Controller
 //                   ); 
 
         return redirect('/pengajuan/setor/anggota')->with('sukses', 'Data Pembayaran Kas Parantos Ka tambahkeun kana data');
+    }
+
+
+    // bayar pinjam
+    public function bayar_pinjam()
+    {
+        $data_pengajuan = Pengajuan::where('kategori', 'bayar_pinjaman')->get();
+        $data_anggota = User::orderByRaw('name ASC')->get();
+        return view('admin.pemasukan.bayar_pinjaman', compact('data_pengajuan', 'data_anggota'));
+    }
+    public function bayar_pinjam_lihat($id)
+    {
+        $data_setor = Pengajuan::orderByRaw('created_at DESC')->get();
+        $data_anggota = User::orderByRaw('name ASC')->get();
+        $setor = Pengajuan::find($id);
+
+        return view('admin.pemasukan.bayar_pinjaman_lihat', compact('setor', 'data_setor', 'data_anggota'));
+    }
+
+
+    public function bayar_pinjam_tambah(Request $request)
+    {
+        $request->validate([
+            'jumlah' => 'numeric',
+        ]);
+        $data_bayar = new Bayar_Pinjam();
+        $data_bayar->pembayaran          = $request->input('pembayaran');
+        $data_bayar->pengeluaran_id             = $request->input('pengeluaran_id');
+        $data_bayar->jumlah_bayar              = $request->input('jumlah');
+        $data_bayar->keterangan              = $request->input('keterangan');
+        $data_bayar->save();
+        $bayar = Bayar_Pinjam::find($data_bayar->id);
+
+        // Sekalian Edit pengeluaran
+        $data_pinjaman = Pengeluaran::find($request->pengeluaran_id);
+        $setor = Pengeluaran::findorfail($request->pengeluaran_id);
+        if ($request->proses + $request->jumlah == $data_pinjaman->jumlah)
+        {
+                $setor_data = [
+                    'status' => 'Lunas'
+                ];
+                $setor->update($setor_data);
+            }else {
+         
+        }
+        // sekalian hapus data
+        $pengajuan = Pengajuan::find($request->id_pengajuan);
+        $pengajuan->delete();
+
+        //         $sid    = ""; 
+        //         $token  = ""; 
+        //         $twilio = new Client($sid, $token); 
+        //         // ketua
+        //         $message = $twilio->messages 
+        //                   ->create("whatsapp:+6281316563786", // to 
+        //                            array( 
+        //                                "from" => "whatsapp:+14155238886",       
+        //                                "body" => "Laporan !!!
+
+        // Aya anu atos bayar uang kas. Atos di konfirmasi ku bendahara sareng data tos masuk.
+
+        // Jumlah na : {$request->jumlah} 
+        // Keterangan : {$request->keterangan}
+
+        // Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/pemasukan/setor/",
+        //                            ) 
+        //                   ); 
+        //         // Sekertaris
+        //         $message = $twilio->messages 
+        //                   ->create("whatsapp:+6283825740395", // to 
+        //                            array( 
+        //                                "from" => "whatsapp:+14155238886",       
+        //                                "body" => "Laporan !!!
+
+        // Aya anu atos bayar uang kas. Atos di konfirmasi ku bendahara sareng data tos masuk. Supados pasti mangga cek deui datana
+
+        // Jumlah na : {$request->jumlah} 
+        // Keterangan : {$request->keterangan}
+
+        // Kanggo ningal laporanna klik wae link  ieu http://kaskeluarga.royaldi21.com/pemasukan/setor/",
+        //                            ) 
+        //                   ); 
+
+
+        return redirect('/pengajuan/bayar/anggota')->with('sukses', 'Pembayaran dana pinjaman atos masuk');
     }
 
 }

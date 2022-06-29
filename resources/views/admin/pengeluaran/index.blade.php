@@ -2,7 +2,7 @@
 
 @section('heading', 'Peminjaman')
 @section('page')
-  <li class="breadcrumb-item active">Peminjaman</li>
+<li class="breadcrumb-item active">Peminjaman</li>
 @endsection
 
 @section('content')
@@ -48,17 +48,34 @@
 @endif
 <div class="alert alert-info alert-dismissible fade show col-md-12" role="alert">
     <b><i class="fas fa-info"></i> INFO !!!</b> <br>
-      - Mangga input peminjaman di handap sesuai kebutuhan <br>
-      - hasil input masih tina pengajuan, kantun ngantosan konfirmasi <br>
-      <b> Alasan : </b><br>
-      Pami ngesian alasan, kedah detail sareng lengkap tur jelas <br>
-      <br>
-      Sateacan nginput kedah paham heula kana syarat & ketentuanna <br>
-      <b> Supados jelas mangga <a href="/anggaran/3/detail">Klik</a> deskripsi</b>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    - Mangga input peminjaman di handap sesuai kebutuhan <br>
+    - hasil input masih tina pengajuan, kantun ngantosan konfirmasi <br>
+    <b> Alasan : </b><br>
+    Pami ngesian alasan, kedah detail sareng lengkap tur jelas <br>
+    <br>
+    Sateacan nginput kedah paham heula kana syarat & ketentuanna <br>
+    <b> Supados jelas mangga <a href="/anggaran/3/detail">Klik</a> deskripsi</b>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
-      </button>
+    </button>
 </div>
+<?php
+// Pemasukan
+
+use App\Models\Pengeluaran;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+$anggaran_pinjaman = DB::table('anggaran')->find(3); // mengambil data anggaraan
+$jumlah_pemasukan = DB::table('pemasukan')
+    ->sum('pemasukan.jumlah');
+$jumlah_pemasukan_asli = $jumlah_pemasukan - 362500; //Jumlah semua pemasukan
+$pinjam = $jumlah_pemasukan_asli * 20 / 100; // Menghitung Jumlah anggaran pinjaman dari semua pemasukan
+$jatah = $pinjam * $anggaran_pinjaman->persen / 100;
+$pengeluaran_pinjaman = DB::table('pengeluaran')->where('anggaran_id', 3) //Jumlah uang  yang sudah di pinjam
+    ->sum('pengeluaran.jumlah');
+
+?>
 <section class="content card" style="padding: 10px 10px 10px 10px ">
     <div class="box">
         <h4><i class="nav-icon fas fa-credit-card my-1 btn-sm-1"></i> Pinjam Uang Kas</h4>
@@ -68,7 +85,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card">
-                            
+
                             @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Sekertaris' )
                             <div class="card-header bg-light p-2">
                                 <ul class="nav nav-pills">
@@ -104,13 +121,37 @@
                                                                         <span class="input-group-text">.00</span>
                                                                     </div>
                                                                 </div>
+                                                                @if ($pinjam-$pengeluaran_pinjaman >= 1000000)
+                                                                <span class="text-danger" style="font-size: 10px">Jatah perorang 30 % tina jumlah sadayana anggaran pinjaman yaeta {{"Rp" . number_format($jatah,2,',','.')}}, teu kengeng ngalebihi.</span>
+                                                                @else
+                                                                <span class="text-danger" style="font-size: 10px">Saldo Anggaran pinjaman nembe {{"Rp" . number_format($pinjam - $pengeluaran_pinjaman,2,',','.')}}, </span>
+                                                                @endif
                                                             </div>
                                                             <div class="form-group row">
                                                                 <label for="keterangan">Alasan</label>
                                                                 <textarea name="keterangan" class="form-control bg-light" id="keterangan" rows="3" placeholder=" Alasan ieu esian sesuai alasan minjem dana pinjam" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">{{old('keterangan')}}</textarea>
                                                             </div>
                                                             <hr>
-                                                            <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> PINJAM</button>
+                                                            <?php
+                                                            $status = DB::table('pengeluaran')->where('status', 'Nunggak')->count();
+
+                                                            $status4 = DB::table('pengeluaran')->where('anggota_id', Auth::user()->id)->get();
+                                                            $status5 = $status4->where('status', 'Nunggak')->count();
+                                                            ?>
+                                                            @if ($pinjam-$pengeluaran_pinjaman >= $anggaran_pinjaman->nominal_max_anggaran && $status <= $anggaran_pinjaman->max_orang && $status5==0 ) <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> PINJAM</button> <br>
+                                                                <span class="text-danger" style="font-size: 10px">Kouta pinjaman anggaran kas keluaraga maxsimal 3 orang, ayeuna Kouta pinjaman nembe {{$status}} orang</span>
+                                                                @else
+                                                                @if ($pinjam-$pengeluaran_pinjaman <= $anggaran_pinjaman->nominal_max_anggaran) <button type="submit" class="btn btn-success btn-sm" disabled><i class="fas fa-save"></i> Saldo Teu Acan Cukup </button> <br>
+                                                                    <span class="text-danger" style="font-size: 10px">Saldo Anggaran Pinjamanna masih kurang ti min pengluaran anggaran dana pinjam, pami atos min. Sajuta tiasa </span>
+                                                                    @elseif ($status5 == 1)
+                                                                    <button type="submit" class="btn btn-success btn-sm" disabled><i class="fas fa-save"></i> Punten Anjen Masih Gaduh Tunggakan</button> <br>
+                                                                    <span class="text-danger" style="font-size: 10px">Punten, Lunasan heula Tunggakananna pami bade ngajukeun deui </span>
+                                                                    @elseif ($status >= $anggaran_pinjaman->max_orang)
+                                                                    <button type="submit" class="btn btn-success btn-sm" disabled><i class="fas fa-save"></i> Kouta pinjaman tos pinuh</button> <br>
+                                                                    <span class="text-danger" style="font-size: 10px">Kouta pinjaman anggaran kas keluaraga maxsimal 3 orang, ayeuna Kouta pinjaman atos pinuh</span>
+
+                                                                    @endif
+                                                                    @endif
                                                         </form>
                                                     </div>
                                                 </div>
@@ -128,7 +169,7 @@
                                                         <form action="/pengeluaran/tarik/tambah" method="POST" enctype="multipart/form-data">
                                                             {{csrf_field()}}
                                                             <div class="form-group row" id="noId">
-                                                                
+
                                                             </div>
                                                             <div class="form-group row">
                                                                 <label for="anggaran_id">Anggaran</label>
@@ -191,21 +232,45 @@
                                                 <span class="input-group-text">.00</span>
                                             </div>
                                         </div>
+                                        @if ($pinjam-$pengeluaran_pinjaman >= 1000000)
+                                        <span class="text-danger" style="font-size: 10px">Jatah perorang 30 % tina jumlah sadayana anggaran pinjaman yaeta {{"Rp" . number_format($jatah,2,',','.')}}, teu kengeng ngalebihi.</span>
+                                        @else
+                                        <span class="text-danger" style="font-size: 10px">Saldo Anggaran pinjaman nembe {{"Rp" . number_format($pinjam - $pengeluaran_pinjaman,2,',','.')}}, </span>
+                                        @endif
                                     </div>
                                     <div class="form-group row">
                                         <label for="keterangan">Alasan</label>
                                         <textarea name="keterangan" class="form-control bg-light" id="keterangan" rows="3" placeholder=" Alasan ieu esian sesuai alasan minjem dana pinjam" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">{{old('keterangan')}}</textarea>
                                     </div>
                                     <hr>
-                                    <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> PINJAM</button>
+                                    <?php
+                                    $status = DB::table('pengeluaran')->where('status', 'Nunggak')->count();
+
+                                    $status4 = DB::table('pengeluaran')->where('anggota_id', Auth::user()->id)->get();
+                                    $status5 = $status4->where('status', 'Nunggak')->count();
+                                    ?>
+                                    @if ($pinjam-$pengeluaran_pinjaman >= $anggaran_pinjaman->nominal_max_anggaran && $status <= $anggaran_pinjaman->max_orang && $status5==0 ) <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> PINJAM</button> <br>
+                                        <span class="text-danger" style="font-size: 10px">Kouta pinjaman anggaran kas keluaraga maxsimal 3 orang, ayeuna Kouta pinjaman nembe {{$status}} orang</span>
+                                        @else
+                                        @if ($pinjam-$pengeluaran_pinjaman <= $anggaran_pinjaman->nominal_max_anggaran) <button type="submit" class="btn btn-success btn-sm" disabled><i class="fas fa-save"></i> Saldo Teu Acan Cukup </button> <br>
+                                            <span class="text-danger" style="font-size: 10px">Saldo Anggaran Pinjamanna masih kurang ti min pengluaran anggaran dana pinjam, pami atos min. Sajuta tiasa </span>
+                                            @elseif ($status5 == 1)
+                                            <button type="submit" class="btn btn-success btn-sm" disabled><i class="fas fa-save"></i> Punten Anjen Masih Gaduh Tunggakan</button> <br>
+                                            <span class="text-danger" style="font-size: 10px">Punten, Lunasan heula Tunggakananna pami bade ngajukeun deui </span>
+                                            @elseif ($status >= $anggaran_pinjaman->max_orang)
+                                            <button type="submit" class="btn btn-success btn-sm" disabled><i class="fas fa-save"></i> Kouta pinjaman tos pinuh</button> <br>
+                                            <span class="text-danger" style="font-size: 10px">Kouta pinjaman anggaran kas keluaraga maxsimal 3 orang, ayeuna Kouta pinjaman atos pinuh</span>
+
+                                            @endif
+                                            @endif
                                 </form>
                             </div>
                             @endif
                         </div>
                     </div>
                     <div class="col-md-8">
-                        
-                            <div class="card-body">
+
+                        <div class="card-body">
                             <b><i class="fas fa-info"></i> Catatan !!!</b> <br>
                             <b> Syarat : </b><br>
                             - Bertanggung jawab <br>
@@ -237,8 +302,8 @@
                                     <td>Supriatna</td>
                                 </tr>
                                 @php
-                                    $bulan = date('m');
-                                    $tahun = date('Y');
+                                $bulan = date('m');
+                                $tahun = date('Y');
                                 @endphp
                                 <tr>
                                 <tr>
@@ -246,16 +311,16 @@
                                     <td>:</td>
                                     <td>
                                         @if ($bulan > 5)
-                                            {{ $tahun }}/{{ $tahun+1 }}
+                                        {{ $tahun }}/{{ $tahun+1 }}
                                         @else
-                                            {{ $tahun-1 }}/{{ $tahun }}
+                                        {{ $tahun-1 }}/{{ $tahun }}
                                         @endif
                                     </td>
                                 </tr>
-                                    
-                                </table>
-                              
-                            
+
+                            </table>
+
+
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -277,36 +342,49 @@
                                                         <thead>
                                                             <tr class="bg-light">
                                                                 <th>No.</th>
+                                                                <th>Ket.</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Jumlah</th>
+                                                                <th></th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <?php 
-                                                            $no = 0; 
+                                                            <?php
+                                                            $no = 0;
                                                             ?>
                                                             @php
-                                                                $total = 0;
+                                                            $total = 0;
                                                             @endphp
                                                             @foreach($data_pinjam as $pinjam)
-                                                            <?php $no++; ?>
+                                                            <?php $no++;
+                                                            $status2 = DB::table('pengeluaran')->find($pinjam->id);
+                                                            ?>
                                                             <tr>
                                                                 <td>{{$no}}</td>
+                                                                <td>
+                                                                    <a href="/pemasukan/bayar/{{$pinjam->id}}/pinjaman/" class="">
+                                                                        @if ( $status2->status == 'Lunas')
+                                                                        <i class="btn btn-success "> LUNAS </i>
+                                                                        @else
+                                                                        <i class=" btn btn-warning "> Bayar </i>
+                                                                        @endif
+                                                                        </i></a>
+                                                                </td>
                                                                 <td>{{$pinjam->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($pinjam->jumlah,2,',','.') }}</td>
                                                             </tr>
-                                                        
+
                                                             @php
                                                             $total += $pinjam->jumlah;
                                                             @endphp
-                                                        @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th colspan="2" class="text-center"><b>Total</b></th>
-                                                            <th colspan="1"><b>{{ "Rp " . number_format( $total,2,',','.') }}</b></th>
-                                                        </tr>
-                                                    </tfoot>
+                                                            @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th colspan="2" class="text-center"><b>Total</b></th>
+                                                                <th colspan="1"><b>{{ "Rp " . number_format( $total,2,',','.') }}</b></th>
+                                                            </tr>
+                                                        </tfoot>
                                                     </table>
                                                 </div>
                                             </div>
@@ -336,16 +414,16 @@
 
                     <div class="col-md-12">
                         <div class="card">
-                        
+
                             <div class="card-header bg-light p-2">
-                            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                <b><i class="fas fa-info"></i> Laporan !!!</b> <br>
-                                Sadayana laporan pengluaran tiasa di tingal di handap <br>
-                                Supados jelas mangga klik pilihan di handap
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                    <b><i class="fas fa-info"></i> Laporan !!!</b> <br>
+                                    Sadayana laporan pengluaran tiasa di tingal di handap <br>
+                                    Supados jelas mangga klik pilihan di handap
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
                                 <ul class="nav nav-pills">
                                     <li class="nav-item"><a class="nav-link active btn-sm" href="#setor" data-toggle="tab"><i class="fas fa-credit-card"></i> Data Pengluaran</a></li>
                                     <li class="nav-item"><a class="nav-link btn-sm" href="#darura" data-toggle="tab"><i class=""></i> Data Darurat</a></li>
@@ -355,7 +433,8 @@
                                     <li class="nav-item"><a class="nav-link btn-sm" href="#acar" data-toggle="tab"><i class=""></i> Data Acara</a></li>
                                     <li class="nav-item"><a class="nav-link btn-sm" href="#lai" data-toggle="tab"><i class=""></i> Data Lain-Lain</a></li>
                                 </ul>
-                            </div><div class="card-body">
+                            </div>
+                            <div class="card-body">
                                 <div class="tab-content">
                                     <!-- seluruh data penarikan -->
                                     <div class="active tab-pane" id="setor">
@@ -394,7 +473,7 @@
                                         <div class="row">
                                             <div class="row table-responsive">
                                                 <div class="col-12">
-                                                <table class="table table-hover table-head-fixed" id='tabelAgendaMasuk'>
+                                                    <table class="table table-hover table-head-fixed" id='tabelAgendaMasuk'>
                                                         <thead>
                                                             <tr class="bg-light">
                                                                 <th>No.</th>
@@ -433,12 +512,12 @@
                                         </div>
 
                                     </div>
-                                     <!-- awal data amal -->
-                                     <div class="tab-pane" id="ama">
+                                    <!-- awal data amal -->
+                                    <div class="tab-pane" id="ama">
                                         <div class="row">
                                             <div class="row table-responsive">
                                                 <div class="col-12">
-                                                <table class="table table-hover table-head-fixed" id='tabelAgendaAmal'>
+                                                    <table class="table table-hover table-head-fixed" id='tabelAgendaAmal'>
                                                         <thead>
                                                             <tr class="bg-light">
                                                                 <th>No.</th>
@@ -455,7 +534,7 @@
                                                                 <td>{{$no}}</td>
                                                                 <td>{{$tarik->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
-                                                                                                                             <td>
+                                                                <td>
                                                                     <a href="/pengeluaran/tarik/{{$tarik->id}}/detail" class=""><i class="nav-icon fas fa-book"></i></a>
                                                                 </td>
                                                                 @if (auth()->user()->role == 'Admin' || auth()->user()->role == 'Sekertaris')
@@ -476,12 +555,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                      <!-- awal data pinjam -->
-                                      <div class="tab-pane" id="pinja">
+                                    <!-- awal data pinjam -->
+                                    <div class="tab-pane" id="pinja">
                                         <div class="row">
                                             <div class="row table-responsive">
                                                 <div class="col-12">
-                                                <table class="table table-hover table-head-fixed" id='tabelAgendaAmal'>
+                                                    <table class="table table-hover table-head-fixed" id='tabelAgendaAmal'>
                                                         <thead>
                                                             <tr class="bg-light">
                                                                 <th>No.</th>
@@ -500,7 +579,7 @@
                                                                 <td>{{$tarik->anggota->name}}</td>
                                                                 <td>{{$tarik->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
-                                                                                                                             <td>
+                                                                <td>
                                                                     <a href="/pengeluaran/tarik/{{$tarik->id}}/detail" class=""><i class="nav-icon fas fa-book"></i></a>
                                                                 </td>
                                                                 @if (auth()->user()->role == 'Admin' || auth()->user()->role == 'Sekertaris')
@@ -521,18 +600,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                      <!-- awal data usaha -->
-                                            <div class="tab-pane" id="usah">
+                                    <!-- awal data usaha -->
+                                    <div class="tab-pane" id="usah">
                                         <div class="row">
                                             <div class="row table-responsive">
                                                 <div class="col-12">
-                                                <table class="table table-hover table-head-fixed" id='tabelAgendaAmal'>
+                                                    <table class="table table-hover table-head-fixed" id='tabelAgendaAmal'>
                                                         <thead>
                                                             <tr class="bg-light">
                                                                 <th>No.</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Jumlah</th>
-                                                                
+
                                                                 <th>Aksi</th>
                                                             </tr>
                                                         </thead>
@@ -544,7 +623,7 @@
                                                                 <td>{{$no}}</td>
                                                                 <td>{{$tarik->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
-                                                                                                                             <td>
+                                                                <td>
                                                                     <a href="/pengeluaran/tarik/{{$tarik->id}}/detail" class=""><i class="nav-icon fas fa-book"></i></a>
                                                                 </td>
                                                                 @if (auth()->user()->role == 'Admin' || auth()->user()->role == 'Sekertaris')
@@ -565,18 +644,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                      <!-- awal data acara -->
-                                            <div class="tab-pane" id="acar">
+                                    <!-- awal data acara -->
+                                    <div class="tab-pane" id="acar">
                                         <div class="row">
                                             <div class="row table-responsive">
                                                 <div class="col-12">
-                                                <table class="table table-hover table-head-fixed" id='tabelAgendaAmal'>
+                                                    <table class="table table-hover table-head-fixed" id='tabelAgendaAmal'>
                                                         <thead>
                                                             <tr class="bg-light">
                                                                 <th>No.</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Jumlah</th>
-                                                                
+
                                                                 <th>Aksi</th>
                                                             </tr>
                                                         </thead>
@@ -588,7 +667,7 @@
                                                                 <td>{{$no}}</td>
                                                                 <td>{{$tarik->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
-                                                                                                                             <td>
+                                                                <td>
                                                                     <a href="/pengeluaran/tarik/{{$tarik->id}}/detail" class=""><i class="nav-icon fas fa-book"></i></a>
                                                                 </td>
                                                                 @if (auth()->user()->role == 'Admin' || auth()->user()->role == 'Sekertaris')
@@ -609,18 +688,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                      <!-- awal data laian-laian -->
-                                            <div class="tab-pane" id="lai">
+                                    <!-- awal data laian-laian -->
+                                    <div class="tab-pane" id="lai">
                                         <div class="row">
                                             <div class="row table-responsive">
                                                 <div class="col-12">
-                                                <table class="table table-hover table-head-fixed" id='tabelAgendaAmal'>
+                                                    <table class="table table-hover table-head-fixed" id='tabelAgendaAmal'>
                                                         <thead>
                                                             <tr class="bg-light">
                                                                 <th>No.</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Jumlah</th>
-                                                                
+
                                                                 <th>Aksi</th>
                                                             </tr>
                                                         </thead>
@@ -632,7 +711,7 @@
                                                                 <td>{{$no}}</td>
                                                                 <td>{{$tarik->tanggal}}</td>
                                                                 <td>{{ "Rp " . number_format($tarik->jumlah,2,',','.') }}</td>
-                                                                                                                             <td>
+                                                                <td>
                                                                     <a href="/pengeluaran/tarik/{{$tarik->id}}/detail" class=""><i class="nav-icon fas fa-book"></i></a>
                                                                 </td>
                                                                 @if (auth()->user()->role == 'Admin' || auth()->user()->role == 'Sekertaris')
@@ -666,7 +745,7 @@
 
 @endsection
 @section('script')
-    <script>
-        $("#Peminjaman").addClass("active");
-    </script>
+<script>
+    $("#Peminjaman").addClass("active");
+</script>
 @endsection

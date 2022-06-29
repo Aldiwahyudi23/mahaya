@@ -36,9 +36,14 @@ Route::post('/admin/pengumuman/simpan', [PengumumanController::class,'simpan'])-
 // data detail
 Route::get('/pengeluaran/detail', [PengeluaranController::class,'pengeluaran_detail']);
 Route::get('/pemasukan/detail', [PemasukanController::class,'pemasukan_detail']);
+// bayar pinjaman
+Route::get('/pemasukan/bayar/{id}/pinjaman',[PengajuanController::class,'bayar_pinjaman']);
+Route::post('/pemasukan/bayar/pinjaman',[PengajuanController::class,'bayar_pinjam_tambah']);
+
+
 
 Route::get('anggaran/{id}/detail', [AnggaranController::class,'detail']);
-
+// profile
 Route::get('/profile', [UserController::class,'profile'])->name('profile');
 Route::get('/pengaturan/profile', [UserController::class,'edit_profile'])->name('pengaturan.profile');
 Route::post('/pengaturan/ubah-profile', [UserController::class,'ubah_profile'])->name('pengaturan.ubah-profile');
@@ -97,6 +102,10 @@ Route::group(['middleware' => ['auth', 'checkRole:Admin,Bendahara,Sekertaris,Ket
     route::get('pengajuan/pinjam/anggota',[PengeluaranController::class, 'pengajuan'])->name('pengajuan.pinjaman.anggota');
     route::get('pengajuan/pinjam/anggota/{id}/lihat',[PengeluaranController::class, 'pengajuan_lihat']);
     Route::post('pengajuan/pinjam/anggota/tambah',[PengeluaranController::class,'pengajuan_tambah']);
+ 
+    route::get('pengajuan/bayar/anggota',[PemasukanController::class, 'bayar_pinjam'])->name('bayar_pinjam.anggota');
+    route::get('pengajuan/bayar/anggota/{id}/lihat',[PemasukanController::class, 'bayar_pinjam_lihat']);
+    Route::post('pengajuan/bayar/anggota/tambah',[PemasukanController::class,'bayar_pinjam_tambah']);
 
    
 });

@@ -1,28 +1,39 @@
 @extends('template_backend.home')
 @section('heading', 'Dashboard')
 @section('page')
-  <li class="breadcrumb-item active">Dashboard</li>
+<li class="breadcrumb-item active">Dashboard</li>
 @endsection
 @section('content')
-    <div class="col-md-12">
-      <div class="card card-warning" style="min-height: 385px;">
-        <div class="card-header">
-          <h3 class="card-title" style="color: white;">
-            Pengumuman
-          </h3>
-        </div>
-        <div class="card-body table-responsive">
-          <div class="tab-content p-0">
-              <!-- isi pengumuman -->
-              
-            {!! $pengumuman->isi !!}
-          </div>
-        </div>
+@if(session('sukses'))
+<div class="container">
+  <div class="callout callout-success alert alert-success alert-dismissible fade show" role="alert">
+    <h5><i class="fas fa-check"></i> Sukses :</h5>
+    {{session('sukses')}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+@endif
+<div class="col-md-12">
+  <div class="card card-warning" style="min-height: 385px;">
+    <div class="card-header">
+      <h3 class="card-title" style="color: white;">
+        Pengumuman
+      </h3>
+    </div>
+    <div class="card-body table-responsive">
+      <div class="tab-content p-0">
+        <!-- isi pengumuman -->
+
+        {!! $pengumuman->isi !!}
       </div>
     </div>
+  </div>
+</div>
 <!-- lAPORAN kAS -->
 <div class="row">
-    <div class="col-md-6">
+  <div class="col-md-6">
     <section class="content card" style="padding: 15px 15px 0px 15px ">
       <div class="box">
         <div class="row">
@@ -36,32 +47,34 @@
           // pengluaran
           $jumlah_pengeluaran = DB::table('pengeluaran')
             ->sum('pengeluaran.jumlah');
-            $pengeluaran_pinjaman = DB::table('pengeluaran')->where('anggaran_id',3)
-             ->sum('pengeluaran.jumlah');
-            $pengeluaran_darurat = DB::table('pengeluaran')->where('anggaran_id',1)
-             ->sum('pengeluaran.jumlah');
-            $pengeluaran_amal = DB::table('pengeluaran')->where('anggaran_id',2)
-             ->sum('pengeluaran.jumlah');
-            $pengeluaran_kas = DB::table('pengeluaran')->where('anggaran_id',4)
-             ->sum('pengeluaran.jumlah');
+          $pengeluaran_pinjaman = DB::table('pengeluaran')->where('anggaran_id', 3)
+            ->sum('pengeluaran.jumlah');
+          $pengeluaran_darurat = DB::table('pengeluaran')->where('anggaran_id', 1)
+            ->sum('pengeluaran.jumlah');
+          $pengeluaran_amal = DB::table('pengeluaran')->where('anggaran_id', 2)
+            ->sum('pengeluaran.jumlah');
+          $pengeluaran_kas = DB::table('pengeluaran')->where('anggaran_id', 4)
+            ->sum('pengeluaran.jumlah');
+          $pemasukan_pinjaman = DB::table('bayar_pinjam')
+            ->sum('bayar_pinjam.jumlah_bayar');
 
-       // Pemasukan
-       $jumlah_pemasukan = DB::table('pemasukan')
-       ->sum('pemasukan.jumlah');
-       $jumlah_pemasukan_asli = $jumlah_pemasukan - 362500;
-       $darurat = $jumlah_pemasukan_asli * 20 / 100 ;
-       $pinjam = $jumlah_pemasukan_asli * 20 / 100 ;
-       $amal = $jumlah_pemasukan_asli * 10 / 100 ;
-       $kas = $jumlah_pemasukan_asli * 50 / 100 ;
-       $saldo = $jumlah_pemasukan-$jumlah_pengeluaran;
-    
-            // Saldo atm 
-          $jumlah_ATM = DB::table('uang')->where('kategori','Transfer')
+          // Pemasukan
+          $jumlah_pemasukan = DB::table('pemasukan')
+            ->sum('pemasukan.jumlah');
+          $jumlah_pemasukan_asli = $jumlah_pemasukan - 362500;
+          $darurat = $jumlah_pemasukan_asli * 20 / 100;
+          $pinjam = $jumlah_pemasukan_asli * 20 / 100;
+          $amal = $jumlah_pemasukan_asli * 10 / 100;
+          $kas = $jumlah_pemasukan_asli * 50 / 100;
+          $saldo = $jumlah_pemasukan - $jumlah_pengeluaran;
+
+          // Saldo atm 
+          $jumlah_ATM = DB::table('uang')->where('kategori', 'Transfer')
             ->sum('uang.jumlah');
-            $saldo_atm = $jumlah_ATM-$jumlah_pengeluaran ;
+          $saldo_atm = $jumlah_ATM - $jumlah_pengeluaran;
 
-            // Uang di bendahara
-          $jumlah_uang_cash = DB::table('uang')->where('kategori','Cash')
+          // Uang di bendahara
+          $jumlah_uang_cash = DB::table('uang')->where('kategori', 'Cash')
             ->sum('uang.jumlah');
           ?>
           <ul class="products-list product-list-in-card pl-1 pr-1">
@@ -77,13 +90,14 @@
             <hr>
           </ul>
           <ul class="products-list product-list-in-card pl-1 pr-1">
-           <b> <a href="javascript:void(0)" class="product-title">Saldo</a>
-            <h4>{{"Rp" . number_format( $saldo,2,',','.')}}</h4>
-            <p> Jumlah Total saldo anu aya di bendahara atawa sisa tina pengeluaran termasuk data pinjaman.   </p>
-            <hr /> </b>
+            <b> <a href="javascript:void(0)" class="product-title">Saldo</a>
+              <h4>{{"Rp" . number_format( $saldo,2,',','.')}}</h4>
+              <p> Jumlah Total saldo anu aya di bendahara atawa sisa tina pengeluaran termasuk data pinjaman. </p>
+              <hr />
+            </b>
           </ul>
           <ul class="products-list product-list-in-card pl-1 pr-1">
-           <a href="javascript:void(0)" class="product-title">Saldo ATM</a>
+            <a href="javascript:void(0)" class="product-title">Saldo ATM</a>
             <h5>{{"Rp" . number_format($saldo_atm,2,',','.')}}</h5>
             <p>Saldo ATM, saldo anu aya tina tabungan kas keluarga. Jumlah <b>saldo ATM</b> di tambah artos nu masih di <b>bendahara</b> kedah <b>sami</b> sareng jumlah <b>SALDO</b> </p>
             <hr />
@@ -105,8 +119,8 @@
     </section>
   </div>
 
-<!-- lAPORAN DANA KAS -->
-    <div class="col-md-3">
+  <!-- lAPORAN DANA KAS -->
+  <div class="col-md-3">
     <section class="content card" style="padding: 15px 15px 0px 15px ">
       <div class="box">
         <div class="row">
@@ -120,36 +134,36 @@
             <a href="/anggaran/1/detail" class="product-title">Jumlah Dana Darurat</a>
             <h5>{{ "Rp " . number_format($darurat-$pengeluaran_darurat ,2,',','.') }}</h5>
           </ul>
-              <ul class="products-list product-list-in-card pl-1 pr-1">
-                <a href="/pengluaran/pinjam/anggota" class="product-title">Jumlah Dana Darurat nu tos ka angge </a>
-                <h7>{{ "Rp " . number_format($pengeluaran_darurat ,2,',','.') }}</h7>
-                <hr>
-              </ul>
+          <ul class="products-list product-list-in-card pl-1 pr-1">
+            <a href="/pengluaran/pinjam/anggota" class="product-title">Jumlah Dana Darurat nu tos ka angge </a>
+            <h7>{{ "Rp " . number_format($pengeluaran_darurat ,2,',','.') }}</h7>
+            <hr>
+          </ul>
           <ul class="products-list product-list-in-card pl-1 pr-1">
             <a href="/anggaran/2/detail" class="product-title">Jumlah Dana Amal</a>
             <h5>{{ "Rp " . number_format($amal-$pengeluaran_amal,2,',','.') }}</h5>
           </ul>
-              <ul class="products-list product-list-in-card pl-1 pr-1">
-                <a href="/pengluaran/pinjam/anggota" class="product-title">Jumlah Dana Amal nu tos ka angge </a>
-                <h7>{{ "Rp " . number_format($pengeluaran_amal ,2,',','.') }}</h7>
-                <hr>
-              </ul>
+          <ul class="products-list product-list-in-card pl-1 pr-1">
+            <a href="/pengluaran/pinjam/anggota" class="product-title">Jumlah Dana Amal nu tos ka angge </a>
+            <h7>{{ "Rp " . number_format($pengeluaran_amal ,2,',','.') }}</h7>
+            <hr>
+          </ul>
           <ul class="products-list product-list-in-card pl-1 pr-1">
             <a href="/anggaran/4/detail" class="product-title">Jumlah dana KAS</a>
             <h5>{{"Rp" . number_format($kas-$pengeluaran_kas,2,',','.')}}</h5>
           </ul>
-              <ul class="products-list product-list-in-card pl-1 pr-1">
-                <a href="/pengluaran/pinjam/anggota" class="product-title">Jumlah Dana Kas nu tos ka angge </a>
-                <h7>{{ "Rp " . number_format($pengeluaran_kas ,2,',','.') }}</h7>
-                <hr>
-              </ul>
+          <ul class="products-list product-list-in-card pl-1 pr-1">
+            <a href="/pengluaran/pinjam/anggota" class="product-title">Jumlah Dana Kas nu tos ka angge </a>
+            <h7>{{ "Rp " . number_format($pengeluaran_kas ,2,',','.') }}</h7>
+            <hr>
+          </ul>
           <ul class="products-list product-list-in-card pl-1 pr-1">
             <a href="/anggaran/3/detail" class="product-title">Jumlah Dana Pinjam</a>
-            <h5>{{"Rp" . number_format($pinjam-$pengeluaran_pinjaman,2,',','.')}}</h5>
+            <h5>{{"Rp" . number_format($pinjam-$pengeluaran_pinjaman+$pemasukan_pinjaman,2,',','.')}}</h5>
           </ul>
           <ul class="products-list product-list-in-card pl-1 pr-1">
             <a href="/pengluaran/pinjam/anggota" class="product-title">Uang nu di pinjem</a>
-            <h7>{{"Rp" . number_format($pengeluaran_pinjaman,2,',','.')}}</h7>
+            <h7>{{"Rp" . number_format($pengeluaran_pinjaman-$pemasukan_pinjaman,2,',','.')}}</h7>
             <hr />
           </ul>
         </div>
@@ -157,7 +171,7 @@
     </section>
   </div>
 
-<!-- rIWAYAT LOGIN -->
+  <!-- rIWAYAT LOGIN -->
   <div class="col-md-3">
     <section class="content card" style="padding: 10px 10px 10px 10px ">
       <div class="box">
@@ -181,7 +195,7 @@
                 @else
                 <span class="text-secondary badge float-right">Offline</span>
                 @endif <br>
-                  <span class="badge float-right"><i class="far fa-clock"></i> {{Carbon\Carbon::parse($user_login->last_seen)->diffForHumans()}}</span>
+                <span class="badge float-right"><i class="far fa-clock"></i> {{Carbon\Carbon::parse($user_login->last_seen)->diffForHumans()}}</span>
               </div>
             </li>
             @endforeach
@@ -191,6 +205,6 @@
       </div>
     </section>
   </div>
-  </div>
+</div>
 
 @endsection

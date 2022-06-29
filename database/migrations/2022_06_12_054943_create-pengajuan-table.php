@@ -15,12 +15,15 @@ class CreatePengajuanTable extends Migration
     {
         Schema::create('pengajuan', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('anggota_id')->unsigned();
-            $table->date('tanggal');
-            $table->integer('jumlah');
-            $table->string('keterangan');
-            $table->string('kategori');
-            $table->string('pembayaran');
+            $table->integer('anggota_id')->unsigned()->nullable();
+            $table->date('tanggal')->nullable();
+            $table->integer('jumlah')->nullable();
+            $table->string('keterangan')->nullable();
+            $table->string('kategori')->nullable();
+            $table->string('pembayaran')->nullable();
+            $table->string('pengeluaran_id')->nullable();
+            $table->string('proses')->nullable();
+            $table->string('lama')->nullable();
             $table->timestamps();
         });
     }
