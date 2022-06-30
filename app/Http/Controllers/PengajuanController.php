@@ -103,7 +103,7 @@ class PengajuanController extends Controller
 
         if ($request->input('jumlah') <= $jatah ) 
         {
-            if ($pengajuan)
+            if ($pengajuan_total <= 6)
             {
             $data_setor = new Pengajuan();
     

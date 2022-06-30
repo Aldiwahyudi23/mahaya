@@ -48,7 +48,7 @@ class PengeluaranController extends Controller
             'jumlah' => 'numeric',
         ]);
         $data_setor = new Pengeluaran();
-        $data_setor->anggota_id          = Auth::id();
+        $data_setor->anggota_id          = 1;
         $data_setor->anggaran_id          = $request->input('anggaran_id');
         $data_setor->tanggal             = $request->input('tanggal');
         $data_setor->jumlah              = $request->input('jumlah');
@@ -224,8 +224,9 @@ class PengeluaranController extends Controller
     public function bayar_pinjam()
     {
         $data_pengajuan = Pengajuan::where('kategori', 'bayar_pinjaman')->get();
+        $jumlah_data_pengajuan = Pengajuan::where('kategori', 'bayar_pinjaman')->count();
         $data_anggota = User::orderByRaw('name ASC')->get();
-        return view('admin.pengeluaran.pengajuan', compact('data_pengajuan', 'data_anggota'));
+        return view('admin.pengeluaran.pengajuan', compact('data_pengajuan', 'data_anggota','jumlah_data_pengajuan'));
     }
     public function bayar_pinjam_lihat($id)
     {

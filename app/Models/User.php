@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'no_hp',
         'last_seen',
+        'device_token',
     ];
 
     /**

@@ -1,4 +1,13 @@
 <!-- Main Sidebar Container -->
+<?php
+
+use App\Models\Pengajuan;
+
+$jumlah_data_pengajuan = Pengajuan::all()->count();
+$jumlah_data_pengajuan_bayar = Pengajuan::where('kategori', 'Bayar')->count();
+$jumlah_data_pengajuan_pinjam = Pengajuan::where('kategori', 3)->count();
+$jumlah_data_pengajuan_bayar_pinjaman = Pengajuan::where('kategori', 'bayar_pinjaman')->count();
+?>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="" class="brand-link" style="">
@@ -68,7 +77,7 @@
                         </li>
                     </ul>
                 </li>
-                @if (Auth::user()->role == "Admin" || Auth::user()->role == 'Sekertaris')
+                @if (Auth::user()->role == "Admin" )
                 <li class="nav-item has-treeview" id="liMasterData">
                     <a href="#" class="nav-link" id="MasterData">
                         <i class="nav-icon fas fa-edit"></i>
@@ -162,26 +171,45 @@
                         <i class="nav-icon fas fa-file-signature"></i>
                         <p>
                             Pengajuan
+                            @if ($jumlah_data_pengajuan == 0 )
+                            @else
                             <i class="fas fa-angle-left right"></i>
+                            <span class="badge badge-info right">{{$jumlah_data_pengajuan}}</span>
+                            @endif
                         </p>
                     </a>
                     <ul class="nav nav-treeview ml-4">
                         <li class="nav-item">
                             <a href="{{route('pengajuan.bayar.anggota')}}" class="nav-link" id="pemasukan">
                                 <i class="nav-icon fas fa-clipboard"></i>
-                                <p>Pemasukan</p>
+                                <p>Pemasukan </p>
+                                @if ($jumlah_data_pengajuan_bayar == 0 )
+                                @else
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">{{$jumlah_data_pengajuan_bayar}}</span>
+                                @endif
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('pengajuan.pinjaman.anggota')}}" class="nav-link" id="Pinjaman">
                                 <i class="nav-icon fas fa-clipboard"></i>
                                 <p>Peminjaman</p>
+                                @if ($jumlah_data_pengajuan_pinjam == 0 )
+                                @else
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">{{$jumlah_data_pengajuan_pinjam}}</span>
+                                @endif
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('bayar_pinjam.anggota')}}" class="nav-link" id="Pinjaman">
                                 <i class="nav-icon fas fa-clipboard"></i>
                                 <p>Bayar Pinjaman</p>
+                                @if ($jumlah_data_pengajuan_bayar_pinjaman == 0 )
+                                @else
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">{{$jumlah_data_pengajuan_bayar_pinjaman}}</span>
+                                @endif
                             </a>
                         </li>
                     </ul>
@@ -205,26 +233,45 @@
                         <i class="nav-icon fas fa-file-signature"></i>
                         <p>
                             Pengajuan
+                            @if ($jumlah_data_pengajuan == 0 )
+                            @else
                             <i class="fas fa-angle-left right"></i>
+                            <span class="badge badge-info right">{{$jumlah_data_pengajuan}}</span>
+                            @endif
                         </p>
                     </a>
                     <ul class="nav nav-treeview ml-4">
                         <li class="nav-item">
                             <a href="{{route('pengajuan.bayar.anggota')}}" class="nav-link" id="pemasukan">
                                 <i class="nav-icon fas fa-clipboard"></i>
-                                <p>Pemasukan</p>
+                                <p>Pemasukan </p>
+                                @if ($jumlah_data_pengajuan_bayar == 0 )
+                                @else
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">{{$jumlah_data_pengajuan_bayar}}</span>
+                                @endif
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('pengajuan.pinjaman.anggota')}}" class="nav-link" id="Pinjaman">
                                 <i class="nav-icon fas fa-clipboard"></i>
                                 <p>Peminjaman</p>
+                                @if ($jumlah_data_pengajuan_pinjam == 0 )
+                                @else
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">{{$jumlah_data_pengajuan_pinjam}}</span>
+                                @endif
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('bayar_pinjam.anggota')}}" class="nav-link" id="Pinjaman">
                                 <i class="nav-icon fas fa-clipboard"></i>
                                 <p>Bayar Pinjaman</p>
+                                @if ($jumlah_data_pengajuan_bayar_pinjaman == 0 )
+                                @else
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">{{$jumlah_data_pengajuan_bayar_pinjaman}}</span>
+                                @endif
                             </a>
                         </li>
                     </ul>

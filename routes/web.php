@@ -27,6 +27,13 @@ use App\Http\Controllers\OrderController;
 Route::get('/', function () {
     return view('auth.login');
 });
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
+
+
+Route::post('/save-token', [App\Http\Controllers\HomeController::class, 'saveToken'])->name('save-token');
+Route::post('/send-notification', [App\Http\Controllers\HomeController::class, 'sendNotification'])->name('send.notification');
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -1,69 +1,69 @@
 <footer class="main-footer">
     <div class="container">
         <div class="row justify-content-center">
-        @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Sekertaris' || Auth::user()->role == 'Bendahara' || Auth::user()->role == 'Ketua')
+            @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Sekertaris' || Auth::user()->role == 'Bendahara' || Auth::user()->role == 'Ketua')
             <div class="col-3 ">
-            <center>   
-                 <a href="/home"  class="nav-link" id="Pengumuman"><i class="nav-icon fas fa-home lg-6" ></i><br> &nbsp;Home</a>
-            </center>
+                <center>
+                    <a href="/home" class="nav-link" id="Pengumuman"><i class="nav-icon fas fa-home lg-6"></i><br> &nbsp;Home</a>
+                </center>
             </div>
             <div class="col-3">
-            <center>
-                <a href="{{route('pemasukan.setor')}}" ><i class="nav-icon fas fa-credit-card nav-icon"></i> <br> &nbsp; Input</a>
-            </center>
+                <center>
+                    <a href="{{route('pemasukan.setor')}}"><i class="nav-icon fas fa-credit-card nav-icon"></i> <br> &nbsp; Input</a>
+                </center>
             </div>
             <div class="col-3">
-            <center>
-                <a href="{{route('pengeluaran.tarik')}}" ><i class="nav-icon fas fa-handshake "></i> <br>  &nbsp; Tarik</a>
-            </center>
+                <center>
+                    <a href="{{route('pengeluaran.tarik')}}"><i class="nav-icon fas fa-handshake "></i> <br> &nbsp; Tarik</a>
+                </center>
             </div>
             <div class="col-3">
-            <center>
-                <a href="/profile" ><i class="nav-icon fas fa-user"></i> <br> &nbsp; Saya</a>
-            </center>
+                <center>
+                    <a href="/profile"><i class="nav-icon fas fa-user"></i> <br> &nbsp; Saya</a>
+                </center>
             </div>
-        
-        @elseif (Auth::user()->role == 'Anggota')
-        <div class="col-3">
-            <center>   
-                 <a href="/home"  id="Pemasukan"><i class="nav-icon fas fa-home lg-6" ></i><br> &nbsp;Home</a>
-            </center>
+
+            @elseif (Auth::user()->role == 'Anggota')
+            <div class="col-3">
+                <center>
+                    <a href="/home" id="Pemasukan"><i class="nav-icon fas fa-home lg-6"></i><br> &nbsp;Home</a>
+                </center>
             </div>
             <div class="col-3">
-            <center>
-                <a href="{{route('pengajuan.setor.anggota')}}" ><i class="nav-icon fas fa-credit-card nav-icon"></i> <br> &nbsp; Bayar</a>
-            </center>
+                <center>
+                    <a href="{{route('pengajuan.setor.anggota')}}"><i class="nav-icon fas fa-credit-card nav-icon"></i> <br> &nbsp; Bayar</a>
+                </center>
             </div>
             <div class="col-3">
-            <center>
-                <a href="{{route('pengajuan.pinjam.anggota')}}" ><i class="nav-icon fas fa-handshake "></i> <br>  &nbsp; Pinjam</a>
-            </center>
+                <center>
+                    <a href="{{route('pengajuan.pinjam.anggota')}}"><i class="nav-icon fas fa-handshake "></i> <br> &nbsp; Pinjam</a>
+                </center>
             </div>
             <div class="col-3">
-            <center>
-                <a href="/profile" ><i class="nav-icon fas fa-user"></i> <br> &nbsp; Saya</a>
-            </center>
+                <center>
+                    <a href="/profile"><i class="nav-icon fas fa-user"></i> <br> &nbsp; Saya</a>
+                </center>
             </div>
-        @else
-                    <li class="nav-item has-treeview">
-                        <a href="/home" class="nav-link" id="Home">
-                            <i class="nav-icon fas fa-home"></i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
-        @endif
+            @else
+            <li class="nav-item has-treeview">
+                <a href="/home" class="nav-link" id="Home">
+                    <i class="nav-icon fas fa-home"></i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
+            @endif
         </div>
     </div>
-        <marquee>
-            <strong>KELUARGA BESAR Alm. MA HAYA. </strong>
-        </marquee>
-    </footer>
+    <marquee>
+        <strong>KELUARGA BESAR Alm. MA HAYA. </strong>
+    </marquee>
+</footer>
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
@@ -139,7 +139,7 @@
 <script>
     function inputAngka(e) {
         var charCode = (e.which) ? e.which : event.keyCode
-        if (charCode > 31 && (charCode < 48 || charCode > 57)){
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
             return false;
         }
         return true;
@@ -147,12 +147,12 @@
 
     function sikap(e) {
         var charCode = (e.which) ? e.which : event.keyCode
-        if (charCode > 31 && (charCode < 49 || charCode > 52)){
+        if (charCode > 31 && (charCode < 49 || charCode > 52)) {
             return false;
         }
         return true;
     }
-    
+
     $(document).on('click', '[data-toggle="lightbox"]', function(event) {
         event.preventDefault();
         $(this).ekkoLightbox({
@@ -160,7 +160,7 @@
         });
     });
 
-    $(function () {
+    $(function() {
         $("#example1").DataTable();
         $('#example2').DataTable({
             "paging": false,
@@ -171,24 +171,28 @@
             "autoWidth": true,
         });
     });
-    
-    $(document).ready(function () {
+
+    $(document).ready(function() {
         bsCustomFileInput.init();
     });
 
-    $(function () {
+    $(function() {
         //Initialize Select2 Elements
         $('.select2').select2()
 
         //Initialize Select2 Elements
         $('.select2bs4').select2({
-        theme: 'bootstrap4'
+            theme: 'bootstrap4'
         })
 
         //Datemask dd/mm/yyyy
-        $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+        $('#datemask').inputmask('dd/mm/yyyy', {
+            'placeholder': 'dd/mm/yyyy'
+        })
         //Datemask2 mm/dd/yyyy
-        $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+        $('#datemask2').inputmask('mm/dd/yyyy', {
+            'placeholder': 'mm/dd/yyyy'
+        })
         //Money Euro
         $('[data-mask]').inputmask()
 
@@ -196,36 +200,35 @@
         $('#reservation').daterangepicker()
         //Date range picker with time picker
         $('#reservationtime').daterangepicker({
-        timePicker: true,
-        timePickerIncrement: 30,
-        locale: {
-            format: 'MM/DD/YYYY hh:mm A'
-        }
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'MM/DD/YYYY hh:mm A'
+            }
         })
         //Date range as a button
-        $('#daterange-btn').daterangepicker(
-        {
-            ranges   : {
-            'Today'       : [moment(), moment()],
-            'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-            'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        $('#daterange-btn').daterangepicker({
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment()
             },
-            startDate: moment().subtract(29, 'days'),
-            endDate  : moment()
-        },
-        function (start, end) {
-            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-        }
+            function(start, end) {
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+            }
         )
 
         //Timepicker
         $('#timepicker').datetimepicker({
-        format: 'LT'
+            format: 'LT'
         })
-        
+
         //Bootstrap Duallistbox
         $('.duallistbox').bootstrapDualListbox()
 
@@ -235,11 +238,11 @@
         $('.my-colorpicker2').colorpicker()
 
         $('.my-colorpicker2').on('colorpickerChange', function(event) {
-        $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+            $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
         });
 
-        $("input[data-bootstrap-switch]").each(function(){
-        $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        $("input[data-bootstrap-switch]").each(function() {
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
         });
     });
 
@@ -247,43 +250,55 @@
         toast: true,
         position: 'bottomRight',
         showConfirmButton: false,
-        timer: 3000
+        times: 9000000000
     });
-    
-    $(function () {
+
+    $(function() {
         $('.textarea').summernote()
     })
 </script>
 
+<?php
+
+use App\Models\Pengajuan;
+
+$jumlah_data_pengajuan = Pengajuan::all()->count();
+$jumlah_data_pengajuan_bayar = Pengajuan::where('kategori', 'Bayar')->count();
+$jumlah_data_pengajuan_pinjam = Pengajuan::where('kategori', 3)->count();
+$jumlah_data_pengajuan_bayar_pinjaman = Pengajuan::where('kategori', 'bayar_pinjaman')->count();
+?>
 @yield('script')
 
 @if (count($errors)>0)
-    @foreach ($errors->all() as $error)
-        <script>
-            toastr.error("{{ $error }}");
-        </script>
-    @endforeach
+@foreach ($errors->all() as $error)
+<script>
+    toastr.error("{{ $error }}");
+</script>
+@endforeach
 @endif
-@if (Session::has('success'))
-    <script>
-        toastr.success("{{ Session('success') }}");
-    </script>
+@if (Auth::user()->role == 'Bendahara' || Auth::user()->role == 'Admin' )
+@if ($jumlah_data_pengajuan >= 1 )
+<script>
+    toastr.warning(" Aya Pengajuan nu kedah di konfirmasi ");
+</script>
+@endif
 @endif
 @if (Session::has('warning'))
-    <script>
-        toastr.warning("{{ Session('warning') }}");
-    </script>
+<script>
+    toastr.warning("{{ Session('warning') }}");
+</script>
 @endif
 @if (Session::has('info'))
-    <script>
-        toastr.info("{{ Session('info') }}");
-    </script>
+<script>
+    toastr.info("{{ Session('info') }}");
+</script>
 @endif
 @if (Session::has('error'))
-    <script>
-        toastr.error("{{ Session('error') }}");
-    </script>
+<script>
+    toastr.error("{{ Session('error') }}");
+</script>
 @endif
 
 </body>
+
 </html>
