@@ -34,7 +34,6 @@ class PengajuanController extends Controller
         $data_setor = new Pengajuan();
 
         $data_setor->pembayaran             = $request->input('pembayaran');
-        $data_setor->tanggal             = $request->input('tanggal');
         $data_setor->jumlah              = $request->input('jumlah');
         $data_setor->keterangan          = $request->input('keterangan');
         $data_setor->kategori            = 'Bayar';

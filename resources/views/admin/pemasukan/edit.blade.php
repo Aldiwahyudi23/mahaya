@@ -51,10 +51,6 @@
                                         <input value="{{$setor->anggota->name}}" name="anggota_id" type="text" class="form-control bg-disabled" id="anggota_id" disabled>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="tanggal">Tanggal Bayar</label>
-                                        <input value="{{$setor->tanggal}}" name="tanggal" type="date" class="form-control bg-light" id="tanggal" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
-                                    </div>
-                                    <div class="form-group row">
                                         <label for="jumlah">Jumlah</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">

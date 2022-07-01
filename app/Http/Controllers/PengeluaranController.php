@@ -50,7 +50,6 @@ class PengeluaranController extends Controller
         $data_setor = new Pengeluaran();
         $data_setor->anggota_id          = 1;
         $data_setor->anggaran_id          = $request->input('anggaran_id');
-        $data_setor->tanggal             = $request->input('tanggal');
         $data_setor->jumlah              = $request->input('jumlah');
         $data_setor->keterangan          = $request->input('keterangan');
         $data_setor->pengurus_id            = Auth::id();

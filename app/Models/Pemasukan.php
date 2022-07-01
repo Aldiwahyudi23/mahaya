@@ -16,7 +16,9 @@ class Pemasukan extends Model
         'tanggal',
         'jumlah',
         'keterangan',
-        'kategori'
+        'kategori',
+        'pembayaran',
+        'status'
 
     ];
     public function anggota()

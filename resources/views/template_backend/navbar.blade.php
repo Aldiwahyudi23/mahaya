@@ -1,11 +1,23 @@
 <!-- Navbar -->
 <?php
 
+use App\Models\Pemasukan;
 use App\Models\Pemberitahuan;
+use App\Models\Pengeluaran;
 
-$all_pemberitahuan = Pemberitahuan::All();
+$data_pemberitahuan_anggota = Pemasukan::orderByRaw('id DESC')->where('anggota_id', Auth::user()->id)->limit(5)->get();
+$jumlah_data_pemberitahuan_anggota = Pemasukan::where('status', 1)->count();
+
+$data_pemberitahuan = Pemasukan::orderByRaw('id DESC')->limit(5)->get();
+$jumlah_data_pemberitahuan = Pemasukan::where('status', 1)->count();
+
+$data_pengeluaran = Pengeluaran::orderByRaw('id DESC')->limit(5)->get();
+$jumlah_data_pengeluaran = Pengeluaran::where('status', 1)->count();
+
+$total = $jumlah_data_pemberitahuan + $jumlah_data_pengeluaran;
 
 use App\Models\Pengajuan;
+use Illuminate\Support\Facades\Auth;
 
 $data_pengajuan = Pengajuan::all();
 $jumlah_data_pengajuan = Pengajuan::all()->count();
@@ -24,10 +36,11 @@ $jumlah_data_pengajuan_bayar_pinjaman = Pengajuan::where('kategori', 'bayar_pinj
     </ul>
     <ul class="navbar-nav ml-auto">
         <!-- Notifications Dropdown Menu -->
-        @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'bendahara')
+        @if (Auth::user()->role == "Admin" || Auth::user()->role == "Bendahara")
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell" style="color: #fff"></i>
+
                 @if ($jumlah_data_pengajuan == 0 )
                 @else
                 <span class="badge badge-warning navbar-badge">{{$jumlah_data_pengajuan}}</span>
@@ -87,10 +100,78 @@ $jumlah_data_pengajuan_bayar_pinjaman = Pengajuan::where('kategori', 'bayar_pinj
                 </a>
                 @endif
                 @endforeach
-                
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                
+
+            </div>
+        </li>
+        @elseif (Auth::user()->role == "Ketua" || Auth::user()->role == "Sekertaris")
+        <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+                <i class="far fa-bell" style="color: #fff"></i>
+                @if ($total == 0)
+                @else
+                <span class="badge badge-warning navbar-badge">{{$total}}</span>
+                @endif
+            </a>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                <span class="dropdown-header">{{$jumlah_data_pemberitahuan}} Notifications</span>
+                <div class="dropdown-divider"></div>
+                @foreach($data_pemberitahuan as $data)
+                <a href="/laporan/pemasukan/{{$data->id}}/detail" id="status" onclick="MyFunction()" class="dropdown-item">
+                    <i class="fas fa-check mr-2"></i>pembayaran {{$data->anggota->name }}
+                    @if ($data->status == 0 )
+                    <span class="float-right text-muted text-sm">{{Carbon\Carbon::parse($data->created_at)->diffForHumans()}}</span>
+                    @else
+                    <span class="float-right text-sm badge badge-primary">1</span>
+                    @endif
+
+                </a>
+                @endforeach
+                <!-- @foreach($data_pengeluaran as $data)
+                <a href="/laporan/pemasukan/{{$data->id}}/detail" id="status" onclick="MyFunction()" class="dropdown-item">
+                    <i class="fas fa-send mr-2"></i>pembayaran {{$data->anggaran->nama }}
+                    @if ($data->status == 0 )
+                    <span class="float-right text-muted text-sm">{{Carbon\Carbon::parse($data->created_at)->diffForHumans()}}</span>
+                    @else
+                    <span class="float-right text-sm badge badge-primary">1</span>
+                    @endif
+
+                </a>
+                @endforeach -->
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+
+            </div>
+        </li>
+        @else
+        <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+                <i class="far fa-bell" style="color: #fff"></i>
+                @if ($jumlah_data_pemberitahuan_anggota == 0)
+                @else
+                <span class="badge badge-warning navbar-badge">{{$jumlah_data_pemberitahuan_anggota}}</span>
+                @endif
+            </a>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                <span class="dropdown-header">{{$jumlah_data_pemberitahuan_anggota}} Notifications</span>
+                <div class="dropdown-divider"></div>
+                @foreach($data_pemberitahuan_anggota as $data)
+                <a href="/laporan/pemasukan/{{$data->id}}/detail" id="status" onclick="MyFunction()" class="dropdown-item">
+                    <i class="fas fa-check mr-2"></i>Pembayaran SUKSES
+                    @if ($data->status == 0 )
+                    <span class="float-right text-muted text-sm">{{Carbon\Carbon::parse($data->created_at)->diffForHumans()}}</span>
+                    @else
+                    <span class="float-right text-sm badge badge-primary">1</span>
+                    @endif
+
+                </a>
+                @endforeach
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+
             </div>
         </li>
         @endif

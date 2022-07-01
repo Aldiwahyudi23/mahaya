@@ -12,10 +12,9 @@ class Pemberitahuan extends Model
     protected $fillable = [
         'id',
         'anggota_id',
+    'pengurus_id',
         'keterangan',
         'kategori',
-        'tanggal',
-        'jumlah',
         'status',
 
     ];

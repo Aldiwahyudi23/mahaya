@@ -106,7 +106,7 @@ $pengeluaran_pinjaman = DB::table('pengeluaran')->where('anggaran_id', 3) //Juml
                                                         <form action="/pengluaran/pinjam/anggota/tambah" method="POST" enctype="multipart/form-data">
                                                             {{csrf_field()}}
                                                             <div class="form-group row">
-                                                                <label for="tanggal">Tanggal</label>
+                                                                <label for="tanggal">Tanggal Pelunasan</label>
                                                                 <input value="{{old('tanggal')}}" name="tanggal" type="date" class="form-control bg-light" id="tanggal" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
                                                                 <input name="anggota_id" type="hidden" id="anggota_id">
                                                             </div>
@@ -181,10 +181,6 @@ $pengeluaran_pinjaman = DB::table('pengeluaran')->where('anggaran_id', 3) //Juml
                                                                 </select>
                                                             </div>
                                                             <div class="form-group row">
-                                                                <label for="tanggal">Tanggal Penarikan</label>
-                                                                <input value="{{old('tanggal')}}" name="tanggal" type="date" class="form-control bg-light" id="tanggal" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
-                                                            </div>
-                                                            <div class="form-group row">
                                                                 <label for="jumlah">Jumlah</label>
                                                                 <div class="input-group">
                                                                     <div class="input-group-prepend">
@@ -217,17 +213,13 @@ $pengeluaran_pinjaman = DB::table('pengeluaran')->where('anggaran_id', 3) //Juml
                                 <form action="/pengluaran/pinjam/anggota/tambah" method="POST" enctype="multipart/form-data">
                                     {{csrf_field()}}
                                     <div class="form-group row">
-                                        <label for="tanggal">Tanggal</label>
-                                        <input value="{{old('tanggal')}}" name="tanggal" type="date" class="form-control bg-light" id="tanggal" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
-                                        <input name="anggota_id" type="hidden" id="anggota_id">
-                                    </div>
-                                    <div class="form-group row">
                                         <label for="jumlah">Jumlah</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Rp.</span>
                                             </div>
                                             <input value="{{old('jumlah')}}" name="jumlah" type="number" class="form-control" id="jumlah" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
+                                            <input name="anggota_id" type="hidden" id="anggota_id">
                                             <div class="input-group-append">
                                                 <span class="input-group-text">.00</span>
                                             </div>

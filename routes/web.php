@@ -46,8 +46,8 @@ Route::get('/pemasukan/detail', [PemasukanController::class,'pemasukan_detail'])
 // bayar pinjaman
 Route::get('/pemasukan/bayar/{id}/pinjaman',[PengajuanController::class,'bayar_pinjaman']);
 Route::post('/pemasukan/bayar/pinjaman',[PengajuanController::class,'bayar_pinjam_tambah']);
-
-
+// Pemberitahuan
+Route::get('/laporan/pemasukan/{id}/detail',[PemasukanController::class, 'pembayaran_lihat']);
 
 Route::get('anggaran/{id}/detail', [AnggaranController::class,'detail']);
 // profile

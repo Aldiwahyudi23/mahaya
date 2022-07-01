@@ -103,17 +103,14 @@
                                                         <form action="/Pemasukan/setor_tunai/tambah" method="POST" enctype="multipart/form-data">
                                                             {{csrf_field()}}
      
-                                                            <div class="form-group row">
-                                                                <label for="tanggal">Tanggal Bayar</label>
-                                                                <input value="{{old('tanggal')}}" name="tanggal" type="date" class="form-control bg-light" id="tanggal" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
-                                                                <input name="anggota_id" type="hidden" id="anggota_id">
-                                                            </div>
+                                                        
                                                             <div class="form-group row">
                                                                 <label for="jumlah">Jumlah</label>
                                                                 <div class="input-group">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text">Rp.</span>
                                                                     </div>
+                                                                    <input name="anggota_id" type="hidden" id="anggota_id">
                                                                     <input value="{{old('jumlah')}}" name="jumlah" type="number" class="form-control" id="jumlah" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
                                                                     <div class="input-group-append">
                                                                         <span class="input-group-text">.00</span>
@@ -159,10 +156,7 @@
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-                                                                <div class="form-group row">
-                                                                    <label for="tanggal">Tanggal Bayar</label>
-                                                                    <input value="{{old('tanggal')}}" name="tanggal" type="date" class="form-control bg-light" id="tanggal" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
-                                                                </div>
+                                                        
                                                                 <div class="form-group row">
                                                                     <label for="jumlah">Jumlah</label>
                                                                     <div class="input-group">
@@ -198,11 +192,7 @@
                                                                     <option value="Transfer">Transfer</option>
                                                                 </select>
                                                             </div>
-                                                            <div class="form-group row">
-                                                                <label for="tanggal">Tanggal Bayar</label>
-                                                                <input value="{{old('tanggal')}}" name="tanggal" type="date" class="form-control bg-light" id="tanggal" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
-                                                                <input name="anggota_id" type="hidden" id="anggota_id">
-                                                            </div>
+                                                        
                                                             <div class="form-group row">
                                                                 <label for="jumlah">Jumlah</label>
                                                                 <div class="input-group">

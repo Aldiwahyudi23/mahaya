@@ -16,7 +16,7 @@ class CreatePengajuanTable extends Migration
         Schema::create('pengajuan', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('anggota_id')->unsigned()->nullable();
-            $table->date('tanggal')->nullable();
+            $table->timestamp('tanggal')->nullable();
             $table->integer('jumlah')->nullable();
             $table->string('keterangan')->nullable();
             $table->string('kategori')->nullable();

@@ -89,11 +89,7 @@ $pengeluaran_pinjaman = DB::table('pengeluaran')->where('anggaran_id', 3) //Juml
                             <div class="card-body">
                                 <form action="/pengluaran/pinjam/anggota/tambah" method="POST" enctype="multipart/form-data">
                                     {{csrf_field()}}
-                                    <div class="form-group row">
-                                        <label for="tanggal">Tanggal</label>
-                                        <input value="{{old('tanggal')}}" name="tanggal" type="date" class="form-control bg-light" id="tanggal" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
-                                        <input name="anggota_id" type="hidden" id="anggota_id">
-                                    </div>
+                           
                                     <div class="form-group row">
                                         <label for="jumlah">Jumlah</label>
                                         <div class="input-group">
@@ -101,6 +97,7 @@ $pengeluaran_pinjaman = DB::table('pengeluaran')->where('anggaran_id', 3) //Juml
                                                 <span class="input-group-text">Rp.</span>
                                             </div>
                                             <input value="{{old('jumlah')}}" name="jumlah" type="number" class="form-control" id="jumlah" required oninvalid="this.setCustomValidity('Isian ini tidak boleh kosong !')" oninput="setCustomValidity('')">
+                                            <input name="anggota_id" type="hidden" id="anggota_id">
                                             <div class="input-group-append">
                                                 <span class="input-group-text">.00</span>
                                             </div>

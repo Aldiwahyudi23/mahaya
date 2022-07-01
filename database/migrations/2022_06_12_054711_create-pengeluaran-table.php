@@ -18,7 +18,7 @@ class CreatePengeluaranTable extends Migration
             $table->integer('anggota_id')->unsigned();
             $table->integer('pengurus_id')->unsigned();
             $table->integer('anggaran_id')->unsigned();
-            $table->date('tanggal');
+            $table->timestamp('tanggal');
             $table->integer('jumlah');
             $table->string('keterangan'); 
             $table->string('status'); 

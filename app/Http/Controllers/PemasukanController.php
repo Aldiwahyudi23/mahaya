@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Pemasukan;
 use App\Models\Pengajuan;
 use App\Models\Pembayaran;
+use App\Models\Pemberitahuan;
 use App\Models\Pengeluaran;
 use App\Models\program;
 use Twilio\Rest\Client; 
@@ -40,7 +41,7 @@ class PemasukanController extends Controller
         ]);
         $data_setor = new Pemasukan();
         $data_setor->anggota_id          = $request->input('anggota_id');
-        $data_setor->tanggal             = $request->input('tanggal');
+        $data_setor->pembayaran             = $request->input('pembayaran');
         $data_setor->jumlah              = $request->input('jumlah');
         $data_setor->keterangan          = $request->input('keterangan');
         $data_setor->pengurus_id            = Auth::id();
@@ -53,7 +54,6 @@ class PemasukanController extends Controller
         ]);
         $data_pembayaran = new Pembayaran();
         $data_pembayaran->kategori          = $request->input('pembayaran');
-        $data_pembayaran->tanggal             = $request->input('tanggal');
         $data_pembayaran->jumlah              = $request->input('jumlah');
         $data_pembayaran->keterangan          = $request->input('keterangan');
         $data_pembayaran->save();
@@ -149,7 +149,7 @@ class PemasukanController extends Controller
                 ]);
                 $data_pembayaran = new Pembayaran();
                 $data_pembayaran->kategori          = 'Transfer';
-                $data_pembayaran->tanggal             = $request->input('tanggal');
+                $data_pembayaran->pembayaran             = $request->input('pembayaran');
                 $data_pembayaran->jumlah              = $request->input('jumlah');
                 $data_pembayaran->keterangan          = $request->input('keterangan');
                 $data_pembayaran->save();
@@ -219,6 +219,7 @@ class PemasukanController extends Controller
         $data_setor->jumlah              = $request->input('jumlah');
         $data_setor->keterangan          = $request->input('keterangan');
         $data_setor->pengurus_id            = Auth::id();
+        $data_setor->pembayaran          = $request->input('pembayaran');
         $data_setor->save();
         $setor = Pemasukan::find($data_setor->id);
 
@@ -233,6 +234,18 @@ class PemasukanController extends Controller
         $data_pembayaran->keterangan          = $request->input('keterangan');
         $data_pembayaran->save();
         $pembayaran = Pembayaran::find($data_pembayaran->id);
+
+        // // Pemberitahuan
+        // $request->validate([
+        //     'jumlah' => 'numeric',
+        // ]);
+        // $data_pemberitahuan = new Pemberitahuan();
+        // $data_pemberitahuan->anggota_id          = $request->input('anggota_id');
+        // $data_pemberitahuan->keterangan          = $request->input('keterangan');
+        // $data_pemberitahuan->pengurus_id              = Auth::id();
+        // $data_pemberitahuan->kategori              = 'Ketua' ;
+        // $data_pemberitahuan->save();
+        // $pemberitahuan = pemberitahuan::find($data_pemberitahuan->id);
 
 
         // sekalian hapus data
@@ -275,6 +288,22 @@ class PemasukanController extends Controller
 //                   ); 
 
         return redirect('/pengajuan/setor/anggota')->with('sukses', 'Data Pembayaran Kas Parantos Ka tambahkeun kana data');
+    }
+
+    // Laporan pembayaran
+    public function pembayaran_lihat($id)
+    {
+        $data_setor = Pemasukan::orderByRaw('created_at DESC')->get();
+        $data_anggota = User::orderByRaw('name ASC')->get();
+        $data = Pemasukan::find($id);
+
+        $status = Pemasukan::find($id);
+        $status_ = [
+            'status' => 2
+        ];
+        $status->update($status_);
+
+        return view('admin.pemasukan.laporan_pemasukan', compact('data', 'data_setor', 'data_anggota'));
     }
 
 

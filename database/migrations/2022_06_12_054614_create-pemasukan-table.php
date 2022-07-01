@@ -17,10 +17,12 @@ class CreatePemasukanTable extends Migration
             $table->increments('id');
             $table->integer('anggota_id')->unsigned();
             $table->integer('pengurus_id')->unsigned();
-            $table->date('tanggal');
+            $table->timestamp('tanggal');
             $table->integer('jumlah');
             $table->string('keterangan');
             $table->enum('kategori',['Bayar','Pinjaman']);
+            $table->enum('status',['1','0']);
+            $table->string('pembayaran')->nullable();
             $table->timestamps();
         });
     }
