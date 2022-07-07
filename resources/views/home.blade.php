@@ -1,4 +1,5 @@
 @extends('template_backend.home')
+@if (Auth::user()->pengumuman_id == 2)
 @section('heading', 'Dashboard')
 @section('page')
 <li class="breadcrumb-item active">Dashboard</li>
@@ -15,6 +16,96 @@
   </div>
 </div>
 @endif
+@if(session('hadir'))
+<div class="container">
+  <div class="callout callout-success alert alert-success alert-dismissible fade show" role="alert">
+    <h5><i class="fas fa-check"></i> Anjen Kudu Hadir :</h5>
+    {{session('hadir')}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+@endif
+@if(session('tidak'))
+<div class="container">
+  <div class="callout callout-warning alert alert-warning alert-dismissible fade show" role="alert">
+    <h5><i class="fas fa-check"></i> Mudah-mudahan kapayunna tiasa :</h5>
+    {{session('tidak')}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+@endif
+<div class="col-lg-8">
+  <div class="card">
+    <div class="card-body">
+      <div class="row table-responsive">
+        <div class="col-12">
+          <table class="table table-hover table-head-fixed" id='tabelAgendaMasuk'>
+            <thead>
+              <tr class="bg-light">
+                <th>No.</th>
+                <th>Nama</th>
+                <th>Absen</th>
+                <th>Alasan</th>
+                <th>Tanggapan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              $no = 0;
+              ?>
+              @foreach($data_hadir as $hadir)
+              <?php $no++; ?>
+              <tr>
+                <td>{{$no}}</td>
+                <td>{{$hadir->anggota->name}}</td>
+                <td>{{$hadir->kehadiran }}</td>
+                <td>{{$hadir->alasan}}</td>
+                <td>{{$hadir->tanggapan}}</td>
+              </tr>
+
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-lg-4">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex">
+        <p class="d-flex flex-column">
+          <span class="text-bold text-lg">Data Kehadiran</span>
+        </p>
+        <p class="ml-auto d-flex flex-column text-right">
+          <span class="text-success">
+            <i class="fas fa-arrow-up"></i> {{$guru}}
+          </span>
+        </p>
+      </div>
+      <div class="position-relative mb-4">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="chart-responsive">
+              <canvas id="pieChartGuru" height="200"></canvas>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <ul class="chart-legend clearfix">
+              <li><i class="far fa-circle text-primary"></i> Hadir {{$gurulk}}</li>
+              <li><i class="far fa-circle text-danger"></i> Tidak {{$gurupr}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="col-md-12">
   <div class="card card-warning" style="min-height: 385px;">
     <div class="card-header">
@@ -208,3 +299,137 @@
 </div>
 
 @endsection
+@section('script')
+<script type="text/javascript">
+  $(document).ready(function() {
+    'use strict'
+
+    var pieChartCanvasGuru = $('#pieChartGuru').get(0).getContext('2d')
+    var pieDataGuru = {
+      labels: [
+        'Laki-laki',
+        'Perempuan',
+      ],
+      datasets: [{
+        data: [{
+          {
+            $gurulk
+          }
+        }, {
+          {
+            $gurupr
+          }
+        }],
+        backgroundColor: ['#007BFF', '#DC3545'],
+      }]
+    }
+    var pieOptions = {
+      legend: {
+        display: false
+      }
+    }
+    var pieChart = new Chart(pieChartCanvasGuru, {
+      type: 'doughnut',
+      data: pieDataGuru,
+      options: pieOptions
+    })
+
+    var pieChartCanvasSiswa = $('#pieChartSiswa').get(0).getContext('2d')
+    var pieDataSiswa = {
+      labels: [
+        'Laki-laki',
+        'Perempuan',
+      ],
+      datasets: [{
+        data: [{
+          {
+            $siswalk
+          }
+        }, {
+          {
+            $siswapr
+          }
+        }],
+        backgroundColor: ['#007BFF', '#DC3545'],
+      }]
+    }
+    var pieOptions = {
+      legend: {
+        display: false
+      }
+    }
+    var pieChart = new Chart(pieChartCanvasSiswa, {
+      type: 'doughnut',
+      data: pieDataSiswa,
+      options: pieOptions
+    })
+
+
+    var pieChartCanvasPaket = $('#pieChartPaket').get(0).getContext('2d')
+    var pieDataPaket = {
+      labels: [
+        'Bisnis kontruksi dan Properti',
+        'Desain Permodelan dan Informasi Bangunan',
+        'Elektronika Industri',
+        'Otomasi Industri',
+        'Teknik dan Bisnis Sepeda Motor',
+        'Rekayasa Perangkat Lunak',
+        'Teknik Pemesinan',
+        'Teknik Pengelasan',
+      ],
+      datasets: [{
+        data: [{
+          {
+            $bkp
+          }
+        }, {
+          {
+            $dpib
+          }
+        }, {
+          {
+            $ei
+          }
+        }, {
+          {
+            $oi
+          }
+        }, {
+          {
+            $tbsm
+          }
+        }, {
+          {
+            $rpl
+          }
+        }, {
+          {
+            $tpm
+          }
+        }, {
+          {
+            $las
+          }
+        }],
+        backgroundColor: ['#d4c148', '#ba6906', '#ff990a', '#00a352', '#2cabe6', '#999999', '#0b2e75', '#7980f7'],
+      }]
+    }
+    var pieOptions = {
+      legend: {
+        display: false
+      }
+    }
+    var pieChart = new Chart(pieChartCanvasPaket, {
+      type: 'doughnut',
+      data: pieDataPaket,
+      options: pieOptions
+    })
+  })
+
+  $("#Dashboard").addClass("active");
+  $("#liDashboard").addClass("menu-open");
+  $("#AdminHome").addClass("active");
+</script>
+@endsection
+
+@endif

@@ -26,9 +26,9 @@ class Pemasukan extends Model
       return $this->belongsTo('App\Models\User');
     }
   
-    public function users()
+    public function pengeluaran()
     {
-      return $this->belongsTo('App\Models\User');
+      return $this->belongsTo('App\Models\Pengeluaran');
     }
   
 }

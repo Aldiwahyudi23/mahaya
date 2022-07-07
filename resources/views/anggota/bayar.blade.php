@@ -2,7 +2,7 @@
 
 @section('heading', 'Pemasukan')
 @section('page')
-  <li class="breadcrumb-item active">Pemasukan</li>
+<li class="breadcrumb-item active">Pemasukan</li>
 @endsection
 
 @section('content')
@@ -48,13 +48,13 @@
 @endif
 <div class="alert alert-info alert-dismissible fade show col-md-12" role="alert">
     <b><i class="fas fa-info"></i> INFO !!!</b> <br>
-      Mangga eusian form di handap sesuai pembayaran uang kas anu di bayarkeun.
-      <br> <b>tanggal</b> sesuai tanggal pembayaran
-      <br> <b>keterangan</b>, esian sesuai kondisi pembayaran  !!!
-      <br> <b>Contoh :</b> Uang di titipkeun ka Angga.
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    Mangga eusian form di handap sesuai pembayaran uang kas anu di bayarkeun.
+    <br> <b>tanggal</b> sesuai tanggal pembayaran
+    <br> <b>keterangan</b>, esian sesuai kondisi pembayaran !!!
+    <br> <b>Contoh :</b> Uang di titipkeun ka Angga.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
-      </button>
+    </button>
 </div>
 <section class="content card" style="padding: 10px 10px 10px 10px ">
     <div class="box">
@@ -76,7 +76,7 @@
                                             <option value="Transfer">Transfer</option>
                                         </select>
                                     </div>
-                              
+
                                     <div class="form-group row">
                                         <label for="jumlah">Jumlah</label>
                                         <div class="input-group">
@@ -101,14 +101,14 @@
                         </div>
                     </div>
                     <div class="col-md-8">
-                        
-                            <div class="card-body">
+
+                        <div class="card-body">
                             <p>
-                                    Uang kas anu atos di input bakal lebet kana data di handap pami atos di konfirmasi ku bendahara sesuai keterangan anu tos di input.
-                                </p> <br>
-                                <p>
-                                    Data kas anu di handap, sesuai data anu atos di bayar. makana di harapkeun di cek setiap saat, bilih aya data anu hente sesuai sareng pemasukan arurang.
-                                </p> <br>
+                                Uang kas anu atos di input bakal lebet kana data di handap pami atos di konfirmasi ku bendahara sesuai keterangan anu tos di input.
+                            </p> <br>
+                            <p>
+                                Data kas anu di handap, sesuai data anu atos di bayar. makana di harapkeun di cek setiap saat, bilih aya data anu hente sesuai sareng pemasukan arurang.
+                            </p> <br>
 
                             <table class="table" style="margin-top: -10px;">
                                 <tr>
@@ -127,8 +127,8 @@
                                     <td>Supriatna</td>
                                 </tr>
                                 @php
-                                    $bulan = date('m');
-                                    $tahun = date('Y');
+                                $bulan = date('m');
+                                $tahun = date('Y');
                                 @endphp
                                 <tr>
                                 <tr>
@@ -136,16 +136,16 @@
                                     <td>:</td>
                                     <td>
                                         @if ($bulan > 5)
-                                            {{ $tahun }}/{{ $tahun+1 }}
+                                        {{ $tahun }}/{{ $tahun+1 }}
                                         @else
-                                            {{ $tahun-1 }}/{{ $tahun }}
+                                        {{ $tahun-1 }}/{{ $tahun }}
                                         @endif
                                     </td>
                                 </tr>
-                                    
-                                </table>
-                              
-                            
+
+                            </table>
+
+
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -173,32 +173,32 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <?php 
-                                                            $no = 0; 
+                                                            <?php
+                                                            $no = 0;
                                                             ?>
                                                             @php
-                                                                $total = 0;
+                                                            $total = 0;
                                                             @endphp
                                                             @foreach($data_setor as $setor)
                                                             <?php $no++; ?>
                                                             <tr>
                                                                 <td>{{$no}}</td>
-                                                                <td>{{$setor->tanggal}}</td>
+                                                                <td>{{date('M',strtotime($setor->tanggal))}}</td>
                                                                 <td>{{ "Rp " . number_format($setor->jumlah,2,',','.') }}</td>
                                                                 <td>{{$setor->keterangan}}</td>
                                                             </tr>
-                                                        
+
                                                             @php
                                                             $total += $setor->jumlah;
                                                             @endphp
-                                                        @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th colspan="2" class="text-center"><b>Total</b></th>
-                                                            <th colspan="1"><b>{{ "Rp " . number_format( $total,2,',','.') }}</b></th>
-                                                        </tr>
-                                                    </tfoot>
+                                                            @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th colspan="2" class="text-center"><b>Total</b></th>
+                                                                <th colspan="1"><b>{{ "Rp " . number_format( $total,2,',','.') }}</b></th>
+                                                            </tr>
+                                                        </tfoot>
                                                     </table>
                                                 </div>
                                             </div>
@@ -232,7 +232,7 @@
 
 @endsection
 @section('script')
-    <script>
-        $("#Pemasukan").addClass("active");
-    </script>
+<script>
+    $("#Pemasukan").addClass("active");
+</script>
 @endsection

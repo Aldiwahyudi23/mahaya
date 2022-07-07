@@ -1,7 +1,7 @@
 <footer class="main-footer">
     <div class="container">
         <div class="row justify-content-center">
-            @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Sekertaris' || Auth::user()->role == 'Bendahara' || Auth::user()->role == 'Ketua')
+            @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Sekertaris' || Auth::user()->role == 'Bendahara' || Auth::user()->role == 'Ketua' || Auth::user()->program == 'tabungan')
             <div class="col-3 ">
                 <center>
                     <a href="/home" class="nav-link" id="Pengumuman"><i class="nav-icon fas fa-home lg-6"></i><br> &nbsp;Home</a>
@@ -17,13 +17,20 @@
                     <a href="{{route('pengeluaran.tarik')}}"><i class="nav-icon fas fa-handshake "></i> <br> &nbsp; Tarik</a>
                 </center>
             </div>
+            @if (Auth::user()->program == 'tabungan')
+            <div class="col-3">
+                <center>
+                    <a href="/profile"><i class="nav-icon fas fa-user"></i> <br> &nbsp; Tabungan</a>
+                </center>
+            </div>
+            @else
             <div class="col-3">
                 <center>
                     <a href="/profile"><i class="nav-icon fas fa-user"></i> <br> &nbsp; Saya</a>
                 </center>
             </div>
-
-            @elseif (Auth::user()->role == 'Anggota')
+            @endif
+            @elseif (Auth::user()->role == 'Anggota' || Auth::user()->program == 'tabungan')
             <div class="col-3">
                 <center>
                     <a href="/home" id="Pemasukan"><i class="nav-icon fas fa-home lg-6"></i><br> &nbsp;Home</a>
@@ -39,11 +46,20 @@
                     <a href="{{route('pengajuan.pinjam.anggota')}}"><i class="nav-icon fas fa-handshake "></i> <br> &nbsp; Pinjam</a>
                 </center>
             </div>
+            @if (Auth::user()->program == 'tabungan')
+            <div class="col-3">
+                <center>
+                    <a href="/profile"><i class="nav-icon fas fa-user"></i> <br> &nbsp; Tabungan</a>
+                </center>
+            </div>
+            @else
             <div class="col-3">
                 <center>
                     <a href="/profile"><i class="nav-icon fas fa-user"></i> <br> &nbsp; Saya</a>
                 </center>
             </div>
+            @endif
+          
             @else
             <li class="nav-item has-treeview">
                 <a href="/home" class="nav-link" id="Home">
@@ -136,6 +152,7 @@
     $.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- page script -->
+
 <script>
     function inputAngka(e) {
         var charCode = (e.which) ? e.which : event.keyCode

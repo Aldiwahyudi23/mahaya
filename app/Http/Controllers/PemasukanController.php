@@ -14,6 +14,9 @@ use App\Models\Pembayaran;
 use App\Models\Pemberitahuan;
 use App\Models\Pengeluaran;
 use App\Models\program;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Date;
+use Psy\Command\WhereamiCommand;
 use Twilio\Rest\Client; 
 
 class PemasukanController extends Controller
@@ -22,7 +25,14 @@ class PemasukanController extends Controller
         $data_setor = Pemasukan::where('anggota_id', Auth::user()->id)->orderBy('anggota_id')->get();
         $data_semua = Pemasukan::orderByRaw('created_at DESC')->get();
         $data_anggota = User::orderByRaw('name ASC')->get();
-        return view('admin.pemasukan.index',compact('data_setor','data_anggota','data_semua'));
+
+        $bulans = Pemasukan::select([
+            DB::raw('date_format(tanggal, "%Y") as month'),
+            DB::raw('count(tanggal) as count'),
+        ])->groupBy('month')
+        ->get();
+
+        return view('admin.pemasukan.index',compact('data_setor','data_anggota','data_semua','bulans'));
     }
 
     public function pemasukan_detail()
@@ -149,7 +159,6 @@ class PemasukanController extends Controller
                 ]);
                 $data_pembayaran = new Pembayaran();
                 $data_pembayaran->kategori          = 'Transfer';
-                $data_pembayaran->pembayaran             = $request->input('pembayaran');
                 $data_pembayaran->jumlah              = $request->input('jumlah');
                 $data_pembayaran->keterangan          = $request->input('keterangan');
                 $data_pembayaran->save();

@@ -129,9 +129,9 @@ $jumlah_data_pengajuan_bayar_pinjaman = Pengajuan::where('kategori', 'bayar_pinj
 
                 </a>
                 @endforeach
-                <!-- @foreach($data_pengeluaran as $data)
+                @foreach($data_pengeluaran as $data)
                 <a href="/laporan/pemasukan/{{$data->id}}/detail" id="status" onclick="MyFunction()" class="dropdown-item">
-                    <i class="fas fa-send mr-2"></i>pembayaran {{$data->anggaran->nama }}
+                    <i class="fas fa-send mr-2"></i>pembayaran {{$data->anggota->nama }}
                     @if ($data->status == 0 )
                     <span class="float-right text-muted text-sm">{{Carbon\Carbon::parse($data->created_at)->diffForHumans()}}</span>
                     @else
@@ -139,7 +139,7 @@ $jumlah_data_pengajuan_bayar_pinjaman = Pengajuan::where('kategori', 'bayar_pinj
                     @endif
 
                 </a>
-                @endforeach -->
+                @endforeach
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
 

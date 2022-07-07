@@ -24,6 +24,7 @@ class User extends Authenticatable
         'no_hp',
         'last_seen',
         'device_token',
+        'pengumuman_id',
     ];
 
     /**

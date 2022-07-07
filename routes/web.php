@@ -1,17 +1,19 @@
 <?php
 
 use App\Http\Controllers\AnggaranController;
+use App\Http\Controllers\KehadiranController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\OrderController;
-
+use App\Models\Kehadiran;
 
 /*
 |--------------------------------------------------------------------------
@@ -127,4 +129,6 @@ Route::get('pengguna',[UserController::class,'index'])->name('pengguna');
     // Pinjam
         route::get('pengluaran/pinjam/anggota',[PengajuanController::class, 'pinjam'])->name('pengajuan.pinjam.anggota');
         Route::post('pengluaran/pinjam/anggota/tambah',[PengajuanController::class,'pinjam_tambah']);
+
+        Route::post('kehadiran/acara/tahunan/keluaraga-ma-haya',[HomeController::class,'store']);
 
